@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Shoko App</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_info">InfoActivity</string>
+
+    <string name="drawer_abrir">Se abre el drawer</string>
+    <string name="drawer_cerrar">Se cierra el drawer</string>
+
+    <string-array name="geners">
+        <item>Accion/Aventura</item>
+        <item>Drama</item>
+        <item>Fantasia</item>
+        <item>Ciencia Ficcion</item>
+        <item>Slice of Life</item>
+        <item>Shonen</item>
+        <item>Ecchi</item>
+        <item>Romance</item>
+        <item>Comedy</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "319385333205",
+    "firebase_url": "https://proyect-anime-5daac-default-rtdb.firebaseio.com",
+    "project_id": "proyect-anime-5daac",
+    "storage_bucket": "proyect-anime-5daac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319385333205:android:4f622f6a144d7fdd43e15c",
+        "android_client_info": {
+          "package_name": "com.app.shoku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319385333205-4tqhuo2t48qokmilc948u3p27nnha76u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw9X8iutANSQ3et3-mTrSOY78gm-3gVbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319385333205-4tqhuo2t48qokmilc948u3p27nnha76u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319385333205:android:92c93d10b114d0e243e15c",
+        "android_client_info": {
+          "package_name": "com.example.appAnime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319385333205-4tqhuo2t48qokmilc948u3p27nnha76u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw9X8iutANSQ3et3-mTrSOY78gm-3gVbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319385333205-4tqhuo2t48qokmilc948u3p27nnha76u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

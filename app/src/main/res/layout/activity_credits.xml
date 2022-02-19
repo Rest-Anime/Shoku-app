@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreditsActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creditsTitle"
+        tools:ignore="NotSibling,SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/creditsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="20dp"
+                android:text="Credits"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/appInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Application: Shoko Anime App" />
+
+            <Button
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:backgroundTint="@color/NaranjaPrincipal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/developers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Database Developer: Sofia Diez" />
+
+            <TextView
+                android:id="@+id/developers3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Security Supervisor: Daniel Hernandez" />
+
+            <TextView
+                android:id="@+id/developers4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Lead Programmer: Jon Iturbe" />
+
+            <Button
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:backgroundTint="@color/NaranjaPrincipal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/developers6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Last Stable version: 0.00.01 at 18/02/22" />
+
+            <Button
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:backgroundTint="@color/NaranjaPrincipal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/developers7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Thanks to all of you for making this project possible. We love you" />
+
+            <TextView
+                android:id="@+id/developers8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="UwU" />
+
+            <ImageView
+                android:id="@+id/imgLove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/lovechibi" />
+
+            <TextView
+                android:id="@+id/developers5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="All Rights to Hoko S.L. development team"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
