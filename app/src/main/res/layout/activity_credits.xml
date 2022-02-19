@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="Last Stable version: 0.00.01 at 18/02/22" />
+                android:text="Last Stable version: 0.00.02 at 19/02/22" />
 
             <Button
                 android:id="@+id/divider3"

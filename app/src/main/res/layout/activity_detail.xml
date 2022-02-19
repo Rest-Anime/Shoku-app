@@ -21,67 +21,6 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipAmor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Amor" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipVivir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ganas de vivir" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipEnergia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Energia" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipVainilla"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vainilla" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNegrito"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Negrito" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipSlave"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Esclavitud" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipCanela"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Canela" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipCum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cum" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipCoca"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cocaina" />
-
-            </com.google.android.material.chip.ChipGroup>
-
             <TextView
                 android:id="@+id/infoTxt"
                 android:layout_width="match_parent"
@@ -95,10 +34,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_vertical"
+                android:background="@drawable/borderstyle"
                 android:foregroundGravity="center"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:background="@drawable/borderstyle"
                 app:srcCompat="@drawable/espresso" />
 
             <TextView
