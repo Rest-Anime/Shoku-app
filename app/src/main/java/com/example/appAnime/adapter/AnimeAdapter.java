@@ -37,13 +37,13 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     @Override
     public void onBindViewHolder(@NonNull AnimeViewHolder holder, int position) {
         Anime actualAnime = animeList.get(position);
-        holder.getNameText().setText(actualAnime.getTittle());
-        holder.getSeasonsText().setText(String.valueOf(actualAnime.getSeasons()));
-        holder.getGenresText().setText(actualAnime.getGenre());
-        holder.getStarsBar().setNumStars(actualAnime.getRate());
+        holder.getNameText().setText(actualAnime.getTitulo());
+        holder.getSeasonsText().setText(String.valueOf(actualAnime.getTemporadas()));
+        holder.getGenresText().setText(actualAnime.getGenero());
+        holder.getStarsBar().setNumStars(actualAnime.getPuntuacion());
 
         //La url de la imagen
-        String UrlImagen = String.valueOf(actualAnime.getCover());
+        String UrlImagen = String.valueOf(actualAnime.getFoto());
         Picasso.get().load(UrlImagen).into(holder.getCoverImg());
     }
     @Override

@@ -1,49 +1,52 @@
 package com.example.appAnime.model;
+
 import android.graphics.drawable.Drawable;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.Date;
+
 public class Anime {
-    private String tittle;
+    private String titulo;
     private String descripcion;
     private int duracion;
-    private String studio;
-    private String cover;
-    private Drawable coverDraw;
-    private String genre;
-    private Date release;
-    private int rate;
-    private int seasons;
+    private String estudio;
+    private String foto;
+    private String genero;
+    private Date lanzamiento;
+    private int puntuacion;
+    private int temporadas;
 
-    public Anime(String tittle, String descripcion, int duracion, String studio, String cover, String genre, Date release, int rate, int seasons) {
-        this.tittle = tittle;
+    public Anime(String titulo, String descripcion, int duracion, String estudio, String foto,
+                 String genero, Date lanzamiento, int puntuacion, int temporadas) {
+        this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;
-        this.studio = studio;
-        this.cover = cover;
-        this.genre = genre;
-        this.release = release;
-        this.rate = rate;
-        this.seasons = seasons;
-    }
-    public Anime(String tittle, String descripcion, int duracion, String studio, Drawable coverDraw, String genre, Date release, int rate, int seasons) {
-        this.tittle = tittle;
-        this.descripcion = descripcion;
-        this.duracion = duracion;
-        this.studio = studio;
-        this.cover = cover;
-        this.genre = genre;
-        this.release = release;
-        this.rate = rate;
-        this.seasons = seasons;
-    }
-    public String getTittle() {
-        return tittle;
+        this.estudio = estudio;
+        this.foto = foto;
+        this.genero = genero;
+        this.lanzamiento = lanzamiento;
+        this.puntuacion = puntuacion;
+        this.temporadas = temporadas;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public Anime(String titulo, String descripcion, int duracion, String estudio,
+                 Drawable coverDraw, String genero, Date lanzamiento, int puntuacion, int temporadas) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.estudio = estudio;
+        this.foto = foto;
+        this.genero = genero;
+        this.lanzamiento = lanzamiento;
+        this.puntuacion = puntuacion;
+        this.temporadas = temporadas;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
@@ -62,76 +65,67 @@ public class Anime {
         this.duracion = duracion;
     }
 
-    public String getStudio() {
-        return studio;
+    public String getEstudio() {
+        return estudio;
     }
 
-    public void setStudio(String studio) {
-        this.studio = studio;
+    public void setEstudio(String estudio) {
+        this.estudio = estudio;
     }
 
 
-    public void setCover(String cover) {
-        this.cover = cover;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
-    public Date getRelease() {
-        return release;
+    public Date getLanzamiento() {
+        return lanzamiento;
     }
 
-    public void setRelease(Date release) {
-        this.release = release;
+    public void setLanzamiento(Date lanzamiento) {
+        this.lanzamiento = lanzamiento;
     }
 
-    public int getRate() {
-        return rate;
+    public int getPuntuacion() {
+        return puntuacion;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
     }
 
-    public int getSeasons() {
-        return seasons;
+    public int getTemporadas() {
+        return temporadas;
     }
 
-    public void setSeasons(int seasons) {
-        this.seasons = seasons;
-    }
-
-    public Drawable getCoverDraw() {
-        return coverDraw;
-    }
-
-    public void setCoverDraw(Drawable coverDraw) {
-        this.coverDraw = coverDraw;
+    public void setTemporadas(int temporadas) {
+        this.temporadas = temporadas;
     }
 
     @Override
     public String toString() {
         return "Anime: " +
-                "tittle='" + tittle + '\'' +
+                "tittle='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", duracion=" + duracion +
-                ", studio='" + studio + '\'' +
-                ", cover='" + cover + '\'' +
-                ", genre='" + genre + '\'' +
-                ", release=" + release +
-                ", rate=" + rate +
-                ", seasons=" + seasons +
+                ", studio='" + estudio + '\'' +
+                ", cover='" + foto + '\'' +
+                ", genre='" + genero + '\'' +
+                ", release=" + lanzamiento +
+                ", rate=" + puntuacion +
+                ", seasons=" + temporadas +
                 '}';
     }
 
-    public String getCover() {
-
-        return cover;
+    public String getFoto() {
+        return foto;
     }
 }
