@@ -1,5 +1,4 @@
 package com.example.appAnime.activities;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.appAnime.R;
 import com.squareup.picasso.Picasso;
-
-import java.util.Date;
 
 public class DetailActivity extends AppCompatActivity {
     ImageView image;
@@ -42,14 +41,14 @@ public class DetailActivity extends AppCompatActivity {
 
         int rate = intent.getIntExtra("rate", 5);
         int seasons = intent.getIntExtra("seasons", 1);
-        int pos = intent.getIntExtra("pos",0);
+        int pos = intent.getIntExtra("pos", 0);
 
-        Picasso.get().load(img).resize((int) (260*2.5), (int) (370*2.5)).into(image);
+        Picasso.get().load(img).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
         Toast.makeText(getApplicationContext(), "e", Toast.LENGTH_SHORT).show();
 
         //INFORMACION BASICA
-        info.setText("El título del anime es " + title + "\n"+
-                "Cuya posicion en la lista es " + pos + "\n"+
+        info.setText("El título del anime es " + title + "\n" +
+                "Cuya posicion en la lista es " + pos + "\n" +
                 "Su puntuacion es de: " + rate + " estrellas" + "\n" +
                 "Fue animado por " + studio + "\n" +
                 "Lanzado en " + release);

@@ -1,7 +1,5 @@
 package com.example.appAnime.model;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.Date;
 
 public class Anime {
@@ -17,19 +15,6 @@ public class Anime {
 
     public Anime(String titulo, String descripcion, int duracion, String estudio, String foto,
                  String genero, Date lanzamiento, int puntuacion, int temporadas) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.duracion = duracion;
-        this.estudio = estudio;
-        this.foto = foto;
-        this.genero = genero;
-        this.lanzamiento = lanzamiento;
-        this.puntuacion = puntuacion;
-        this.temporadas = temporadas;
-    }
-
-    public Anime(String titulo, String descripcion, int duracion, String estudio,
-                 Drawable coverDraw, String genero, Date lanzamiento, int puntuacion, int temporadas) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;
@@ -71,11 +56,6 @@ public class Anime {
 
     public void setEstudio(String estudio) {
         this.estudio = estudio;
-    }
-
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 
     public String getGenero() {
@@ -127,5 +107,9 @@ public class Anime {
 
     public String getFoto() {
         return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

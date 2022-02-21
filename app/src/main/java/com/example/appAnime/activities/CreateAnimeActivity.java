@@ -1,4 +1,5 @@
 package com.example.appAnime.activities;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,6 +46,52 @@ public class CreateAnimeActivity extends AppCompatActivity {
     String studio;
     int rate;
     int img;
+    AdapterView.OnItemClickListener funcionSpinner = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            genreSelected = (String) parent.getItemAtPosition(position);
+            if (genreSelected.equals("Accion/Aventura")) {
+                Picasso.get().load(R.drawable.armoredchibi).into(imgMuestra);
+                img = R.drawable.armoredchibi;
+            } else if (genreSelected.equals("Drama")) {
+                Picasso.get().load(R.drawable.sadchibi).into(imgMuestra);
+                img = R.drawable.sadchibi;
+            } else if (genreSelected.equals("Fantasia")) {
+                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
+                img = R.drawable.neko1;
+            } else if (genreSelected.equals("Ciencia Ficcion")) {
+                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
+                img = R.drawable.neko1;
+            } else if (genreSelected.equals("Slice of Life")) {
+                Picasso.get().load(R.drawable.lifechibi).into(imgMuestra);
+                img = R.drawable.lifechibi;
+            } else if (genreSelected.equals("Shonen")) {
+                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
+                img = R.drawable.neko1;
+            } else if (genreSelected.equals("Romance")) {
+                Picasso.get().load(R.drawable.lovechibi).into(imgMuestra);
+                img = R.drawable.armoredchibi;
+            } else if (genreSelected.equals("Comedy")) {
+                Picasso.get().load(R.drawable.happychibi).into(imgMuestra);
+                img = R.drawable.happychibi;
+            } else {
+                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
+                img = R.drawable.neko1;
+            }
+        }
+    };
+    private CompoundButton.OnCheckedChangeListener funcionCheck =
+            new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                caff = true;
+            } else if (!isChecked) {
+                caff = false;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,68 +124,22 @@ public class CreateAnimeActivity extends AppCompatActivity {
         nTemporadas.setMinValue(0);
 
         caff = false;
-        }
-
-    private CompoundButton.OnCheckedChangeListener funcionCheck = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(isChecked){
-                caff = true;
-            }else if(!isChecked){
-                caff = false;
-            }
-        }
-    };
-
-    AdapterView.OnItemClickListener funcionSpinner = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            genreSelected = (String) parent.getItemAtPosition(position);
-            if (genreSelected.equals("Accion/Aventura")) {
-                Picasso.get().load(R.drawable.armoredchibi).into(imgMuestra);
-                img = R.drawable.armoredchibi;
-            } else if (genreSelected.equals("Drama")) {
-                Picasso.get().load(R.drawable.sadchibi).into(imgMuestra);
-                img = R.drawable.sadchibi;
-            } else if (genreSelected.equals("Fantasia")) {
-                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
-                img = R.drawable.neko1;
-            }else if (genreSelected.equals("Ciencia Ficcion")) {
-                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
-                img = R.drawable.neko1;
-            }else if (genreSelected.equals("Slice of Life")) {
-                Picasso.get().load(R.drawable.lifechibi).into(imgMuestra);
-                img = R.drawable.lifechibi;
-            }else if (genreSelected.equals("Shonen")) {
-                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
-                img = R.drawable.neko1;
-            }else if (genreSelected.equals("Romance")) {
-                Picasso.get().load(R.drawable.lovechibi).into(imgMuestra);
-                img = R.drawable.armoredchibi;
-            }else if (genreSelected.equals("Comedy")) {
-                Picasso.get().load(R.drawable.happychibi).into(imgMuestra);
-                img = R.drawable.happychibi;
-            }else {
-                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
-                img = R.drawable.neko1;
-            }
-        }
-    };
+    }
 
     @Override
     public void onBackPressed() {
-        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(CreateAnimeActivity.this);
+        MaterialAlertDialogBuilder dialog =
+                new MaterialAlertDialogBuilder(CreateAnimeActivity.this);
         dialog.setIcon(R.drawable.ic_dialog_close_dark);
         dialog.setTitle("Are you sure?");
         dialog.setMessage("Are you sure that you want to insert this order?");
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               // Snackbar.make(,"See you later", Snackbar.LENGTH_SHORT).show();
-                if(inTitle.getText() != null){
+                // Snackbar.make(,"See you later", Snackbar.LENGTH_SHORT).show();
+                if (inTitle.getText() != null) {
                     title = String.valueOf(inTitle.getText());
-                }else if(inTitle.getText().equals("Name") || inTitle.getText() == null){
+                } else if (inTitle.getText().equals("Name") || inTitle.getText() == null) {
                     title = "Anónimo";
                 }
 
@@ -146,17 +147,17 @@ public class CreateAnimeActivity extends AppCompatActivity {
                 seasonQuant = nTemporadas.getValue();
                 rate = (int) rating.getRating();
 
-                if(desc == null){
+                if (desc == null) {
                     desc = "No se conoce nada sobre este anime. Como con tu crush";
-                }else{
+                } else {
                     //pillar valor del formulario
                 }
-                if(studio == null){
+                if (studio == null) {
                     studio = "Desconocido. Como la motivación de tu vida.";
-                }else{
+                } else {
                     //pillar valor del formulario
                 }
-                if(lanzamiento == null){
+                if (lanzamiento == null) {
                     lanzamiento = new Date(1994, 07, 31);
                 }
 
@@ -167,7 +168,7 @@ public class CreateAnimeActivity extends AppCompatActivity {
                 newAnime.putExtra("genre", genreSelected);
                 newAnime.putExtra("duration", episodeQuant);
                 newAnime.putExtra("release", lanzamiento);
-                newAnime.putExtra("cover", img);
+                newAnime.putExtra("cover", "https://t2.uc.ltmcdn.com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600.jpg");
                 newAnime.putExtra("rate", rate);
                 newAnime.putExtra("seasons", seasonQuant);
                 setResult(RESULT_OK, newAnime);
