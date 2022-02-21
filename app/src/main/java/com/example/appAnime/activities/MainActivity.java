@@ -169,21 +169,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Code_Create_Anime) {
             if (resultCode == RESULT_OK) {
-                String title = data.getStringExtra("title");
-                String desc = data.getStringExtra("desc");
-                String genre = data.getStringExtra("genre");
-                int duration = data.getIntExtra("duration", 24);
-                String studio = data.getStringExtra("studio");
-                int seasons = data.getIntExtra("seasons", 1);
-                int rate = data.getIntExtra("rate", 1);
-                String realeaseIn = data.getStringExtra("release");
-                String img = data.getStringExtra("cover");
-                int pos = animeList.size();
-                String realease = String.valueOf(realeaseIn);
-
-                animeList.add(new Anime(title, desc, duration, studio, img, genre, realease,
-                        rate, seasons));
-                Snackbar.make(recyclerView, animeList.get(pos).getTitulo() + " ha sido creado",
+                Anime anime = (Anime) data.getSerializableExtra("anime");
+                animeList.add(anime);
+                Snackbar.make(recyclerView, anime.getTitulo() + " ha sido creado",
                         Snackbar.LENGTH_SHORT).show();
                 animeAdapter.notifyItemInserted(0);
             } else if (resultCode == RESULT_CANCELED) {

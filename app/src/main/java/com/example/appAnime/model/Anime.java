@@ -1,6 +1,8 @@
 package com.example.appAnime.model;
 
-public class Anime {
+import java.io.Serializable;
+
+public class Anime implements Serializable {
     private String titulo;
     private String descripcion;
     private int duracion;

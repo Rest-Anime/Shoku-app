@@ -34,18 +34,18 @@ public class CreateAnimeActivity extends AppCompatActivity {
     AutoCompleteTextView genre;
     NumberPicker nEpisodios;
     NumberPicker nTemporadas;
-    String genreSelected;
+    String genero;
     ImageView imgMuestra;
     RatingBar rating;
     Date lanzamiento;
-    String title;
-    int episodeQuant;
-    int seasonQuant;
-    String desc;
-    String studio;
-    int rate;
+    String titulo;
+    int duracion;
+    int temporadas;
+    String descripcion;
+    String estudio;
+    int puntuacion;
     int img;
-    String cover = "https://t2.uc.ltmcdn" +
+    String foto = "https://t2.uc.ltmcdn" +
             ".com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600" +
             ".jpg";
     SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
@@ -57,29 +57,29 @@ public class CreateAnimeActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            genreSelected = (String) parent.getItemAtPosition(position);
-            if (genreSelected.equals("Accion/Aventura")) {
+            genero = (String) parent.getItemAtPosition(position);
+            if (genero.equals("Accion/Aventura")) {
                 Picasso.get().load(R.drawable.armoredchibi).into(imgMuestra);
                 img = R.drawable.armoredchibi;
-            } else if (genreSelected.equals("Drama")) {
+            } else if (genero.equals("Drama")) {
                 Picasso.get().load(R.drawable.sadchibi).into(imgMuestra);
                 img = R.drawable.sadchibi;
-            } else if (genreSelected.equals("Fantasia")) {
+            } else if (genero.equals("Fantasia")) {
                 Picasso.get().load(R.drawable.neko1).into(imgMuestra);
                 img = R.drawable.neko1;
-            } else if (genreSelected.equals("Ciencia Ficcion")) {
+            } else if (genero.equals("Ciencia Ficcion")) {
                 Picasso.get().load(R.drawable.neko1).into(imgMuestra);
                 img = R.drawable.neko1;
-            } else if (genreSelected.equals("Slice of Life")) {
+            } else if (genero.equals("Slice of Life")) {
                 Picasso.get().load(R.drawable.lifechibi).into(imgMuestra);
                 img = R.drawable.lifechibi;
-            } else if (genreSelected.equals("Shonen")) {
+            } else if (genero.equals("Shonen")) {
                 Picasso.get().load(R.drawable.neko1).into(imgMuestra);
                 img = R.drawable.neko1;
-            } else if (genreSelected.equals("Romance")) {
+            } else if (genero.equals("Romance")) {
                 Picasso.get().load(R.drawable.lovechibi).into(imgMuestra);
                 img = R.drawable.armoredchibi;
-            } else if (genreSelected.equals("Comedy")) {
+            } else if (genero.equals("Comedy")) {
                 Picasso.get().load(R.drawable.happychibi).into(imgMuestra);
                 img = R.drawable.happychibi;
             } else {
@@ -107,8 +107,8 @@ public class CreateAnimeActivity extends AppCompatActivity {
         imgMuestra = findViewById(R.id.imageView);
         rating = findViewById(R.id.ratingBar2);
 
-        desc = null;
-        studio = null;
+        descripcion = null;
+        estudio = null;
         lanzamiento = null;
 
         String[] generos = getResources().getStringArray(R.array.geners);
@@ -134,42 +134,34 @@ public class CreateAnimeActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // Snackbar.make(,"See you later", Snackbar.LENGTH_SHORT).show();
                 if (inTitle.getText() != null) {
-                    title = String.valueOf(inTitle.getText());
+                    titulo = String.valueOf(inTitle.getText());
                 } else if (inTitle.getText().equals("Name") || inTitle.getText() == null) {
-                    title = "Anónimo";
+                    titulo = "Anónimo";
                 }
 
-                episodeQuant = nEpisodios.getValue();
-                seasonQuant = nTemporadas.getValue();
-                rate = (int) rating.getRating();
+                duracion = nEpisodios.getValue();
+                temporadas = nTemporadas.getValue();
+                puntuacion = (int) rating.getRating();
 
-                if (desc == null) {
-                    desc = "No se conoce nada sobre este anime. Como con tu crush";
+                if (descripcion == null) {
+                    descripcion = "No se conoce nada sobre este anime. Como con tu crush";
                 } else {
                     //pillar valor del formulario
                 }
-                if (studio == null) {
-                    studio = "Desconocido. Como la motivación de tu vida.";
+                if (estudio == null) {
+                    estudio = "Desconocido. Como la motivación de tu vida.";
                 } else {
                     //pillar valor del formulario
                 }
                 if (lanzamiento == null) {
                     lanzamiento = new Date();
                 }
-
-                Intent newAnime = new Intent();
-                newAnime.putExtra("title", title);
-                newAnime.putExtra("desc", desc);
-                newAnime.putExtra("studio", studio);
-                newAnime.putExtra("genre", genreSelected);
-                newAnime.putExtra("duration", episodeQuant);
-                newAnime.putExtra("release", sdf.format(lanzamiento));
-                newAnime.putExtra("cover", cover);
-                newAnime.putExtra("rate", rate);
-                newAnime.putExtra("seasons", seasonQuant);
-                reference.push().setValue(new Anime(title, desc, episodeQuant, studio, cover,
-                        genreSelected, sdf.format(lanzamiento), rate, seasonQuant));
-                setResult(RESULT_OK, newAnime);
+                Anime newAnime = new Anime(titulo, descripcion, duracion, estudio, foto,
+                        genero, sdf.format(lanzamiento), puntuacion, temporadas);
+                Intent intent = new Intent();
+                intent.putExtra("anime", newAnime);
+                reference.push().setValue(newAnime);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
