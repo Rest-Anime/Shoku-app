@@ -1,7 +1,5 @@
 package com.example.appAnime.model;
 
-import java.util.Date;
-
 public class Anime {
     private String titulo;
     private String descripcion;
@@ -9,12 +7,12 @@ public class Anime {
     private String estudio;
     private String foto;
     private String genero;
-    private Date lanzamiento;
+    private String lanzamiento;
     private int puntuacion;
     private int temporadas;
 
     public Anime(String titulo, String descripcion, int duracion, String estudio, String foto,
-                 String genero, Date lanzamiento, int puntuacion, int temporadas) {
+                 String genero, String lanzamiento, int puntuacion, int temporadas) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;
@@ -66,11 +64,11 @@ public class Anime {
         this.genero = genero;
     }
 
-    public Date getLanzamiento() {
+    public String getLanzamiento() {
         return lanzamiento;
     }
 
-    public void setLanzamiento(Date lanzamiento) {
+    public void setLanzamiento(String lanzamiento) {
         this.lanzamiento = lanzamiento;
     }
 
