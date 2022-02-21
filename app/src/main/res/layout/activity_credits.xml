@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="Security Supervisor: Daniel Hernandez" />
+                android:text="Quality Assurance: Daniel Hernandez" />
 
             <TextView
                 android:id="@+id/developers4"
