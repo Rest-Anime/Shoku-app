@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,9 +17,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appAnime.R;
+import com.example.appAnime.model.Anime;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateAnimeActivity extends AppCompatActivity {
@@ -30,7 +33,6 @@ public class CreateAnimeActivity extends AppCompatActivity {
 
     EditText inTitle;
     AutoCompleteTextView genre;
-    CheckBox caffeine;
     NumberPicker nEpisodios;
     NumberPicker nTemporadas;
     String genreSelected;
@@ -46,6 +48,11 @@ public class CreateAnimeActivity extends AppCompatActivity {
     String studio;
     int rate;
     int img;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+
+    FirebaseDatabase bbdd;
+    DatabaseReference reference;
+
     AdapterView.OnItemClickListener funcionSpinner = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -83,20 +90,22 @@ public class CreateAnimeActivity extends AppCompatActivity {
     };
     private CompoundButton.OnCheckedChangeListener funcionCheck =
             new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked) {
-                caff = true;
-            } else if (!isChecked) {
-                caff = false;
-            }
-        }
-    };
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        caff = true;
+                    } else if (!isChecked) {
+                        caff = false;
+                    }
+                }
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+        bbdd = FirebaseDatabase.getInstance();
+        reference = bbdd.getReference().child("Animes");
 
         lblgr = findViewById(R.id.lblgr);
         lbltype = findViewById(R.id.lbltype);
@@ -158,19 +167,23 @@ public class CreateAnimeActivity extends AppCompatActivity {
                     //pillar valor del formulario
                 }
                 if (lanzamiento == null) {
-                    lanzamiento = new Date(1994, 07, 31);
+                    lanzamiento = new Date();
                 }
-
+                String cover = "https://t2.uc.ltmcdn" +
+                        ".com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600" +
+                        ".jpg";
                 Intent newAnime = new Intent();
                 newAnime.putExtra("title", title);
                 newAnime.putExtra("desc", desc);
                 newAnime.putExtra("studio", studio);
                 newAnime.putExtra("genre", genreSelected);
                 newAnime.putExtra("duration", episodeQuant);
-                newAnime.putExtra("release", lanzamiento);
-                newAnime.putExtra("cover", "https://t2.uc.ltmcdn.com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600.jpg");
+                newAnime.putExtra("release", sdf.format(lanzamiento));
+                newAnime.putExtra("cover", cover);
                 newAnime.putExtra("rate", rate);
                 newAnime.putExtra("seasons", seasonQuant);
+                reference.push().setValue(new Anime(title, desc, episodeQuant, studio, cover,
+                        genreSelected, sdf.format(lanzamiento), rate, seasonQuant));
                 setResult(RESULT_OK, newAnime);
                 finish();
             }

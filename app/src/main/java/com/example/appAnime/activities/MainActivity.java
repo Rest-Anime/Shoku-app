@@ -45,10 +45,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -182,13 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 String realeaseIn = data.getStringExtra("release");
                 String img = data.getStringExtra("cover");
                 int pos = animeList.size();
-                Date realease = null;
-
-                try {
-                    realease = new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(realeaseIn));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                String realease = String.valueOf(realeaseIn);
 
                 animeList.add(new Anime(title, desc, duration, studio, img, genre, realease,
                         rate, seasons));
@@ -316,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println(reference.getKey());
                 int count = 1;
                 for (DataSnapshot son : snapshot.getChildren()) {
 
@@ -329,13 +321,10 @@ public class MainActivity extends AppCompatActivity {
                     int seasons =
                             Integer.valueOf(String.valueOf(son.child("temporadas").getValue()));
                     int rate = Integer.valueOf(String.valueOf(son.child("puntuacion").getValue()));
-                    Date realease = null;
-                    try {
-                        realease =
-                                new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(son.child("lanzamiento").getValue()));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    String
+                            realease =
+                            String.valueOf(son.child("lanzamiento").getValue());
+
                     //System.out.println("El Anime numero: " + count + " se llama: " + son.child
                     // ("Titulo").getValue() + " " + son.child("Foto"));
                     animeList.add(new Anime(tittle, desc, duration, studio, photo, genre,
