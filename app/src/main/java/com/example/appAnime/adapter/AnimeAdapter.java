@@ -1,4 +1,5 @@
 package com.example.appAnime.adapter;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +20,24 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     private ArrayList<Anime> animeList;
     private EventsInterface mOnClickListener;
 
-    public AnimeAdapter(ArrayList<Anime> animeList, EventsInterface mOnClickListener){
+    public AnimeAdapter(ArrayList<Anime> animeList, EventsInterface mOnClickListener) {
         this.animeList = animeList;
         this.mOnClickListener = mOnClickListener;
     }
 
-    public ArrayList<Anime> getAnimeList() {return animeList;}
-    public void setAnimeList(ArrayList<Anime> animeList){this.animeList=animeList;}
+    public ArrayList<Anime> getAnimeList() {
+        return animeList;
+    }
+
+    public void setAnimeList(ArrayList<Anime> animeList) {
+        this.animeList = animeList;
+    }
 
     @NonNull
     @Override
-    public AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int ViewType){
-        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.anime_layout, parent, false);
+    public AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int ViewType) {
+        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.anime_layout,
+                parent, false);
         return new AnimeViewHolder(item);
     }
 
@@ -46,43 +53,61 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         String UrlImagen = String.valueOf(actualAnime.getFoto());
         Picasso.get().load(UrlImagen).into(holder.getCoverImg());
     }
-    @Override
-    public int getItemCount(){return animeList.size();}
 
-    public class AnimeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    @Override
+    public int getItemCount() {
+        return animeList.size();
+    }
+
+    public class AnimeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView nameText;
         TextView genresText;
         TextView seasonsText;
         RatingBar starsBar;
         ImageView coverImg;
 
-        public TextView getNameText(){return nameText;}
-        public TextView getSeasonsText(){return seasonsText;}
-        public TextView getGenresText(){return genresText;}
-        public RatingBar getStarsBar(){return starsBar;}
-        public void setNameText(TextView nameText){
+        public AnimeViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.nameText = itemView.findViewById(R.id.name);
+            this.genresText = itemView.findViewById(R.id.genres);
+            this.seasonsText = itemView.findViewById(R.id.seasons);
+            this.starsBar = itemView.findViewById(R.id.ratingBar);
+            this.coverImg = itemView.findViewById(R.id.cover1);
+            itemView.setOnClickListener(this);
+        }
+
+        public TextView getNameText() {
+            return nameText;
+        }
+
+        public void setNameText(TextView nameText) {
             this.nameText = nameText;
         }
-        public ImageView getCoverImg(){
+
+        public TextView getSeasonsText() {
+            return seasonsText;
+        }
+
+        public TextView getGenresText() {
+            return genresText;
+        }
+
+        public RatingBar getStarsBar() {
+            return starsBar;
+        }
+
+        public ImageView getCoverImg() {
             return coverImg;
         }
-        public void setCoverImg(ImageView coverImg){
-            this.coverImg=coverImg;
+
+        public void setCoverImg(ImageView coverImg) {
+            this.coverImg = coverImg;
         }
 
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             int position = getAdapterPosition();
             mOnClickListener.clickElement(position);
-        }
-        public AnimeViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.nameText=itemView.findViewById(R.id.name);
-            this.genresText=itemView.findViewById(R.id.genres);
-            this.seasonsText=itemView.findViewById(R.id.seasons);
-            this.starsBar=itemView.findViewById(R.id.ratingBar);
-            this.coverImg=itemView.findViewById(R.id.cover1);
-            itemView.setOnClickListener(this);
         }
     }
 }

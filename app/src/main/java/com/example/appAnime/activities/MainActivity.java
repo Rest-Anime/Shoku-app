@@ -3,7 +3,6 @@ package com.example.appAnime.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
@@ -104,17 +103,6 @@ public class MainActivity extends AppCompatActivity {
             //seekbar.setMax(mp.getDuration());
         }
     };
-
-    //metodo para parar la cancion en reproduccion
-    public void pararCancion() {
-        if (!mediaPlayer.isPlaying()) {
-            mediaPlayer.start();
-            //play es el boton que, al ser clicado, para o reanuda la cancion
-        } else {
-            mediaPlayer.pause();
-        }
-    }
-
     //METODO MUSICA BUCLE
     private CompoundButton.OnCheckedChangeListener loopFunction =
             new CompoundButton.OnCheckedChangeListener() {
@@ -136,23 +124,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             };
-
-    /*
-    //evento para que al clicar se cargue una web
-    private View.OnClickListener funcionWiki = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //String con la direccion web a la que acceder
-            String web = canciones.get(contador).getWeb();
-            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-            intent.putExtra(SearchManager.QUERY, web);
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
-        }
-    };
-    */
-
     private EventsInterface function = (pos) -> {
         Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
 
@@ -170,6 +141,32 @@ public class MainActivity extends AppCompatActivity {
         startActivity(launchInfo);
     };
 
+    /*
+    //evento para que al clicar se cargue una web
+    private View.OnClickListener funcionWiki = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //String con la direccion web a la que acceder
+            String web = canciones.get(contador).getWeb();
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, web);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        }
+    };
+    */
+
+    //metodo para parar la cancion en reproduccion
+    public void pararCancion() {
+        if (!mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
+            //play es el boton que, al ser clicado, para o reanuda la cancion
+        } else {
+            mediaPlayer.pause();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -183,10 +180,8 @@ public class MainActivity extends AppCompatActivity {
                 int seasons = data.getIntExtra("seasons", 1);
                 int rate = data.getIntExtra("rate", 1);
                 String realeaseIn = data.getStringExtra("release");
-                Drawable photo = Drawable.createFromPath(data.getStringExtra("cover"));
-
+                String img = data.getStringExtra("cover");
                 int pos = animeList.size();
-                int img = data.getIntExtra("img", 0);
                 Date realease = null;
 
                 try {
@@ -195,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                animeList.add(new Anime(title, desc, duration, studio, photo, genre, realease,
+                animeList.add(new Anime(title, desc, duration, studio, img, genre, realease,
                         rate, seasons));
                 Snackbar.make(recyclerView, animeList.get(pos).getTitulo() + " ha sido creado",
                         Snackbar.LENGTH_SHORT).show();
