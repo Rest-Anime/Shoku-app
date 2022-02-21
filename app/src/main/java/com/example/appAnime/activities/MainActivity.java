@@ -46,11 +46,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -84,15 +82,10 @@ public class MainActivity extends AppCompatActivity {
     Animation bot;
     Animation tobot;
     AppBarConfiguration appbarconfig;
-
     FirebaseDatabase bbdd;
     DatabaseReference reference;
-
-
     int Code_Create_Anime = 2;
 
-    Date date = Calendar.getInstance().getTime();
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 
     /*
         El evento OnPrepared se lanzaría una vez, cuando el mp se encuentra listo para
@@ -103,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         interesaría c
         capturar este evento.
     */
+
     private MediaPlayer.OnPreparedListener funcionPrepared = new MediaPlayer.OnPreparedListener() {
         @Override
         public void onPrepared(MediaPlayer mp) {
@@ -158,67 +152,19 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     */
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == R.id.fabCreate) {
-            MaterialAlertDialogBuilder dialogoCrear =
-                    new MaterialAlertDialogBuilder(MainActivity.this);
-            dialogoCrear.setIcon(R.drawable.mr_cast_thumb);
-            dialogoCrear.setTitle("Operacion Crear Anime");
-            dialogoCrear.setMessage("¿Estas seguro de que quieres crear el anime?");
-            dialogoCrear.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent launchCreate = new Intent(getApplicationContext(),
-                            CreateAnimeActivity.class);
-                    startActivityForResult(launchCreate, Code_Create_Anime);
-                }
-            });
-            dialogoCrear.setNegativeButton("Cancelar", null);
-            dialogoCrear.show();
-        } else if (item.getItemId() == R.id.fabDelete) {
-            if (animeList.size() > 1) {
-
-                MaterialAlertDialogBuilder dialogoEliminar =
-                        new MaterialAlertDialogBuilder(MainActivity.this);
-                dialogoEliminar.setIcon(R.drawable.mr_cast_thumb);
-                dialogoEliminar.setTitle("Operacion Eliminar Cafe");
-                dialogoEliminar.setMessage("¿Estas seguro de que quieres eliminar el anime?");
-                dialogoEliminar.setPositiveButton("Eliminar",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int limit = animeList.size() - 1;
-                                Snackbar.make(recyclerView, animeList.get(limit).getTittle() + " " +
-                                        "ha sido " +
-                                        "eliminado", Snackbar.LENGTH_SHORT).show();
-                                animeList.remove(limit);
-                                animeAdapter.notifyItemRemoved(limit);
-                            }
-                        });
-                dialogoEliminar.setNegativeButton("Cancelar", null);
-                dialogoEliminar.show();
-            }
-        } else if (item.getItemId() == R.id.firstFragment) {
-            Intent loadCredits = new Intent(getApplicationContext(), CreditsActivity.class);
-            startActivity(loadCredits);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private EventsInterface function = (pos) -> {
         Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
 
-        launchInfo.putExtra("title", animeList.get(pos).getTittle());
+        launchInfo.putExtra("title", animeList.get(pos).getTitulo());
         launchInfo.putExtra("desc", animeList.get(pos).getDescripcion());
         launchInfo.putExtra("duration", animeList.get(pos).getDuracion());
-        launchInfo.putExtra("studio", animeList.get(pos).getStudio());
-        launchInfo.putExtra("cover", animeList.get(pos).getCover());
-        launchInfo.putExtra("genre", animeList.get(pos).getGenre());
-        launchInfo.putExtra("release", animeList.get(pos).getRelease());
-        launchInfo.putExtra("rate", animeList.get(pos).getRate());
-        launchInfo.putExtra("seasons", animeList.get(pos).getSeasons());
+        launchInfo.putExtra("studio", animeList.get(pos).getEstudio());
+        launchInfo.putExtra("cover", animeList.get(pos).getFoto());
+        launchInfo.putExtra("genre", animeList.get(pos).getGenero());
+        launchInfo.putExtra("release", animeList.get(pos).getLanzamiento());
+        launchInfo.putExtra("rate", animeList.get(pos).getPuntuacion());
+        launchInfo.putExtra("seasons", animeList.get(pos).getTemporadas());
         launchInfo.putExtra("pos", pos);
 
         startActivity(launchInfo);
@@ -251,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
                 animeList.add(new Anime(title, desc, duration, studio, photo, genre, realease,
                         rate, seasons));
-                Snackbar.make(recyclerView, animeList.get(pos).getTittle() + " ha sido creado",
+                Snackbar.make(recyclerView, animeList.get(pos).getTitulo() + " ha sido creado",
                         Snackbar.LENGTH_SHORT).show();
                 animeAdapter.notifyItemInserted(0);
             } else if (resultCode == RESULT_CANCELED) {
@@ -321,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Searching");
                 listaFiltrados.clear();
                 for (Anime a : animeList) {
-                    if (a.getTittle().toUpperCase().startsWith(newText.toUpperCase())) {
+                    if (a.getTitulo().toUpperCase().startsWith(newText.toUpperCase())) {
                         listaFiltrados.add(a);
                     }
                 }
@@ -378,20 +324,20 @@ public class MainActivity extends AppCompatActivity {
                 int count = 1;
                 for (DataSnapshot son : snapshot.getChildren()) {
 
-                    String tittle = (String) son.child("Titulo").getValue();
-                    String desc = (String) son.child("Descripcion").getValue();
-                    String studio = (String) son.child("Estudio").getValue();
-                    String photo = (String) son.child("Foto").getValue();
-                    String genre = (String) son.child("Genero").getValue();
+                    String tittle = (String) son.child("titulo").getValue();
+                    String desc = (String) son.child("descripcion").getValue();
+                    String studio = (String) son.child("estudio").getValue();
+                    String photo = (String) son.child("foto").getValue();
+                    String genre = (String) son.child("genero").getValue();
                     int duration =
-                            Integer.valueOf(String.valueOf(son.child("Duracion").getValue()));
+                            Integer.valueOf(String.valueOf(son.child("duracion").getValue()));
                     int seasons =
-                            Integer.valueOf(String.valueOf(son.child("Temporadas").getValue()));
-                    int rate = Integer.valueOf(String.valueOf(son.child("Puntuacion").getValue()));
+                            Integer.valueOf(String.valueOf(son.child("temporadas").getValue()));
+                    int rate = Integer.valueOf(String.valueOf(son.child("puntuacion").getValue()));
                     Date realease = null;
                     try {
                         realease =
-                                new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(son.child("Lanzamiento").getValue()));
+                                new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(son.child("lanzamiento").getValue()));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
