@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -39,8 +38,6 @@ public class CreateAnimeActivity extends AppCompatActivity {
     ImageView imgMuestra;
     RatingBar rating;
     Date lanzamiento;
-
-    Boolean caff;
     String title;
     int episodeQuant;
     int seasonQuant;
@@ -48,6 +45,9 @@ public class CreateAnimeActivity extends AppCompatActivity {
     String studio;
     int rate;
     int img;
+    String cover = "https://t2.uc.ltmcdn" +
+            ".com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600" +
+            ".jpg";
     SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
 
     FirebaseDatabase bbdd;
@@ -88,17 +88,6 @@ public class CreateAnimeActivity extends AppCompatActivity {
             }
         }
     };
-    private CompoundButton.OnCheckedChangeListener funcionCheck =
-            new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        caff = true;
-                    } else if (!isChecked) {
-                        caff = false;
-                    }
-                }
-            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,8 +120,6 @@ public class CreateAnimeActivity extends AppCompatActivity {
         nEpisodios.setMinValue(0);
         nTemporadas.setMaxValue(10);
         nTemporadas.setMinValue(0);
-
-        caff = false;
     }
 
     @Override
@@ -169,9 +156,7 @@ public class CreateAnimeActivity extends AppCompatActivity {
                 if (lanzamiento == null) {
                     lanzamiento = new Date();
                 }
-                String cover = "https://t2.uc.ltmcdn" +
-                        ".com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600" +
-                        ".jpg";
+
                 Intent newAnime = new Intent();
                 newAnime.putExtra("title", title);
                 newAnime.putExtra("desc", desc);

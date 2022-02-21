@@ -304,7 +304,10 @@ public class MainActivity extends AppCompatActivity {
 
         bbdd = FirebaseDatabase.getInstance();
         reference = bbdd.getReference().child("Animes");
+
         reference.addValueEventListener(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println(reference.getKey());
