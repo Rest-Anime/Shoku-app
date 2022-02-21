@@ -1,17 +1,5 @@
 package com.example.appAnime.activities;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +18,17 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
 import com.example.appAnime.adapter.AnimeAdapter;
@@ -72,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
     AnimeAdapter animeAdapter;
     View cabecera;
     FloatingActionButton fab;
-    FloatingActionButton fabC;
-    FloatingActionButton fabD;
-    FloatingActionButton fabE;
     MediaPlayer mediaPlayer;
     ToggleButton loop;
     ToggleButton playMusic;
@@ -92,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase bbdd;
     DatabaseReference reference;
 
-    Boolean clicado = false;
+
     int Code_Create_Anime = 2;
 
     Date date = Calendar.getInstance().getTime();
@@ -101,8 +97,10 @@ public class MainActivity extends AppCompatActivity {
     /*
         El evento OnPrepared se lanzaría una vez, cuando el mp se encuentra listo para
         reproducir audio.
-        En nuestro caso, como se obtiene el audio por medios locales, no hace falta caputar este evento.
-        Si tuvieramos que obtener las canciones de la SD o por Streaming, entonces si nos interesaría c
+        En nuestro caso, como se obtiene el audio por medios locales, no hace falta caputar este
+        evento.
+        Si tuvieramos que obtener las canciones de la SD o por Streaming, entonces si nos
+        interesaría c
         capturar este evento.
     */
     private MediaPlayer.OnPreparedListener funcionPrepared = new MediaPlayer.OnPreparedListener() {
@@ -112,35 +110,38 @@ public class MainActivity extends AppCompatActivity {
             //seekbar.setMax(mp.getDuration());
         }
     };
+
     //metodo para parar la cancion en reproduccion
-    public void pararCancion(){
+    public void pararCancion() {
         if (!mediaPlayer.isPlaying()) {
             mediaPlayer.start();
             //play es el boton que, al ser clicado, para o reanuda la cancion
-        }else {
+        } else {
             mediaPlayer.pause();
         }
     }
+
     //METODO MUSICA BUCLE
-    private CompoundButton.OnCheckedChangeListener loopFunction = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(isChecked){
-                loop.setText("On");
-                counter=counter;
-                mediaPlayer.setLooping(true);
-                Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
-                Toast.makeText(context, "Bucle Activado", duration).show();
-            }else{
-                loop.setText("Off");
-                mediaPlayer.setLooping(false);
-                Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
-                Toast.makeText(context, "Bucle Desactivado", duration).show();
-            }
-        }
-    };
+    private CompoundButton.OnCheckedChangeListener loopFunction =
+            new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        loop.setText("On");
+                        counter = counter;
+                        mediaPlayer.setLooping(true);
+                        Context context = getApplicationContext();
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast.makeText(context, "Bucle Activado", duration).show();
+                    } else {
+                        loop.setText("Off");
+                        mediaPlayer.setLooping(false);
+                        Context context = getApplicationContext();
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast.makeText(context, "Bucle Desactivado", duration).show();
+                    }
+                }
+            };
 
     /*
     //evento para que al clicar se cargue una web
@@ -160,48 +161,53 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId() == R.id.fabCreate){
-            MaterialAlertDialogBuilder dialogoCrear = new MaterialAlertDialogBuilder(MainActivity.this);
+        if (item.getItemId() == R.id.fabCreate) {
+            MaterialAlertDialogBuilder dialogoCrear =
+                    new MaterialAlertDialogBuilder(MainActivity.this);
             dialogoCrear.setIcon(R.drawable.mr_cast_thumb);
-            dialogoCrear.setTitle("Operacion Crear Cafe");
+            dialogoCrear.setTitle("Operacion Crear Anime");
             dialogoCrear.setMessage("¿Estas seguro de que quieres crear el anime?");
             dialogoCrear.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent launchCreate = new Intent(getApplicationContext(), CreateAnimeActivity.class);
+                    Intent launchCreate = new Intent(getApplicationContext(),
+                            CreateAnimeActivity.class);
                     startActivityForResult(launchCreate, Code_Create_Anime);
                 }
             });
             dialogoCrear.setNegativeButton("Cancelar", null);
             dialogoCrear.show();
-        }else if(item.getItemId() == R.id.fabDelete){
-            if(animeList.size()>1){
+        } else if (item.getItemId() == R.id.fabDelete) {
+            if (animeList.size() > 1) {
 
-                MaterialAlertDialogBuilder dialogoEliminar = new MaterialAlertDialogBuilder(MainActivity.this);
+                MaterialAlertDialogBuilder dialogoEliminar =
+                        new MaterialAlertDialogBuilder(MainActivity.this);
                 dialogoEliminar.setIcon(R.drawable.mr_cast_thumb);
                 dialogoEliminar.setTitle("Operacion Eliminar Cafe");
                 dialogoEliminar.setMessage("¿Estas seguro de que quieres eliminar el anime?");
-                dialogoEliminar.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int limit = animeList.size()-1;
-                        Snackbar.make(recyclerView,animeList.get(limit).getTittle() + " ha sido eliminado", Snackbar.LENGTH_SHORT).show();
-                        animeList.remove(limit);
-                        animeAdapter.notifyItemRemoved(limit);
-                    }
-                });
+                dialogoEliminar.setPositiveButton("Eliminar",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int limit = animeList.size() - 1;
+                                Snackbar.make(recyclerView, animeList.get(limit).getTittle() + " " +
+                                        "ha sido " +
+                                        "eliminado", Snackbar.LENGTH_SHORT).show();
+                                animeList.remove(limit);
+                                animeAdapter.notifyItemRemoved(limit);
+                            }
+                        });
                 dialogoEliminar.setNegativeButton("Cancelar", null);
                 dialogoEliminar.show();
             }
-        } else if(item.getItemId() == R.id.firstFragment){
+        } else if (item.getItemId() == R.id.firstFragment) {
             Intent loadCredits = new Intent(getApplicationContext(), CreditsActivity.class);
             startActivity(loadCredits);
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-    private EventsInterface function = (pos) ->{
+    private EventsInterface function = (pos) -> {
         Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
 
         launchInfo.putExtra("title", animeList.get(pos).getTittle());
@@ -235,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
                 int pos = animeList.size();
                 int img = data.getIntExtra("img", 0);
-                Date realease=null;
+                Date realease = null;
 
                 try {
                     realease = new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(realeaseIn));
@@ -243,13 +249,93 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                animeList.add(new Anime(title, desc, duration, studio, photo, genre, realease, rate, seasons));
-                Snackbar.make(recyclerView,animeList.get(pos).getTittle() + " ha sido creado", Snackbar.LENGTH_SHORT).show();
+                animeList.add(new Anime(title, desc, duration, studio, photo, genre, realease,
+                        rate, seasons));
+                Snackbar.make(recyclerView, animeList.get(pos).getTittle() + " ha sido creado",
+                        Snackbar.LENGTH_SHORT).show();
                 animeAdapter.notifyItemInserted(0);
-            } else if(resultCode == RESULT_CANCELED){
+            } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(), "Algo ha salido mal", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        System.out.println("Inflate");
+        getMenuInflater().inflate(R.menu.menuconfig, menu);
+        final MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        System.out.println(searchItem == null);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                /* ¿Crees que tenemos que hacer algo cuendo el user cierre la barra de búsqueda?
+                ¿TODO? */
+                return false;
+            }
+        });
+
+        // Este método se llama cuando se pulsa el botón de buscar.
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            //@Override
+            public boolean onQueryTextSubmit(String query) {
+                /*TODO: Programar este metodo para que cuando se pulse el botón de buscar,
+                se haga una llamada a la API pasando como parámetro de series la variable query,
+                que representa lo que el usuario ha escrito en la barra de búsqueda
+                 */
+
+                Call<Raiz> obtenerAnimes = apiAnime.obtenerAnimes();
+                Call<Raiz> obtenerAnimesNombre = apiAnime.obtenerAnimesNombre(query);
+                obtenerAnimes.enqueue(new Callback<Raiz>() {
+                    @Override
+                    public void onResponse(Call<Raiz> call, Response<Raiz> response) {
+                        Raiz respuesta = response.body();
+                        int codigo = response.code();
+                        if (respuesta != null) {
+                            animeList.clear();
+                            animeList.addAll(respuesta.getAnime());
+                            animeAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Raiz> call, Throwable t) {
+
+                    }
+                });
+
+                return false;
+            }
+
+            // Este método se llama cada vez que el texto de la barra de búsqueda cambia
+            //@Override
+            public boolean onQueryTextChange(String newText) {
+               /*TODO: Programar este metodo para que cuando el user escriba,
+               se filtre la lista mostrando sólo aquellos cuyo nombre contenga el string incluido
+               como parámetro de entrada (newText). No hacer una nueva petición, no es necesario.
+                 */
+                System.out.println("Searching");
+                listaFiltrados.clear();
+                for (Anime a : animeList) {
+                    if (a.getTittle().toUpperCase().startsWith(newText.toUpperCase())) {
+                        listaFiltrados.add(a);
+                    }
+                }
+                animeAdapter.setAnimeList(listaFiltrados);
+                animeAdapter.notifyDataSetChanged();
+
+                return false;
+            }
+
+        });
+
+        //return super.onCreateOptionsMenu(menu);
+        return true;
+
     }
 
     @Override
@@ -261,15 +347,14 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         fab = findViewById(R.id.fabMenu);
-        fabC = findViewById(R.id.fabCreate);
-        fabD = findViewById(R.id.fabDelete);
-        fabE = findViewById(R.id.fabEdit);
         drawer = findViewById(R.id.dl);
 
-        appbarconfig = new AppBarConfiguration.Builder(R.id.fragment_credits, R.id.fragment_first, R.id.fragment_logout).build();
+        appbarconfig = new AppBarConfiguration.Builder(R.id.fragment_credits, R.id.fragment_first
+                , R.id.fragment_logout).build();
 
         //CREACION OBJETO RETROFIT PARA INSTANCIAR LA API
-        retrofit = new Retrofit.Builder().baseUrl("https://proyect-anime-5daac-default-rtdb.firebaseio.com/").addConverterFactory(GsonConverterFactory.create()).build();
+        retrofit = new Retrofit.Builder().baseUrl("https://proyect-anime-5daac-default-rtdb" +
+                ".firebaseio.com/").addConverterFactory(GsonConverterFactory.create()).build();
         //RETROFIT CREA CLASES ASOCIADAS PARA CONECTARNOS CON LOS ENDPOINT
         apiAnime = retrofit.create(ApiAnime.class);
 
@@ -280,7 +365,8 @@ public class MainActivity extends AppCompatActivity {
         playMusic = cabecera.findViewById(R.id.playM);
         playMusic.setChecked(true);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_abrir, R.string.drawer_cerrar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.drawer_abrir, R.string.drawer_cerrar);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -290,27 +376,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int count = 1;
-                for(DataSnapshot son : snapshot.getChildren()){
+                for (DataSnapshot son : snapshot.getChildren()) {
 
                     String tittle = (String) son.child("Titulo").getValue();
                     String desc = (String) son.child("Descripcion").getValue();
                     String studio = (String) son.child("Estudio").getValue();
                     String photo = (String) son.child("Foto").getValue();
                     String genre = (String) son.child("Genero").getValue();
-                    int duration = Integer.valueOf(String.valueOf(son.child("Duracion").getValue()));
-                    int seasons = Integer.valueOf(String.valueOf(son.child("Temporadas").getValue()));
+                    int duration =
+                            Integer.valueOf(String.valueOf(son.child("Duracion").getValue()));
+                    int seasons =
+                            Integer.valueOf(String.valueOf(son.child("Temporadas").getValue()));
                     int rate = Integer.valueOf(String.valueOf(son.child("Puntuacion").getValue()));
                     Date realease = null;
                     try {
-                        realease = new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(son.child("Lanzamiento").getValue()));
+                        realease =
+                                new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(son.child("Lanzamiento").getValue()));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    //System.out.println("El Anime numero: " + count + " se llama: " + son.child("Titulo").getValue() + " " + son.child("Foto"));
-                    animeList.add(new Anime(tittle, desc, duration, studio, photo, genre, realease, rate, seasons));
+                    //System.out.println("El Anime numero: " + count + " se llama: " + son.child
+                    // ("Titulo").getValue() + " " + son.child("Foto"));
+                    animeList.add(new Anime(tittle, desc, duration, studio, photo, genre,
+                            realease, rate, seasons));
                     count++;
                 }
-                for(Anime a : animeList){
+                for (Anime a : animeList) {
                     System.out.println(a.toString());
                 }
                 animeAdapter.notifyDataSetChanged();
@@ -330,7 +421,8 @@ public class MainActivity extends AppCompatActivity {
 
         animeAdapter = new AnimeAdapter(animeList, function);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(animeAdapter);
 
         //MUSICA
@@ -347,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 loop.setText("On");
-                counter=counter;
+                counter = counter;
                 mediaPlayer.setLooping(true);
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_SHORT;
@@ -391,85 +483,32 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onMenuButtonClicked();
-            }
-        });
-        fabC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaterialAlertDialogBuilder dialogoCrear = new MaterialAlertDialogBuilder(MainActivity.this);
+                MaterialAlertDialogBuilder dialogoCrear =
+                        new MaterialAlertDialogBuilder(MainActivity.this);
                 dialogoCrear.setIcon(R.drawable.mr_cast_thumb);
                 dialogoCrear.setTitle("Operacion Crear Anime");
                 dialogoCrear.setMessage("¿Estas seguro de que quieres crear un Anime?");
                 dialogoCrear.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent launchCreate = new Intent(getApplicationContext(), CreateAnimeActivity.class);
+                        Intent launchCreate = new Intent(getApplicationContext(),
+                                CreateAnimeActivity.class);
                         startActivityForResult(launchCreate, Code_Create_Anime);
                     }
                 });
                 dialogoCrear.setNegativeButton("Cancelar", null);
                 dialogoCrear.show();
-                onMenuButtonClicked();
-            }
-        });
-        fabD.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (animeList.size() > 1) {
-                    int limit = animeList.size() - 1;
-                    MaterialAlertDialogBuilder dialogoEliminar = new MaterialAlertDialogBuilder(MainActivity.this);
-                    dialogoEliminar.setIcon(R.drawable.mr_cast_thumb);
-                    dialogoEliminar.setTitle("Operacion Eliminar Anime");
-                    dialogoEliminar.setMessage("¿Estas seguro de que quieres eliminar el anime " + animeList.get(limit).getTittle() + "?");
-                    dialogoEliminar.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int limit = animeList.size() - 1;
-                            Snackbar.make(recyclerView, animeList.get(limit).getTittle() + " ha sido eliminado", Snackbar.LENGTH_SHORT).show();
-                            animeList.remove(limit);
-                            animeAdapter.notifyItemRemoved(limit);
-                        }
-                    });
-                    dialogoEliminar.setNegativeButton("Cancelar", null);
-                    dialogoEliminar.show();
-                    onMenuButtonClicked();
-                }
-            }
-        });
-
-        fabE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (animeList.size() > 1) {
-                    int limit = animeList.size() - 1;
-                    MaterialAlertDialogBuilder dialogoModificar = new MaterialAlertDialogBuilder(MainActivity.this);
-                    dialogoModificar.setIcon(R.drawable.mr_cast_thumb);
-                    dialogoModificar.setTitle("Operacion Modificar Anime");
-                    dialogoModificar.setMessage("¿Estas seguro de que quieres modificar el anime " + animeList.get(limit).getTittle() + "?");
-                    dialogoModificar.setPositiveButton("Modificar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int limit = animeList.size() - 1;
-                            Snackbar.make(recyclerView, animeList.get(limit).getTittle() + " ha sido modificado", Snackbar.LENGTH_SHORT).show();
-                            animeList.remove(limit);
-                            animeAdapter.notifyItemRemoved(limit);
-                        }
-                    });
-                    dialogoModificar.setNegativeButton("Cancelar", null);
-                    dialogoModificar.show();
-                    onMenuButtonClicked();
-                }
             }
         });
 
         menuLateral.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-               int id =  item.getItemId();
-               item.setChecked(true);
-                if(id == R.id.fragment_credits){
-                    Intent launchCreate = new Intent(getApplicationContext(), CreditsActivity.class);
+                int id = item.getItemId();
+                item.setChecked(true);
+                if (id == R.id.fragment_credits) {
+                    Intent launchCreate = new Intent(getApplicationContext(),
+                            CreditsActivity.class);
                     startActivity(launchCreate);
                     item.setChecked(false);
                 }
@@ -478,119 +517,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    //FIN DEL ONCREATE
-
-    private void onMenuButtonClicked() {
-        setVisibility(clicado);
-        setAnimation(clicado);
-        if(!clicado){
-            clicado=true;
-        }else{
-            clicado=false;
-        }
-    }
-
-    private void setVisibility(Boolean clicado) {
-        if(!clicado){
-            fabC.setVisibility(View.VISIBLE);
-            fabD.setVisibility(View.VISIBLE);
-            fabE.setVisibility(View.VISIBLE);
-        }else{
-            fabC.setVisibility(View.INVISIBLE);
-            fabD.setVisibility(View.INVISIBLE);
-            fabE.setVisibility(View.INVISIBLE);
-        }
-    }
-    private void setAnimation(Boolean clicado) {
-        if(!clicado){
-            fabC.startAnimation(bot);
-            fabD.startAnimation(bot);
-            fabE.startAnimation(bot);
-            fab.startAnimation(rotopen);
-        }else{
-            fabC.startAnimation(tobot);
-            fabD.startAnimation(tobot);
-            fabE.startAnimation(tobot);
-            fab.startAnimation(rotclose);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        System.out.println("Inflate");
-        getMenuInflater().inflate(R.menu.menuconfig, menu);
-        final MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-        System.out.println(searchItem == null);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                /* ¿Crees que tenemos que hacer algo cuendo el user cierre la barra de búsqueda? ¿TODO? */
-                return false;
-            }
-        });
-
-        // Este método se llama cuando se pulsa el botón de buscar.
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            //@Override
-            public boolean onQueryTextSubmit(String query) {
-                /*TODO: Programar este metodo para que cuando se pulse el botón de buscar,
-                se haga una llamada a la API pasando como parámetro de series la variable query,
-                que representa lo que el usuario ha escrito en la barra de búsqueda
-                 */
-
-                Call<Raiz> obtenerAnimes= apiAnime.obtenerAnimes();
-                Call<Raiz> obtenerAnimesNombre= apiAnime.obtenerAnimesNombre(query);
-                obtenerAnimes.enqueue(new Callback<Raiz>() {
-                    @Override
-                    public void onResponse(Call<Raiz> call, Response<Raiz> response) {
-                        Raiz respuesta = response.body();
-                        int codigo = response.code();
-                        if(respuesta!=null) {
-                            animeList.clear();
-                            animeList.addAll(respuesta.getAnime());
-                            animeAdapter.notifyDataSetChanged();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Raiz> call, Throwable t) {
-
-                    }
-                });
-
-                return false;
-            }
-
-            // Este método se llama cada vez que el texto de la barra de búsqueda cambia
-            //@Override
-            public boolean onQueryTextChange(String newText) {
-               /*TODO: Programar este metodo para que cuando el user escriba,
-               se filtre la lista mostrando sólo aquellos cuyo nombre contenga el string incluido
-               como parámetro de entrada (newText). No hacer una nueva petición, no es necesario.
-                 */
-                System.out.println("Searching");
-                listaFiltrados.clear();
-                for (Anime a : animeList){
-                    if(a.getTittle().toUpperCase().startsWith(newText.toUpperCase())){
-                        listaFiltrados.add(a);
-                    }
-                }
-                animeAdapter.setAnimeList(listaFiltrados);
-                animeAdapter.notifyDataSetChanged();
-
-                return false;
-            }
-
-        });
-
-        //return super.onCreateOptionsMenu(menu);
-       return true;
-
-    }}
-
-
-//}
+}
