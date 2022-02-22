@@ -48,7 +48,7 @@ public class CreateAnimeActivity extends AppCompatActivity {
     String foto = "https://t2.uc.ltmcdn" +
             ".com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600" +
             ".jpg";
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     FirebaseDatabase bbdd;
     DatabaseReference reference;
