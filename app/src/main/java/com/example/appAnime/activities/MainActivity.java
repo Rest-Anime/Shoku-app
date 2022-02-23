@@ -121,20 +121,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             };
+
     private EventsInterface function = (pos) -> {
         Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
-
-        launchInfo.putExtra("title", animeList.get(pos).getTitulo());
-        launchInfo.putExtra("desc", animeList.get(pos).getDescripcion());
-        launchInfo.putExtra("duration", animeList.get(pos).getDuracion());
-        launchInfo.putExtra("studio", animeList.get(pos).getEstudio());
-        launchInfo.putExtra("cover", animeList.get(pos).getFoto());
-        launchInfo.putExtra("genre", animeList.get(pos).getGenero());
-        launchInfo.putExtra("release", animeList.get(pos).getLanzamiento());
-        launchInfo.putExtra("rate", animeList.get(pos).getPuntuacion());
-        launchInfo.putExtra("seasons", animeList.get(pos).getTemporadas());
+        launchInfo.putExtra("anime", animeList.get(pos));
         launchInfo.putExtra("pos", pos);
-
         startActivity(launchInfo);
     };
 
