@@ -13,6 +13,10 @@ public class Anime implements Serializable {
     private int puntuacion;
     private int temporadas;
 
+
+    public Anime() {
+    }
+
     public Anime(String titulo, String descripcion, int duracion, String estudio, String foto,
                  String genero, String lanzamiento, int puntuacion, int temporadas) {
         this.titulo = titulo;
@@ -92,16 +96,16 @@ public class Anime implements Serializable {
 
     @Override
     public String toString() {
-        return "Anime: " +
-                "tittle='" + titulo + '\'' +
+        return "Anime{" +
+                "titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", duracion=" + duracion +
-                ", studio='" + estudio + '\'' +
-                ", cover='" + foto + '\'' +
-                ", genre='" + genero + '\'' +
-                ", release=" + lanzamiento +
-                ", rate=" + puntuacion +
-                ", seasons=" + temporadas +
+                ", estudio='" + estudio + '\'' +
+                ", foto='" + foto + '\'' +
+                ", genero='" + genero + '\'' +
+                ", lanzamiento='" + lanzamiento + '\'' +
+                ", puntuacion=" + puntuacion +
+                ", temporadas=" + temporadas +
                 '}';
     }
 

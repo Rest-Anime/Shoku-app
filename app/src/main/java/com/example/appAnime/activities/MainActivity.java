@@ -285,43 +285,19 @@ public class MainActivity extends AppCompatActivity {
         reference = bbdd.getReference().child("Animes");
 
         reference.addValueEventListener(new ValueEventListener() {
-
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 System.out.println(reference.getKey());
-                int count = 1;
+                animeList.clear();
                 for (DataSnapshot son : snapshot.getChildren()) {
-
-                    String tittle = (String) son.child("titulo").getValue();
-                    String desc = (String) son.child("descripcion").getValue();
-                    String studio = (String) son.child("estudio").getValue();
-                    String photo = (String) son.child("foto").getValue();
-                    String genre = (String) son.child("genero").getValue();
-                    int duration =
-                            Integer.valueOf(String.valueOf(son.child("duracion").getValue()));
-                    int seasons =
-                            Integer.valueOf(String.valueOf(son.child("temporadas").getValue()));
-                    int rate = Integer.valueOf(String.valueOf(son.child("puntuacion").getValue()));
-                    String
-                            realease =
-                            String.valueOf(son.child("lanzamiento").getValue());
-
-                    //System.out.println("El Anime numero: " + count + " se llama: " + son.child
-                    // ("Titulo").getValue() + " " + son.child("Foto"));
-                    animeList.add(new Anime(tittle, desc, duration, studio, photo, genre,
-                            realease, rate, seasons));
-                    count++;
+                    Anime anime = son.getValue(Anime.class);
+                    animeList.add(anime);
                 }
-                for (Anime a : animeList) {
-                    System.out.println(a.toString());
-                }
-                animeAdapter.notifyDataSetChanged();
+                animeAdapter = new AnimeAdapter(animeList, function);
+                recyclerView.setAdapter(animeAdapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -331,11 +307,11 @@ public class MainActivity extends AppCompatActivity {
         tobot = AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim);
 
 
-        animeAdapter = new AnimeAdapter(animeList, function);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
-        recyclerView.setAdapter(animeAdapter);
+/*        animeAdapter = new AnimeAdapter(animeList, function);
+        recyclerView.setAdapter(animeAdapter);*/
 
         //MUSICA
         songName.setText("Ghibli Soundtrack");

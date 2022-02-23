@@ -45,7 +45,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     public void onBindViewHolder(@NonNull AnimeViewHolder holder, int position) {
         Anime actualAnime = animeList.get(position);
         holder.getNameText().setText(actualAnime.getTitulo());
-        holder.getSeasonsText().setText(String.valueOf(actualAnime.getTemporadas()));
+        holder.getSeasonsText().setText("temporadas: " + String.valueOf(actualAnime.getTemporadas()));
         holder.getGenresText().setText(actualAnime.getGenero());
         holder.getStarsBar().setNumStars(actualAnime.getPuntuacion());
 
