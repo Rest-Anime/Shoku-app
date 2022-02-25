@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,10 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ModifyAnimeActivity extends AppCompatActivity {
-    TextView lblname;
-    TextView lbltype;
-    TextView lblgr;
-
     EditText inTitle;
     AutoCompleteTextView genre;
     NumberPicker nEpisodios;
@@ -95,34 +90,35 @@ public class ModifyAnimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_modify);
         bbdd = FirebaseDatabase.getInstance();
         reference = bbdd.getReference().child("Animes");
-
-        lblgr = findViewById(R.id.episodiosText);
-        lbltype = findViewById(R.id.generoLbl);
-        lblname = findViewById(R.id.tituloLbl);
-
+        Intent intent = getIntent();
+        Anime anime = (Anime) intent.getSerializableExtra("anime");
         inTitle = findViewById(R.id.titulo);
+        inTitle.setText(anime.getTitulo());
         nEpisodios = findViewById(R.id.nEpisodiosCreate);
+        nEpisodios.setValue(anime.getDuracion());
         nTemporadas = findViewById(R.id.nTemporadas);
+        nTemporadas.setValue(anime.getTemporadas());
         genre = findViewById(R.id.act);
-        imgMuestra = findViewById(R.id.imageView);
-        rating = findViewById(R.id.ratingBar2);
-
-        descripcion = null;
-        estudio = null;
-        lanzamiento = null;
-
         String[] generos = getResources().getStringArray(R.array.genres);
         ArrayAdapter arrayList2 = new ArrayAdapter(this, R.layout.dropdown_item, generos);
         genre.setAdapter(arrayList2);
         genre.setOnItemClickListener(funcionSpinner);
+        genre.setText(anime.getGenero(), false);
+        imgMuestra = findViewById(R.id.imageView);
+        Picasso.get().load(anime.getFoto()).into(imgMuestra);
+        rating = findViewById(R.id.ratingBar2);
+        rating.setRating(anime.getPuntuacion());
+
+        descripcion = null;
+        estudio = null;
+        lanzamiento = null;
 
         nEpisodios.setMaxValue(99);
         nEpisodios.setMinValue(1);
         nTemporadas.setMaxValue(10);
         nTemporadas.setMinValue(1);
 
-        Intent intent = getIntent();
-        Anime anime = (Anime) intent.getSerializableExtra("anime");
+
         System.out.println(anime.toString());
     }
 
@@ -169,7 +165,13 @@ public class ModifyAnimeActivity extends AppCompatActivity {
                 finish();
             }
         });
-        dialog.setNegativeButton("Cancel", null);
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        dialog.setNeutralButton("STAY", null);
         dialog.show();
 
 
