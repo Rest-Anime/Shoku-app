@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -124,10 +123,10 @@ public class CreateAnimeActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Snackbar.make(,"See you later", Snackbar.LENGTH_SHORT).show();
-                if (!inTitle.getText().toString().isEmpty()) {
+                if (inTitle.getText() != null) {
                     titulo = String.valueOf(inTitle.getText());
-                } else {
-                    titulo = "anonimo";
+                } else if (inTitle.getText().equals("Name") || inTitle.getText() == null) {
+                    titulo = "Anónimo";
                 }
 
                 duracion = nEpisodios.getValue();
@@ -156,7 +155,13 @@ public class CreateAnimeActivity extends AppCompatActivity {
                 finish();
             }
         });
-        dialog.setNegativeButton("Cancel", null);
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        dialog.setNeutralButton("STAY", null);
         dialog.show();
 
 
