@@ -46,7 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         int pos = intent.getIntExtra("pos", 0);
 
         Picasso.get().load(anime.getFoto()).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
-        Toast.makeText(getApplicationContext(), "e", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), anime.getTitulo(), Toast.LENGTH_SHORT).show();
 
         //INFORMACION BASICA
         info.setText("El título del anime es " + anime.getTitulo() + "\n" +
@@ -61,7 +61,10 @@ public class DetailActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent modifyIntent = new Intent(getApplicationContext(),
+                        ModifyAnimeActivity.class);
+                modifyIntent.putExtra("anime", anime);
+                startActivity(modifyIntent);
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
