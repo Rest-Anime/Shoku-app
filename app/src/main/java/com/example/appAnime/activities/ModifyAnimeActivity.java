@@ -25,7 +25,11 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CreateAnimeActivity extends AppCompatActivity {
+public class ModifyAnimeActivity extends AppCompatActivity {
+    TextView lblname;
+    TextView lbltype;
+    TextView lblgr;
+
     EditText inTitle;
     AutoCompleteTextView genre;
     NumberPicker nEpisodios;
@@ -88,9 +92,14 @@ public class CreateAnimeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
+        setContentView(R.layout.activity_modify);
         bbdd = FirebaseDatabase.getInstance();
         reference = bbdd.getReference().child("Animes");
+
+        lblgr = findViewById(R.id.episodiosText);
+        lbltype = findViewById(R.id.generoLbl);
+        lblname = findViewById(R.id.tituloLbl);
+
         inTitle = findViewById(R.id.titulo);
         nEpisodios = findViewById(R.id.nEpisodiosCreate);
         nTemporadas = findViewById(R.id.nTemporadas);
@@ -111,12 +120,16 @@ public class CreateAnimeActivity extends AppCompatActivity {
         nEpisodios.setMinValue(1);
         nTemporadas.setMaxValue(10);
         nTemporadas.setMinValue(1);
+
+        Intent intent = getIntent();
+        Anime anime = (Anime) intent.getSerializableExtra("anime");
+        System.out.println(anime.toString());
     }
 
     @Override
     public void onBackPressed() {
         MaterialAlertDialogBuilder dialog =
-                new MaterialAlertDialogBuilder(CreateAnimeActivity.this);
+                new MaterialAlertDialogBuilder(ModifyAnimeActivity.this);
         dialog.setIcon(R.drawable.ic_dialog_close_dark);
         dialog.setTitle("Are you sure?");
         dialog.setMessage("Are you sure that you want to insert this order?");
@@ -124,10 +137,10 @@ public class CreateAnimeActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Snackbar.make(,"See you later", Snackbar.LENGTH_SHORT).show();
-                if (!inTitle.getText().toString().isEmpty()) {
+                if (inTitle.getText() != null) {
                     titulo = String.valueOf(inTitle.getText());
-                } else {
-                    titulo = "anonimo";
+                } else if (inTitle.getText().equals("Name") || inTitle.getText() == null) {
+                    titulo = "Anónimo";
                 }
 
                 duracion = nEpisodios.getValue();

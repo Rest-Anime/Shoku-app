@@ -14,7 +14,7 @@
     <string name="drawer_abrir">Se abre el drawer</string>
     <string name="drawer_cerrar">Se cierra el drawer</string>
 
-    <string-array name="geners">
+    <string-array name="genres">
         <item>Accion/Aventura</item>
         <item>Drama</item>
         <item>Fantasia</item>

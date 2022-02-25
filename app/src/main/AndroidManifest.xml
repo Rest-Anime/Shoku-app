@@ -14,13 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCoffee.NoActionBar">
         <activity android:name=".activities.LoginActivity">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
+
         </activity>
         <activity android:name=".activities.CreditsActivity" />
         <activity android:name=".activities.CreateAnimeActivity" />
+        <activity android:name=".activities.ModifyAnimeActivity" />
         <activity android:name=".activities.DetailActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
