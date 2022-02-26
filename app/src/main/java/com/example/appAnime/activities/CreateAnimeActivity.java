@@ -90,9 +90,9 @@ public class CreateAnimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create);
         bbdd = FirebaseDatabase.getInstance();
         reference = bbdd.getReference().child("Animes");
-        inTitle = findViewById(R.id.titulo);
-        nEpisodios = findViewById(R.id.nEpisodiosCreate);
-        nTemporadas = findViewById(R.id.nTemporadas);
+        inTitle = findViewById(R.id.inTitle);
+        nEpisodios = findViewById(R.id.picker);
+        nTemporadas = findViewById(R.id.picker2);
         genre = findViewById(R.id.act);
         imgMuestra = findViewById(R.id.imageView);
         rating = findViewById(R.id.ratingBar2);
@@ -146,6 +146,7 @@ public class CreateAnimeActivity extends AppCompatActivity {
                 if (lanzamiento == null) {
                     lanzamiento = new Date();
                 }
+
                 Anime newAnime = new Anime(titulo, descripcion, duracion, estudio, foto,
                         genero, sdf.format(lanzamiento), puntuacion, temporadas);
                 Intent intent = new Intent();

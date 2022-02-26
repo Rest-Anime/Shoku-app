@@ -287,15 +287,17 @@ public class MainActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                System.out.println(reference.getKey());
                 animeList.clear();
                 for (DataSnapshot son : snapshot.getChildren()) {
                     Anime anime = son.getValue(Anime.class);
+                    anime.setKey(son.getKey());
+                    System.out.println(anime.getKey());
                     animeList.add(anime);
                 }
                 animeAdapter = new AnimeAdapter(animeList, function);
                 recyclerView.setAdapter(animeAdapter);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
