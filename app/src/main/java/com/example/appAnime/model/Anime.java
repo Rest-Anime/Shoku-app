@@ -3,7 +3,10 @@ package com.example.appAnime.model;
 import java.io.Serializable;
 
 public class Anime implements Serializable {
+    private String key;
+
     private String titulo;
+
     private String descripcion;
     private int duracion;
     private String estudio;
@@ -12,7 +15,6 @@ public class Anime implements Serializable {
     private String lanzamiento;
     private int puntuacion;
     private int temporadas;
-
 
     public Anime() {
     }
@@ -28,6 +30,14 @@ public class Anime implements Serializable {
         this.lanzamiento = lanzamiento;
         this.puntuacion = puntuacion;
         this.temporadas = temporadas;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getTitulo() {

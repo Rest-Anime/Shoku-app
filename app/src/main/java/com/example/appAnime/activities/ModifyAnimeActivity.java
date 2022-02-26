@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ModifyAnimeActivity extends AppCompatActivity {
     EditText inTitle;
@@ -38,6 +39,7 @@ public class ModifyAnimeActivity extends AppCompatActivity {
     int temporadas;
     String descripcion;
     String estudio;
+    Anime anime;
     int puntuacion;
     int img;
     String foto = "https://t2.uc.ltmcdn" +
@@ -91,12 +93,12 @@ public class ModifyAnimeActivity extends AppCompatActivity {
         bbdd = FirebaseDatabase.getInstance();
         reference = bbdd.getReference().child("Animes");
         Intent intent = getIntent();
-        Anime anime = (Anime) intent.getSerializableExtra("anime");
-        inTitle = findViewById(R.id.titulo);
+        anime = (Anime) intent.getSerializableExtra("anime");
+        inTitle = findViewById(R.id.inTitle);
         inTitle.setText(anime.getTitulo());
-        nEpisodios = findViewById(R.id.nEpisodiosCreate);
+        nEpisodios = findViewById(R.id.picker2);
         nEpisodios.setValue(anime.getDuracion());
-        nTemporadas = findViewById(R.id.nTemporadas);
+        nTemporadas = findViewById(R.id.picker);
         nTemporadas.setValue(anime.getTemporadas());
         genre = findViewById(R.id.act);
         String[] generos = getResources().getStringArray(R.array.genres);
@@ -115,8 +117,10 @@ public class ModifyAnimeActivity extends AppCompatActivity {
 
         nEpisodios.setMaxValue(99);
         nEpisodios.setMinValue(1);
+        nEpisodios.setValue(anime.getDuracion());
         nTemporadas.setMaxValue(10);
         nTemporadas.setMinValue(1);
+        nTemporadas.setValue(anime.getTemporadas());
 
 
         System.out.println(anime.toString());
@@ -156,12 +160,24 @@ public class ModifyAnimeActivity extends AppCompatActivity {
                 if (lanzamiento == null) {
                     lanzamiento = new Date();
                 }
-                Anime newAnime = new Anime(titulo, descripcion, duracion, estudio, foto,
-                        genero, sdf.format(lanzamiento), puntuacion, temporadas);
-                Intent intent = new Intent();
-                intent.putExtra("anime", newAnime);
-                reference.push().setValue(newAnime);
-                setResult(RESULT_OK, intent);
+
+                reference = FirebaseDatabase.getInstance().getReference().child("Animes");
+                HashMap result = new HashMap<>();
+                result.put("descripcion", descripcion);
+                result.put("duracion", duracion);
+                result.put("estudio", estudio);
+                result.put("foto", foto);
+                result.put("genero", genero);
+                result.put("lanzamiento", sdf.format(lanzamiento));
+                result.put("puntuacion", puntuacion);
+                result.put("temporadas", temporadas);
+                result.put("titulo", titulo);
+
+
+                reference.child(anime.getKey()).updateChildren(result);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
             }
         });
