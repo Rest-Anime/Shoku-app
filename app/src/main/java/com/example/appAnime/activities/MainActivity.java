@@ -401,6 +401,10 @@ public class MainActivity extends AppCompatActivity {
                             CreditsActivity.class);
                     startActivity(launchCreate);
                     item.setChecked(false);
+                }  else if (id == R.id.fragment_first) {
+                    Intent launchMap = new Intent(getApplicationContext(), MapsActivity.class);
+                    startActivity(launchMap);
+                    item.setChecked(false);
                 }
 
                 return false;

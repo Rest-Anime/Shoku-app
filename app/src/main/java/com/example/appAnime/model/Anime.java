@@ -4,10 +4,9 @@ import java.io.Serializable;
 
 public class Anime implements Serializable {
     private String key;
-
     private String titulo;
-
     private String descripcion;
+    private String wiki;
     private int duracion;
     private String estudio;
     private String foto;
@@ -34,6 +33,14 @@ public class Anime implements Serializable {
 
     public String getKey() {
         return key;
+    }
+
+    public String getWiki() {
+        return wiki;
+    }
+
+    public void setWiki(String wiki) {
+        this.wiki = wiki;
     }
 
     public void setKey(String key) {

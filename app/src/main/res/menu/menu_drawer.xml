@@ -4,8 +4,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/fragment_first"
-            android:icon="@drawable/ic_baseline_login_24"
-            android:title="fragmento1" />/>
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="Mapa" />/>
         <item
             android:id="@+id/fragment_credits"
             android:icon="@drawable/ic_baseline_wysiwyg_24"
