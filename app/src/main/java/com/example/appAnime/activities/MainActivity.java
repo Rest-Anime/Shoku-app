@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase bbdd;
     DatabaseReference reference;
     int Code_Create_Anime = 2;
+    boolean listaEleccion;
 
 
     /*
@@ -123,10 +124,16 @@ public class MainActivity extends AppCompatActivity {
             };
 
     private EventsInterface function = (pos) -> {
-        Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
-        launchInfo.putExtra("anime", animeList.get(pos));
-        launchInfo.putExtra("pos", pos);
-        startActivity(launchInfo);
+        if(listaEleccion == false){
+            Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
+            launchInfo.putExtra("anime", animeList.get(pos));
+            launchInfo.putExtra("pos", pos);
+            startActivity(launchInfo);
+        }else{
+            Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
+            launchInfo.putExtra("anime", listaFiltrados.get(pos));
+            startActivity(launchInfo);
+        }
     };
 
     /*
@@ -223,17 +230,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Este método se llama cada vez que el texto de la barra de búsqueda cambia
-            //@Override
+            @Override
             public boolean onQueryTextChange(String newText) {
                /*TODO: Programar este metodo para que cuando el user escriba,
                se filtre la lista mostrando sólo aquellos cuyo nombre contenga el string incluido
                como parámetro de entrada (newText). No hacer una nueva petición, no es necesario.
                  */
-                System.out.println("Searching");
                 listaFiltrados.clear();
                 for (Anime a : animeList) {
                     if (a.getTitulo().toUpperCase().startsWith(newText.toUpperCase())) {
                         listaFiltrados.add(a);
+                        listaEleccion = true;
                     }
                 }
                 animeAdapter.setAnimeList(listaFiltrados);
@@ -259,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         fab = findViewById(R.id.fabMenu);
         drawer = findViewById(R.id.dl);
+        listaEleccion = false;
 
         appbarconfig = new AppBarConfiguration.Builder(R.id.fragment_credits, R.id.fragment_first
                 , R.id.fragment_logout).build();
