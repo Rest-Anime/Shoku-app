@@ -7,22 +7,23 @@ public class Anime implements Serializable {
     private String titulo;
     private String descripcion;
     private String wiki;
-    private int duracion;
+    private int episodios;
     private String estudio;
     private String foto;
     private String genero;
     private String lanzamiento;
     private int puntuacion;
     private int temporadas;
+    private String status;
 
     public Anime() {
     }
 
-    public Anime(String titulo, String descripcion, int duracion, String estudio, String foto,
+    public Anime(String titulo, String descripcion, int episodios, String estudio, String foto,
                  String genero, String lanzamiento, int puntuacion, int temporadas) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.duracion = duracion;
+        this.episodios = episodios;
         this.estudio = estudio;
         this.foto = foto;
         this.genero = genero;
@@ -30,6 +31,21 @@ public class Anime implements Serializable {
         this.puntuacion = puntuacion;
         this.temporadas = temporadas;
     }
+
+    public Anime(String titulo, String descripcion, int episodios, String estudio, String foto,
+                 String genero, String lanzamiento, int puntuacion, int temporadas, String status) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.episodios = episodios;
+        this.estudio = estudio;
+        this.foto = foto;
+        this.genero = genero;
+        this.lanzamiento = lanzamiento;
+        this.puntuacion = puntuacion;
+        this.temporadas = temporadas;
+        this.status = status;
+    }
+
 
     public String getKey() {
         return key;
@@ -63,12 +79,12 @@ public class Anime implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getDuracion() {
-        return duracion;
+    public int getEpisodios() {
+        return episodios;
     }
 
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
+    public void setEpisodios(int episodios) {
+        this.episodios = episodios;
     }
 
     public String getEstudio() {
@@ -111,18 +127,27 @@ public class Anime implements Serializable {
         this.temporadas = temporadas;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Anime{" +
                 "titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
-                ", duracion=" + duracion +
+                ", duracion=" + episodios +
                 ", estudio='" + estudio + '\'' +
                 ", foto='" + foto + '\'' +
                 ", genero='" + genero + '\'' +
                 ", lanzamiento='" + lanzamiento + '\'' +
                 ", puntuacion=" + puntuacion +
                 ", temporadas=" + temporadas +
+                ", status=" + status +
                 '}';
     }
 

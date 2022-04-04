@@ -8,5 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="NaranjaPrincipal">#FFAB5C</color>
+    <color name="NaranjaPrincipalOscuro">#A15D1D</color>
     <color name="AzulPrincipal">#80CFDB</color>
+
+    <color name="MagentaPrincipal">#C70039</color>
+    <color name="MagentaPrincipalOscuro">#700020</color>
+    <color name="TurquesaPrincipal">#00c78e</color>
 </resources>

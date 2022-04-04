@@ -36,7 +36,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     @NonNull
     @Override
     public AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int ViewType) {
-        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.anime_layout,
+        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_anime_simple,
                 parent, false);
         return new AnimeViewHolder(item);
     }
@@ -68,9 +68,9 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
 
         public AnimeViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.nameText = itemView.findViewById(R.id.name);
-            this.genresText = itemView.findViewById(R.id.genres);
-            this.seasonsText = itemView.findViewById(R.id.seasons);
+            this.nameText = itemView.findViewById(R.id.userTxt);
+            this.genresText = itemView.findViewById(R.id.animeReview);
+            this.seasonsText = itemView.findViewById(R.id.reviewTxt);
             this.starsBar = itemView.findViewById(R.id.ratingBar);
             this.coverImg = itemView.findViewById(R.id.cover1);
             itemView.setOnClickListener(this);

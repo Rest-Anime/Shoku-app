@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".activities.main.SettingsFragment">
+
+
+    <TextView
+        android:id="@+id/SettingsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        android:text="Settings"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/titleDisposicion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Disposicion:"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <ImageView
+            android:id="@+id/imgListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:scaleX="3"
+            android:scaleY="3"
+            android:src="@drawable/ic_baseline_view_day_24" />
+
+        <ImageView
+            android:id="@+id/imgGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:scaleX="3"
+            android:scaleY="3"
+            android:src="@drawable/ic_baseline_view_module_24" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/titleTemas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Temas:"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <Button
+            android:id="@+id/btnThemeMainOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/NaranjaPrincipal"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnThemeMainBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/AzulPrincipal"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnThemeMainWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnThemeMainDarkOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/NaranjaPrincipal"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnThemeMainDarkBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/AzulPrincipal"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnThemeMainDarkDarkGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/cardview_dark_background"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnThemeSecondMagenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/MagentaPrincipal"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnThemeSecondGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/TurquesaPrincipal"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/btnThemeSecondDarkGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/cardview_dark_background"
+            app:cornerRadius="@null"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/titleVolumen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volumen:"
+        android:textSize="16sp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgVolumenDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_volume_mute_24" />
+
+        <ImageView
+            android:id="@+id/imgVolumeUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_volume_up_24" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/titleRRSS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Redes Sociales"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/titleLegal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Créditos y Aviso Legal"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/titleCondiciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Condiciones del Servicio"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/titlePoliticas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Política de Privacidad"
+        android:textSize="16sp" />
+
+</LinearLayout>

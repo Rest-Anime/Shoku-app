@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.main.MainActivity"
+    tools:menu="@menu/menubottom">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rwr"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:elevation="4dp"
+        android:src="@android:drawable/ic_menu_add"
+        app:backgroundTint="#80CFDB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.893"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_delete"
+        android:visibility="invisible"
+        app:backgroundTint="#80CFDB"
+        app:layout_constraintBottom_toTopOf="@+id/fabCreate"
+        app:layout_constraintEnd_toEndOf="@+id/fabCreate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fabCreate" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_edit"
+        android:visibility="invisible"
+        app:backgroundTint="#80CFDB"
+        app:layout_constraintBottom_toTopOf="@+id/fabDelete"
+        app:layout_constraintEnd_toEndOf="@+id/fabCreate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fabDelete" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_add"
+        android:visibility="invisible"
+        app:backgroundTint="#80CFDB"
+        app:layout_constraintBottom_toTopOf="@+id/fabMenu"
+        app:layout_constraintEnd_toEndOf="@+id/fabMenu"
+        app:layout_constraintStart_toStartOf="@+id/fabMenu" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,14 @@
         <item>Romance</item>
         <item>Comedy</item>
     </string-array>
+
+    <string-array name="animeStatus">
+        <item>Watching</item>
+        <item>Completed</item>
+        <item>Plan to Watch</item>
+        <item>Dropped</item>
+        <item>On Hold</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
