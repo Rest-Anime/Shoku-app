@@ -1,4 +1,4 @@
-package com.example.appAnime.activities.main;
+package com.example.appAnime.activities.main.ui;
 
 import static android.app.Activity.RESULT_OK;
 

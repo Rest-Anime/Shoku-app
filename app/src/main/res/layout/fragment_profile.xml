@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:alpha=".75"
     android:orientation="vertical"
-    tools:context=".activities.main.ProfileFragment">
+    tools:context=".activities.main.ui.ProfileFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/imageButton"

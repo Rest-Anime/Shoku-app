@@ -1,4 +1,4 @@
-package com.example.appAnime.activities.main;
+package com.example.appAnime.activities.main.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.appAnime.databinding.FragmentHomeBinding;
+
 
 public class HomeFragment extends Fragment {
 
