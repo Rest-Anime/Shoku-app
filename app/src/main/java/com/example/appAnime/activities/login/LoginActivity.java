@@ -9,17 +9,20 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.appAnime.R;
 import com.example.appAnime.activities.login.ui.LoginFragment;
 import com.example.appAnime.activities.login.ui.RegisterFragment;
+import com.example.appAnime.databinding.ActivityLoginBinding;
 
 
 public class LoginActivity extends AppCompatActivity implements CallBackFragment {
 
+    private ActivityLoginBinding binding;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         loginFragment();
     }
 

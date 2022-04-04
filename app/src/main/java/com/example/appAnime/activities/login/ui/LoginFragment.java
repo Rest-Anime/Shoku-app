@@ -5,53 +5,48 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.appAnime.R;
 import com.example.appAnime.activities.login.CallBackFragment;
 import com.example.appAnime.activities.main.MainActivity;
+import com.example.appAnime.databinding.FragmentLoginBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginFragment extends Fragment {
 
+    private FragmentLoginBinding binding;
     CallBackFragment callBackFragment;
-    EditText email, password;
-    Button login, signup;
-    View view;
     FirebaseAuth auth;
-    FirebaseUser user;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_login, container, false);
-        email = view.findViewById(R.id.email);
-        password = view.findViewById(R.id.password);
-        login = view.findViewById(R.id.login);
-        signup = view.findViewById(R.id.signup);
+        binding = FragmentLoginBinding.inflate(getLayoutInflater());
         auth = FirebaseAuth.getInstance();
 
-        login.setOnClickListener(new View.OnClickListener() {
+        binding.login.setOnClickListener(new View.OnClickListener() {
+            String email = binding.email.getText().toString().trim();
+            String password = binding.password.getText().toString().trim();
+
             @Override
             public void onClick(View view) {
-                if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(getContext(),
+                            "No puede haber campos vacios",
+                            Toast.LENGTH_LONG).show();
                     return;
                 }
-                auth.signInWithEmailAndPassword(email.getText().toString().trim(),
-                        password.getText().toString()).addOnCompleteListener(task -> {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
                         Toast.makeText(getContext(),
-                                "ha habido un error " + task.getException().getLocalizedMessage(),
+                                "Se ha producido un error " + task.getException().getLocalizedMessage(),
                                 Toast.LENGTH_LONG).show();
                         return;
                     }
@@ -65,7 +60,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        binding.signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (callBackFragment != null) {
@@ -73,7 +68,7 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
-        return view;
+        return binding.getRoot();
     }
 
     public void setCallBackFragment(CallBackFragment callBackFragment) {

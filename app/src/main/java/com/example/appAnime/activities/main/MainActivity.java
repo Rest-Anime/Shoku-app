@@ -323,8 +323,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        appbarconfig = new AppBarConfiguration.Builder(R.id.fragment_credits, R.id.fragment_first
-                , R.id.fragment_logout).build();
+        appbarconfig = new AppBarConfiguration.Builder(R.id.credits, R.id.maps
+                , R.id.logout).build();
 
         //CREACION OBJETO RETROFIT PARA INSTANCIAR LA API
         retrofit = new Retrofit.Builder().baseUrl("https://proyect-anime-5daac-default-rtdb" +
@@ -462,16 +462,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 item.setChecked(true);
-                if (id == R.id.fragment_credits) {
+                if (id == R.id.credits) {
                     Intent launchCreate = new Intent(getApplicationContext(),
                             CreditsActivity.class);
                     startActivity(launchCreate);
                     item.setChecked(false);
-                } else if (id == R.id.fragment_first) {
+                } else if (id == R.id.maps) {
                     Intent launchMap = new Intent(getApplicationContext(), MapsActivity.class);
                     startActivity(launchMap);
                     item.setChecked(false);
-                } else if (id == R.id.fragment_logout) {
+                } else if (id == R.id.logout) {
                     finish();
                 } else if (id == R.id.visualization) {
                     if (visualizarLista) {

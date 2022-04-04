@@ -3,7 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/fragment_first"
+            android:id="@+id/maps"
             android:icon="@android:drawable/ic_dialog_map"
             android:title="Mapa" />/>
         <item
@@ -13,7 +13,7 @@
             android:actionLayout="@layout/spinner_drawer"
             />
         <item
-            android:id="@+id/fragment_credits"
+            android:id="@+id/credits"
             android:icon="@drawable/ic_baseline_wysiwyg_24"
             android:title="Credits" />/>
         <item
@@ -21,7 +21,7 @@
             android:icon="@drawable/ic_baseline_question_mark_24"
             android:title="FaQ" />/>
         <item
-            android:id="@+id/fragment_logout"
+            android:id="@+id/logout"
             android:icon="@drawable/ic_baseline_login_24"
             android:title="Log Out" />
     </group>
