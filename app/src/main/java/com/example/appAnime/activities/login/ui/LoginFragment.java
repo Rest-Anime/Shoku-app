@@ -32,11 +32,10 @@ public class LoginFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
 
         binding.login.setOnClickListener(new View.OnClickListener() {
-            String email = binding.email.getText().toString().trim();
-            String password = binding.password.getText().toString().trim();
-
             @Override
             public void onClick(View view) {
+                String email = binding.email.getText().toString().trim();
+                String password = binding.password.getText().toString().trim();
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getContext(),
                             "No puede haber campos vacios",
