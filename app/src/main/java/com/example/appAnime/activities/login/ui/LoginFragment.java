@@ -10,18 +10,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
-import com.example.appAnime.activities.login.CallBackFragment;
+import com.example.appAnime.R;
 import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.databinding.FragmentLoginBinding;
+import com.example.appAnime.model.Usuario;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;
-    CallBackFragment callBackFragment;
     FirebaseAuth auth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Nullable
@@ -49,12 +55,22 @@ public class LoginFragment extends Fragment {
                                 Toast.LENGTH_LONG).show();
                         return;
                     }
-                    Toast.makeText(getContext(), "Se ha logeado " +
-                                    "correctamente",
-                            Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    intent.putExtra("user", task.getResult().getUser());
-                    startActivity(intent);
+                    DocumentReference docRef =
+                            db.collection("usuarios").document(task.getResult().getUser().getUid());
+                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Usuario usuario = documentSnapshot.toObject(Usuario.class);
+                            usuario.setUid(documentSnapshot.getId());
+                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            intent.putExtra("logeado", usuario);
+                            Toast.makeText(getContext(), "Se ha logeado " +
+                                            "correctamente",
+                                    Toast.LENGTH_LONG).show();
+                            startActivity(intent);
+                            getActivity().finish();
+                        }
+                    });
                 });
             }
         });
@@ -62,15 +78,9 @@ public class LoginFragment extends Fragment {
         binding.signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (callBackFragment != null) {
-                    callBackFragment.changeRegisterFragment();
-                }
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
             }
         });
         return binding.getRoot();
-    }
-
-    public void setCallBackFragment(CallBackFragment callBackFragment) {
-        this.callBackFragment = callBackFragment;
     }
 }

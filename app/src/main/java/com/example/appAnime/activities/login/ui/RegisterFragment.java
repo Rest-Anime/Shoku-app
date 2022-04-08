@@ -9,19 +9,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
-import com.example.appAnime.activities.login.CallBackFragment;
+import com.example.appAnime.R;
 import com.example.appAnime.databinding.FragmentRegisterBinding;
+import com.example.appAnime.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterFragment extends Fragment {
 
     private FragmentRegisterBinding binding;
-    CallBackFragment callBackFragment;
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -55,19 +53,13 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getContext(), "Se ha creado una cuenta " +
                                     "nueva",
                             Toast.LENGTH_LONG).show();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("usuario", user);
-                    db.collection("usuarios").document(task.getResult().getUser().getUid()).set(data);
+                    Usuario usuario = new Usuario(task.getResult().getUser().getUid(), user);
+                    db.collection("usuarios").document(usuario.getUid()).set(usuario.setFirestore());
                 });
-                if (callBackFragment != null) {
-                    callBackFragment.changeLoginFragment();
-                }
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             }
         });
         return binding.getRoot();
     }
 
-    public void setCallBackFragment(CallBackFragment callBackFragment) {
-        this.callBackFragment = callBackFragment;
-    }
 }

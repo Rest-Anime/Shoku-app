@@ -1,67 +1,67 @@
 package com.example.appAnime.model;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Usuario implements Serializable {
-    private int userId;
-    private String name;
-    private String nick;
-    private String mail;
+
+    private String uid;
+    private String nombre;
+    private String usuario;
     private String foto;
-    private List<Anime> userAnimeList;
-    private List<Review> userReviewList;
+    private List<Anime> animes;
+    private List<Review> reviews;
+    private boolean admin;
 
     public Usuario() {
     }
 
-    public Usuario(int userId, String name, String nick, String mail, String foto) {
-        this.userId = userId;
-        this.name = name;
-        this.nick = nick;
-        this.mail = mail;
+    public Usuario(String uid, String nombre, String usuario, String foto, List<Anime> animes,
+                   List<Review> reviews, boolean admin) {
+        this.uid = uid;
+        this.nombre = nombre;
+        this.usuario = usuario;
         this.foto = foto;
+        this.animes = animes;
+        this.reviews = reviews;
+        this.admin = admin;
     }
 
-    public Usuario(int userId, String name, String nick, String mail, String foto, List<Anime> userAnimeList, List<Review> userReviewList) {
-        this.userId = userId;
-        this.name = name;
-        this.nick = nick;
-        this.mail = mail;
-        this.foto = foto;
-        this.userAnimeList = userAnimeList;
-        this.userReviewList = userReviewList;
+    public Usuario(String uid, String usuario) {
+        this.uid = uid;
+        this.usuario = usuario;
+        this.nombre = null;
+        this.foto = null;
+        this.animes = new ArrayList<>();
+        this.reviews = new ArrayList<>();
+        this.admin = false;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getNick() {
-        return nick;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getFoto() {
@@ -72,30 +72,51 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public List<Anime> getUserAnimeList() {
-        return userAnimeList;
+    public List<Anime> getAnimes() {
+        return animes;
     }
 
-    public void setUserAnimeList(List<Anime> userAnimeList) {
-        this.userAnimeList = userAnimeList;
+    public void setAnimes(List<Anime> animes) {
+        this.animes = animes;
     }
 
-    public List<Review> getUserReviewList() {
-        return userReviewList;
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    public void setUserReviewList(List<Review> userReviewList) {
-        this.userReviewList = userReviewList;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    public Map<String, Object> setFirestore() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("usuario", this.usuario);
+        data.put("nombre", this.nombre);
+        data.put("animes", this.animes);
+        data.put("reviews", this.reviews);
+        data.put("admin", this.admin);
+        data.put("foto", this.foto);
+        return data;
     }
 
     @Override
     public String toString() {
         return "Usuario{" +
-                "userId=" + userId +
-                ", name='" + name + '\'' +
-                ", nick='" + nick + '\'' +
-                ", mail='" + mail + '\'' +
+                "uid='" + uid + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", usuario='" + usuario + '\'' +
                 ", foto='" + foto + '\'' +
+                ", animes=" + animes +
+                ", reviews=" + reviews +
+                ", admin=" + admin +
                 '}';
     }
 }
