@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appAnime.R;
 import com.example.appAnime.activities.detail.CreateAnimeActivity;
 import com.example.appAnime.activities.detail.DetailActivity;
+import com.example.appAnime.activities.login.LoginActivity;
 import com.example.appAnime.activities.main.ui.HomeFragment;
 import com.example.appAnime.activities.main.ui.ProfileFragment;
 import com.example.appAnime.activities.main.ui.SettingsFragment;
@@ -462,35 +463,41 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 item.setChecked(true);
-                if (id == R.id.credits) {
-                    Intent launchCreate = new Intent(getApplicationContext(),
-                            CreditsActivity.class);
-                    startActivity(launchCreate);
-                    item.setChecked(false);
-                } else if (id == R.id.maps) {
-                    Intent launchMap = new Intent(getApplicationContext(), MapsActivity.class);
-                    startActivity(launchMap);
-                    item.setChecked(false);
-                } else if (id == R.id.logout) {
-                    finish();
-                } else if (id == R.id.visualization) {
-                    if (visualizarLista) {
-                        visualizarLista = false;
-                        recyclerView.setAdapter(animeAdapter);
-                        item.setIcon(R.drawable.ic_baseline_view_module_24);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                                DividerItemDecoration.VERTICAL));
-                    } else {
-                        visualizarLista = true;
-                        recyclerView.setAdapter(animeAdapter);
-                        item.setIcon(R.drawable.ic_baseline_view_day_24);
-                        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
-                        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                                DividerItemDecoration.VERTICAL));
-                    }
+                switch (id) {
+                    case R.id.credits:
+                        Intent launchCreate = new Intent(getApplicationContext(),
+                                CreditsActivity.class);
+                        startActivity(launchCreate);
+                        item.setChecked(false);
+                        break;
+                    case R.id.maps:
+                        Intent launchMap = new Intent(getApplicationContext(), MapsActivity.class);
+                        startActivity(launchMap);
+                        item.setChecked(false);
+                        break;
+                    case R.id.logout:
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case R.id.visualization:
+                        if (visualizarLista) {
+                            visualizarLista = false;
+                            recyclerView.setAdapter(animeAdapter);
+                            item.setIcon(R.drawable.ic_baseline_view_module_24);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                                    DividerItemDecoration.VERTICAL));
+                        } else {
+                            visualizarLista = true;
+                            recyclerView.setAdapter(animeAdapter);
+                            item.setIcon(R.drawable.ic_baseline_view_day_24);
+                            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                            recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                                    DividerItemDecoration.VERTICAL));
+                        }
+                        break;
                 }
-
                 return false;
             }
         });
