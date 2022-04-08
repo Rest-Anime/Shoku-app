@@ -1,5 +1,6 @@
 package com.example.appAnime.activities.login.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class RegisterFragment extends Fragment {
 
     private FragmentRegisterBinding binding;
+    Context context;
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -37,20 +39,19 @@ public class RegisterFragment extends Fragment {
                 String password = binding.password.getText().toString().trim();
                 String user = binding.user.getText().toString().trim();
                 if (email.isEmpty() || password.isEmpty() || user.isEmpty()) {
-                    Toast.makeText(getContext(),
+                    Toast.makeText(context,
                             "No puede haber campos vacios",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        Toast.makeText(getContext(),
+                        Toast.makeText(context,
                                 "Se ha producido un error " + task.getException().getLocalizedMessage(),
                                 Toast.LENGTH_LONG).show();
                         return;
                     }
-
-                    Toast.makeText(getContext(), "Se ha creado una cuenta " +
+                    Toast.makeText(context, "Se ha creado una cuenta " +
                                     "nueva",
                             Toast.LENGTH_LONG).show();
                     Usuario usuario = new Usuario(task.getResult().getUser().getUid(), user);
@@ -62,4 +63,9 @@ public class RegisterFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        this.context = context;
+        super.onAttach(context);
+    }
 }

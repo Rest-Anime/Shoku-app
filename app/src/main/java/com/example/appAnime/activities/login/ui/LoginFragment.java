@@ -1,5 +1,6 @@
 package com.example.appAnime.activities.login.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Context context;
 
 
     @Nullable
@@ -43,14 +45,14 @@ public class LoginFragment extends Fragment {
                 String email = binding.email.getText().toString().trim();
                 String password = binding.password.getText().toString().trim();
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(getContext(),
+                    Toast.makeText(context,
                             "No puede haber campos vacios",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        Toast.makeText(getContext(),
+                        Toast.makeText(context,
                                 "Se ha producido un error " + task.getException().getLocalizedMessage(),
                                 Toast.LENGTH_LONG).show();
                         return;
@@ -62,9 +64,9 @@ public class LoginFragment extends Fragment {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             Usuario usuario = documentSnapshot.toObject(Usuario.class);
                             usuario.setUid(documentSnapshot.getId());
-                            Intent intent = new Intent(getContext(), MainActivity.class);
+                            Intent intent = new Intent(context, MainActivity.class);
                             intent.putExtra("logeado", usuario);
-                            Toast.makeText(getContext(), "Se ha logeado " +
+                            Toast.makeText(context, "Se ha logeado " +
                                             "correctamente",
                                     Toast.LENGTH_LONG).show();
                             startActivity(intent);
@@ -82,5 +84,11 @@ public class LoginFragment extends Fragment {
             }
         });
         return binding.getRoot();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        this.context = context;
+        super.onAttach(context);
     }
 }
