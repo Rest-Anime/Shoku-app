@@ -17,8 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appAnime.R;
 import com.example.appAnime.model.Anime;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -34,9 +33,10 @@ public class CreateAnimeActivity extends AppCompatActivity {
     RatingBar rating;
     Date lanzamiento;
     String titulo;
-    int duracion;
+    int episodios;
     int temporadas;
     String descripcion;
+    FirebaseFirestore db;
     String estudio;
     int puntuacion;
     int img;
@@ -45,13 +45,10 @@ public class CreateAnimeActivity extends AppCompatActivity {
             ".jpg";
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    FirebaseDatabase bbdd;
-    DatabaseReference reference;
 
     AdapterView.OnItemClickListener funcionSpinner = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
             genero = (String) parent.getItemAtPosition(position);
             if (genero.equals("Accion/Aventura")) {
                 Picasso.get().load(R.drawable.armoredchibi).into(imgMuestra);
@@ -87,9 +84,9 @@ public class CreateAnimeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        db = (FirebaseFirestore) intent.getSerializableExtra("db");
         setContentView(R.layout.activity_create);
-        bbdd = FirebaseDatabase.getInstance();
-        reference = bbdd.getReference().child("Animes");
         inTitle = findViewById(R.id.inTitle);
         nEpisodios = findViewById(R.id.picker);
         nTemporadas = findViewById(R.id.picker2);
@@ -129,17 +126,17 @@ public class CreateAnimeActivity extends AppCompatActivity {
                     titulo = "Anónimo";
                 }
 
-                duracion = nEpisodios.getValue();
+                episodios = nEpisodios.getValue();
                 temporadas = nTemporadas.getValue();
                 puntuacion = (int) rating.getRating();
 
                 if (descripcion == null) {
-                    descripcion = "No se conoce nada sobre este anime. Como con tu crush";
+                    descripcion = "No se conoce nada sobre este anime.";
                 } else {
                     //pillar valor del formulario
                 }
                 if (estudio == null) {
-                    estudio = "Desconocido. Como la motivación de tu vida.";
+                    estudio = "Desconocido.";
                 } else {
                     //pillar valor del formulario
                 }
@@ -147,11 +144,11 @@ public class CreateAnimeActivity extends AppCompatActivity {
                     lanzamiento = new Date();
                 }
 
-                Anime newAnime = new Anime(titulo, descripcion, duracion, estudio, foto,
+                Anime newAnime = new Anime(titulo, descripcion, episodios, estudio, foto,
                         genero, sdf.format(lanzamiento), puntuacion, temporadas);
                 Intent intent = new Intent();
                 intent.putExtra("anime", newAnime);
-                reference.push().setValue(newAnime);
+                db.collection("animes").add(newAnime.setFirestore());
                 setResult(RESULT_OK, intent);
                 finish();
             }

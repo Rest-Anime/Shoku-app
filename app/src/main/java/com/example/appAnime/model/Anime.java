@@ -1,6 +1,8 @@
 package com.example.appAnime.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Anime implements Serializable {
     private String uid;
@@ -16,36 +18,21 @@ public class Anime implements Serializable {
     private int temporadas;
     private String estado;
 
+    public Anime(String titulo, String descripcion, int episodios, String estudio, String foto,
+                 String genero, String format, int puntuacion, int temporadas) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.episodios = episodios;
+        this.estudio = estudio;
+        this.foto = foto;
+        this.genero = genero;
+        this.lanzamiento = format;
+        this.puntuacion = puntuacion;
+        this.temporadas = temporadas;
+    }
+
     public Anime() {
     }
-
-    public Anime(String titulo, String descripcion, int episodios, String estudio, String foto,
-                 String genero, String lanzamiento, int puntuacion, int temporadas) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.episodios = episodios;
-        this.estudio = estudio;
-        this.foto = foto;
-        this.genero = genero;
-        this.lanzamiento = lanzamiento;
-        this.puntuacion = puntuacion;
-        this.temporadas = temporadas;
-    }
-
-    public Anime(String titulo, String descripcion, int episodios, String estudio, String foto,
-                 String genero, String lanzamiento, int puntuacion, int temporadas, String estado) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.episodios = episodios;
-        this.estudio = estudio;
-        this.foto = foto;
-        this.genero = genero;
-        this.lanzamiento = lanzamiento;
-        this.puntuacion = puntuacion;
-        this.temporadas = temporadas;
-        this.estado = estado;
-    }
-
 
     public String getUid() {
         return uid;
@@ -135,27 +122,26 @@ public class Anime implements Serializable {
         this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "Anime{" +
-                "titulo='" + titulo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", duracion=" + episodios +
-                ", estudio='" + estudio + '\'' +
-                ", foto='" + foto + '\'' +
-                ", genero='" + genero + '\'' +
-                ", lanzamiento='" + lanzamiento + '\'' +
-                ", puntuacion=" + puntuacion +
-                ", temporadas=" + temporadas +
-                ", status=" + estado +
-                '}';
-    }
-
     public String getFoto() {
         return foto;
     }
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Map<String, Object> setFirestore() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("titulo", this.titulo);
+        data.put("descripcion", this.descripcion);
+        data.put("episodios", this.episodios);
+        data.put("estudio", this.estudio);
+        data.put("foto", this.foto);
+        data.put("genero", this.genero);
+        data.put("lanzamiento", this.lanzamiento);
+        data.put("puntuacion", this.puntuacion);
+        data.put("temporadas", this.temporadas);
+        data.put("estado", this.estado);
+        return data;
     }
 }
