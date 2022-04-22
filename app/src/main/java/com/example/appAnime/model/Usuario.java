@@ -1,7 +1,5 @@
 package com.example.appAnime.model;
 
-import com.google.firebase.auth.FirebaseUser;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +8,6 @@ import java.util.Map;
 
 public class Usuario implements Serializable {
 
-    private FirebaseUser firebaseUser;
     private String nombre;
     private String usuario;
     private String foto;
@@ -18,9 +15,11 @@ public class Usuario implements Serializable {
     private List<Review> reviews;
     private boolean admin;
 
-    public Usuario(FirebaseUser firebaseUser, String nombre, String usuario, String foto,
+    public Usuario() {
+    }
+
+    public Usuario(String nombre, String usuario, String foto,
                    List<Anime> animes, List<Review> reviews, boolean admin) {
-        this.firebaseUser = firebaseUser;
         this.nombre = nombre;
         this.usuario = usuario;
         this.foto = foto;
@@ -29,22 +28,13 @@ public class Usuario implements Serializable {
         this.admin = admin;
     }
 
-    public Usuario(FirebaseUser firebaseUser, String usuario) {
-        this.firebaseUser = firebaseUser;
+    public Usuario(String usuario) {
         this.nombre = null;
         this.usuario = usuario;
         this.foto = null;
         this.animes = new ArrayList<>();
         this.reviews = new ArrayList<>();
         this.admin = false;
-    }
-
-    public FirebaseUser getFirebaseUser() {
-        return firebaseUser;
-    }
-
-    public void setFirebaseUser(FirebaseUser firebaseUser) {
-        this.firebaseUser = firebaseUser;
     }
 
     public String getNombre() {

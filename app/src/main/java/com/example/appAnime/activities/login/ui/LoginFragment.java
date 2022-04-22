@@ -62,9 +62,9 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             Usuario usuario = documentSnapshot.toObject(Usuario.class);
-                            usuario.setFirebaseUser(task.getResult().getUser());
                             Intent intent = new Intent(context, MainActivity.class);
                             intent.putExtra("logeado", usuario);
+                            intent.putExtra("firebaseUser", task.getResult().getUser());
                             Toast.makeText(context, "Se ha logeado " +
                                             "correctamente",
                                     Toast.LENGTH_LONG).show();
