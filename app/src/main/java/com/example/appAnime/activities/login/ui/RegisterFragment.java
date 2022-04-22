@@ -54,8 +54,8 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(context, "Se ha creado una cuenta " +
                                     "nueva",
                             Toast.LENGTH_LONG).show();
-                    Usuario usuario = new Usuario(task.getResult().getUser().getUid(), user);
-                    db.collection("usuarios").document(usuario.getUid()).set(usuario.setFirestore());
+                    Usuario usuario = new Usuario(task.getResult().getUser(), user);
+                    db.collection("usuarios").document(usuario.getFirebaseUser().getUid()).set(usuario.setFirestore());
                 });
                 Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             }

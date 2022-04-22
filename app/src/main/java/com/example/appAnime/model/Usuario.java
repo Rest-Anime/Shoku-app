@@ -1,5 +1,7 @@
 package com.example.appAnime.model;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +10,7 @@ import java.util.Map;
 
 public class Usuario implements Serializable {
 
-    private String uid;
+    private FirebaseUser firebaseUser;
     private String nombre;
     private String usuario;
     private String foto;
@@ -16,12 +18,9 @@ public class Usuario implements Serializable {
     private List<Review> reviews;
     private boolean admin;
 
-    public Usuario() {
-    }
-
-    public Usuario(String uid, String nombre, String usuario, String foto, List<Anime> animes,
-                   List<Review> reviews, boolean admin) {
-        this.uid = uid;
+    public Usuario(FirebaseUser firebaseUser, String nombre, String usuario, String foto,
+                   List<Anime> animes, List<Review> reviews, boolean admin) {
+        this.firebaseUser = firebaseUser;
         this.nombre = nombre;
         this.usuario = usuario;
         this.foto = foto;
@@ -30,22 +29,22 @@ public class Usuario implements Serializable {
         this.admin = admin;
     }
 
-    public Usuario(String uid, String usuario) {
-        this.uid = uid;
-        this.usuario = usuario;
+    public Usuario(FirebaseUser firebaseUser, String usuario) {
+        this.firebaseUser = firebaseUser;
         this.nombre = null;
+        this.usuario = usuario;
         this.foto = null;
         this.animes = new ArrayList<>();
         this.reviews = new ArrayList<>();
         this.admin = false;
     }
 
-    public String getUid() {
-        return uid;
+    public FirebaseUser getFirebaseUser() {
+        return firebaseUser;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setFirebaseUser(FirebaseUser firebaseUser) {
+        this.firebaseUser = firebaseUser;
     }
 
     public String getNombre() {
@@ -107,16 +106,5 @@ public class Usuario implements Serializable {
         return data;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "uid='" + uid + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", usuario='" + usuario + '\'' +
-                ", foto='" + foto + '\'' +
-                ", animes=" + animes +
-                ", reviews=" + reviews +
-                ", admin=" + admin +
-                '}';
-    }
+
 }
