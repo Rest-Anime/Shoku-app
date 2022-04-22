@@ -175,7 +175,7 @@ public class ModifyAnimeActivity extends AppCompatActivity {
                 result.put("titulo", titulo);
 
 
-                reference.child(anime.getKey()).updateChildren(result);
+                reference.child(anime.getUid()).updateChildren(result);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

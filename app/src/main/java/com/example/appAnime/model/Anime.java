@@ -3,7 +3,7 @@ package com.example.appAnime.model;
 import java.io.Serializable;
 
 public class Anime implements Serializable {
-    private String key;
+    private String uid;
     private String titulo;
     private String descripcion;
     private String wiki;
@@ -14,7 +14,7 @@ public class Anime implements Serializable {
     private String lanzamiento;
     private int puntuacion;
     private int temporadas;
-    private String status;
+    private String estado;
 
     public Anime() {
     }
@@ -33,7 +33,7 @@ public class Anime implements Serializable {
     }
 
     public Anime(String titulo, String descripcion, int episodios, String estudio, String foto,
-                 String genero, String lanzamiento, int puntuacion, int temporadas, String status) {
+                 String genero, String lanzamiento, int puntuacion, int temporadas, String estado) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.episodios = episodios;
@@ -43,12 +43,16 @@ public class Anime implements Serializable {
         this.lanzamiento = lanzamiento;
         this.puntuacion = puntuacion;
         this.temporadas = temporadas;
-        this.status = status;
+        this.estado = estado;
     }
 
 
-    public String getKey() {
-        return key;
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getWiki() {
@@ -57,10 +61,6 @@ public class Anime implements Serializable {
 
     public void setWiki(String wiki) {
         this.wiki = wiki;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     public String getTitulo() {
@@ -127,12 +127,12 @@ public class Anime implements Serializable {
         this.temporadas = temporadas;
     }
 
-    public String getStatus() {
-        return status;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     @Override
@@ -147,7 +147,7 @@ public class Anime implements Serializable {
                 ", lanzamiento='" + lanzamiento + '\'' +
                 ", puntuacion=" + puntuacion +
                 ", temporadas=" + temporadas +
-                ", status=" + status +
+                ", status=" + estado +
                 '}';
     }
 

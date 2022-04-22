@@ -26,11 +26,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginFragment extends Fragment {
 
-    private FragmentLoginBinding binding;
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Context context;
-
+    private FragmentLoginBinding binding;
 
     @Nullable
     @Override

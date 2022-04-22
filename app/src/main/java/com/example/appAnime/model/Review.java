@@ -1,8 +1,9 @@
 package com.example.appAnime.model;
+
 import java.io.Serializable;
 
 public class Review implements Serializable {
-    private int reviewId;
+    private int uid;
     private String title;
     private String review;
     private int rating;
@@ -12,8 +13,9 @@ public class Review implements Serializable {
     public Review() {
     }
 
-    public Review(int reviewId, String title, String review, int rating, Anime anime, Usuario user) {
-        this.reviewId = reviewId;
+    public Review(int uid, String title, String review, int rating, Anime anime,
+                  Usuario user) {
+        this.uid = uid;
         this.title = title;
         this.review = review;
         this.rating = rating;
@@ -21,12 +23,12 @@ public class Review implements Serializable {
         this.user = user;
     }
 
-    public int getReviewId() {
-        return reviewId;
+    public int getUid() {
+        return uid;
     }
 
-    public void setReviewId(int reviewId) {
-        this.reviewId = reviewId;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getTitle() {
@@ -68,7 +70,7 @@ public class Review implements Serializable {
     @Override
     public String toString() {
         return "Review{" +
-                "reviewId=" + reviewId +
+                "reviewId=" + uid +
                 ", title='" + title + '\'' +
                 ", review='" + review + '\'' +
                 ", rating=" + rating +

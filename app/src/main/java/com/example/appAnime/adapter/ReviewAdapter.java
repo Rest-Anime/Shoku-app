@@ -45,12 +45,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         Review actualReview = reviewList.get(position);
         holder.getReviewTitleText().setText(actualReview.getTitle());
         holder.getRateText().setText("rate: " + String.valueOf(actualReview.getRating()));
-        holder.getUserText().setText(actualReview.getReview()); //hay que crear el atributo user en la clase review
+        holder.getUserText().setText(actualReview.getReview()); //hay que crear el atributo user
+        // en la clase review
         holder.getAnimeText().setText(actualReview.getAnime().getTitulo());
         holder.getReviewDescText().setText(actualReview.getReview());
 
         //La url de la imagen
-        String UrlImagen = String.valueOf(actualReview.getTitle()); //aqui habria que pillar la imagen del user, aun por crear
+        String UrlImagen = String.valueOf(actualReview.getTitle()); //aqui habria que pillar la
+        // imagen del user, aun por crear
         Picasso.get().load(UrlImagen).into(holder.getCoverImg());
     }
 

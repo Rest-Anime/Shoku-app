@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,11 +54,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,11 +100,10 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase bbdd;
     FirebaseAuth auth;
     FirebaseUser user;
-    DatabaseReference reference;
     int Code_Create_Anime = 2;
     boolean listaEleccion, visualizarLista, userAdmin;
     LinearLayout visualizationMode;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     /*
         El evento OnPrepared se lanzaría una vez, cuando el mp se encuentra listo para
@@ -342,28 +343,24 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         bbdd = FirebaseDatabase.getInstance();
-        reference = bbdd.getReference().child("Animes");
         recyclerView.setAdapter(animeAdapter);
         recyclerView.setVisibility(View.VISIBLE);
-        reference.addValueEventListener(new ValueEventListener() {
+
+        db.collection("animes").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onEvent(@Nullable QuerySnapshot value,
+                                @Nullable FirebaseFirestoreException error) {
                 animeList.clear();
-                for (DataSnapshot son : snapshot.getChildren()) {
-                    Anime anime = son.getValue(Anime.class);
-                    anime.setKey(son.getKey());
-                    System.out.println(anime.getKey());
+                for (QueryDocumentSnapshot doc : value) {
+                    Anime anime = doc.toObject(Anime.class);
+                    anime.setUid(doc.getId());
                     animeList.add(anime);
                 }
+                Log.e("a", animeList.toString());
                 animeAdapter = new AnimeAdapter(animeList, function);
-                //animeAdapterCompact = new AnimeAdapter(animeList, function);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
 
         rotopen = AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim);
         rotclose = AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim);
@@ -383,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
                     DividerItemDecoration.VERTICAL));
         }
 
-/*        animeAdapter = new AnimeAdapter(animeList, function);
+        /* animeAdapter = new AnimeAdapter(animeList, function);
         recyclerView.setAdapter(animeAdapter);*/
 
 

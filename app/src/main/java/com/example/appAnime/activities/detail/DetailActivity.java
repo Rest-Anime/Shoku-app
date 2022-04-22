@@ -65,6 +65,20 @@ public class DetailActivity extends AppCompatActivity {
     int puntuacion;
     List<Integer> listaWalls;
 
+    public static List<Integer> getDrawablesList() throws IllegalAccessException,
+            InvocationTargetException, InstantiationException {
+        Class<R.drawable> drawableClass = R.drawable.class;
+        R.drawable instance = (R.drawable) drawableClass.getDeclaredConstructors()[0].newInstance();
+        List<Integer> drawables = new ArrayList<>();
+        for (Field field : drawableClass.getDeclaredFields()) {
+            if (field.getName().contains("minimalist_wp")) {
+                int value = field.getInt(instance);
+                drawables.add(value);
+            }
+        }
+        return drawables;
+    }
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,10 +162,10 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 reviewList.clear();
-                for (DataSnapshot son : snapshot.getChildren()){
+                for (DataSnapshot son : snapshot.getChildren()) {
                     Review review = son.getValue(Review.class);
-                    review.setReviewId(Integer.parseInt(son.getKey()));
-                    System.out.println(review.getReviewId());
+                    review.setUid(Integer.parseInt(son.getKey()));
+                    System.out.println(review.getUid());
                     reviewList.add(review);
                 }
                 reviewAdapter = new ReviewAdapter(reviewList, function);
@@ -205,9 +219,9 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        if(userAdmin){
+        if (userAdmin) {
             layoutAdmin.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             layoutAdmin.setVisibility(View.VISIBLE);
         }
 
@@ -223,7 +237,8 @@ public class DetailActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference = FirebaseDatabase.getInstance().getReference().child("Animes").orderByChild("titulo").equalTo(anime.getTitulo());
+                reference =
+                        FirebaseDatabase.getInstance().getReference().child("Animes").orderByChild("titulo").equalTo(anime.getTitulo());
                 reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -245,17 +260,19 @@ public class DetailActivity extends AppCompatActivity {
         addReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(DetailActivity.this);
+                MaterialAlertDialogBuilder dialog =
+                        new MaterialAlertDialogBuilder(DetailActivity.this);
                 dialog.setIcon(R.drawable.ic_dialog_close_dark);
                 dialog.setTitle("Are you sure?");
                 dialog.setMessage("Are you sure that you want to insert this review?");
                 dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Snackbar.make(view,"Reseña añadida con éxito", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(view, "Reseña añadida con éxito", Snackbar.LENGTH_SHORT).show();
 
-                        puntuacion = 3; //hacer que pille la puntuacion que el user le dio al anime en el que esta
-                        tituloReview = String.valueOf(reviewList.size()+1);
+                        puntuacion = 3; //hacer que pille la puntuacion que el user le dio al
+                        // anime en el que esta
+                        tituloReview = String.valueOf(reviewList.size() + 1);
                         if (descripcion == null) {
                             descripcion = "No se conoce nada sobre este anime. Como con tu crush"; //hacer que le salte una alerta para que escriba la reseña
                         } else {
@@ -265,12 +282,13 @@ public class DetailActivity extends AppCompatActivity {
                         reference2 = FirebaseDatabase.getInstance().getReference().child("Reviews");
                         HashMap result = new HashMap<>();
                         result.put("descripcion", descripcion);
-                        result.put("foto", foto); //poner que pille la foto del usuario que crea la reseña
+                        result.put("foto", foto); //poner que pille la foto del usuario que crea
+                        // la reseña
                         result.put("puntuacion", puntuacion);
                         result.put("titulo", tituloReview);
 
 
-                        reference2.child(String.valueOf(review.getReviewId())).updateChildren(result);
+                        reference2.child(String.valueOf(review.getUid())).updateChildren(result);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -289,20 +307,10 @@ public class DetailActivity extends AppCompatActivity {
         });
 
     }
-    public String getURLForResource (int resourceId) {
-        //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are not same
-        return Uri.parse("android.resource://"+R.class.getPackage().getName()+"/" +resourceId).toString();
-    }
-    public static List<Integer> getDrawablesList() throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        Class<R.drawable> drawableClass = R.drawable.class;
-        R.drawable instance = (R.drawable) drawableClass.getDeclaredConstructors()[0].newInstance();
-        List<Integer> drawables = new ArrayList<>();
-        for (Field field : drawableClass.getDeclaredFields()) {
-            if(field.getName().contains("minimalist_wp")) {
-                int value = field.getInt(instance);
-                drawables.add(value);
-            }
-        }
-        return drawables;
+
+    public String getURLForResource(int resourceId) {
+        //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are
+        // not same
+        return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
     }
 }

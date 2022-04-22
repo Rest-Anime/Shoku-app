@@ -20,10 +20,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterFragment extends Fragment {
 
-    private FragmentRegisterBinding binding;
     Context context;
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FragmentRegisterBinding binding;
 
     @Nullable
     @Override
