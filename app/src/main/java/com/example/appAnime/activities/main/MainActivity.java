@@ -448,7 +448,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent launchCreate = new Intent(getApplicationContext(),
                                 CreateAnimeActivity.class);
-                        launchCreate.putExtra("db", (Serializable) db);
                         startActivityForResult(launchCreate, Code_Create_Anime);
                     }
                 });

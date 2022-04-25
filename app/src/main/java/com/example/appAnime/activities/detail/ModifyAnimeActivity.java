@@ -18,13 +18,12 @@ import com.example.appAnime.R;
 import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.model.Anime;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 public class ModifyAnimeActivity extends AppCompatActivity {
     EditText inTitle;
@@ -36,11 +35,12 @@ public class ModifyAnimeActivity extends AppCompatActivity {
     RatingBar rating;
     Date lanzamiento;
     String titulo;
-    int duracion;
+    int episodios;
     int temporadas;
     String descripcion;
     String estudio;
     Anime anime;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     int puntuacion;
     int img;
     String foto = "https://t2.uc.ltmcdn" +
@@ -49,7 +49,6 @@ public class ModifyAnimeActivity extends AppCompatActivity {
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     FirebaseDatabase bbdd;
-    DatabaseReference reference;
 
     AdapterView.OnItemClickListener funcionSpinner = new AdapterView.OnItemClickListener() {
         @Override
@@ -92,7 +91,6 @@ public class ModifyAnimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify);
         bbdd = FirebaseDatabase.getInstance();
-        reference = bbdd.getReference().child("Animes");
         Intent intent = getIntent();
         anime = (Anime) intent.getSerializableExtra("anime");
         inTitle = findViewById(R.id.inTitle);
@@ -144,7 +142,7 @@ public class ModifyAnimeActivity extends AppCompatActivity {
                     titulo = "Anónimo";
                 }
 
-                duracion = nEpisodios.getValue();
+                episodios = nEpisodios.getValue();
                 temporadas = nTemporadas.getValue();
                 puntuacion = (int) rating.getRating();
 
@@ -161,21 +159,9 @@ public class ModifyAnimeActivity extends AppCompatActivity {
                 if (lanzamiento == null) {
                     lanzamiento = new Date();
                 }
-
-                reference = FirebaseDatabase.getInstance().getReference().child("Animes");
-                HashMap result = new HashMap<>();
-                result.put("descripcion", descripcion);
-                result.put("duracion", duracion);
-                result.put("estudio", estudio);
-                result.put("foto", foto);
-                result.put("genero", genero);
-                result.put("lanzamiento", sdf.format(lanzamiento));
-                result.put("puntuacion", puntuacion);
-                result.put("temporadas", temporadas);
-                result.put("titulo", titulo);
-
-
-                reference.child(anime.getUid()).updateChildren(result);
+                Anime animeMod = new Anime(titulo, descripcion, episodios, estudio, foto, genero,
+                        sdf.format(lanzamiento), puntuacion, temporadas);
+                db.collection("animes").document(anime.getUid()).set(animeMod.setFirestore());
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

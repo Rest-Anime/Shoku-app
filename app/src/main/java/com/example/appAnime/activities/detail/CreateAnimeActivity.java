@@ -36,7 +36,7 @@ public class CreateAnimeActivity extends AppCompatActivity {
     int episodios;
     int temporadas;
     String descripcion;
-    FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     String estudio;
     int puntuacion;
     int img;
@@ -85,7 +85,6 @@ public class CreateAnimeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        db = (FirebaseFirestore) intent.getSerializableExtra("db");
         setContentView(R.layout.activity_create);
         inTitle = findViewById(R.id.inTitle);
         nEpisodios = findViewById(R.id.picker);
@@ -93,7 +92,6 @@ public class CreateAnimeActivity extends AppCompatActivity {
         genre = findViewById(R.id.act);
         imgMuestra = findViewById(R.id.imageView);
         rating = findViewById(R.id.ratingBar2);
-
         descripcion = null;
         estudio = null;
         lanzamiento = null;

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Field;
@@ -58,6 +58,7 @@ public class DetailActivity extends AppCompatActivity {
     Button edit, delete;
     RecyclerView recycler;
     boolean isFav, userAdmin;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     Query reference;
     String descripcion, tituloReview;
     View foto;
@@ -237,23 +238,8 @@ public class DetailActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference =
-                        FirebaseDatabase.getInstance().getReference().child("Animes").orderByChild("titulo").equalTo(anime.getTitulo());
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
-                            appleSnapshot.getRef().removeValue();
-                        }
-                        finish();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.e("ERROR", "onCancelled", databaseError.toException());
-                    }
-                });
-
+                db.collection("animes").document(anime.getUid()).delete();
+                finish();
             }
         });
 
