@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,6 +66,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
+        setHasOptionsMenu(true);
         RecyclerView recyclerView = binding.rwr;
 
         //region FIRESTORE
@@ -130,5 +134,37 @@ public class HomeFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         this.context = context;
         super.onAttach(context);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem searchItem = menu.findItem(R.id.app_bar_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            // Este método se llama cada vez que el texto de la barra de búsqueda cambia
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                listaFiltrados.clear();
+                for (Anime a : animeList) {
+                    if (a.getTitulo().toUpperCase().startsWith(newText.toUpperCase())) {
+                        listaFiltrados.add(a);
+                        listaEleccion = true;
+                    }
+                }
+                animeAdapter.setAnimeList(listaFiltrados);
+                animeAdapter.notifyDataSetChanged();
+
+                return false;
+            }
+
+        });
     }
 }

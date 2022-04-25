@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -29,9 +28,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
@@ -165,38 +161,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         System.out.println("Inflate");
         getMenuInflater().inflate(R.menu.menuconfig, menu);
-        searchItem = menu.findItem(R.id.app_bar_search);
-        System.out.println(searchItem == null);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        // Este método se llama cuando se pulsa el botón de buscar.
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            // Este método se llama cada vez que el texto de la barra de búsqueda cambia
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                listaFiltrados.clear();
-                for (Anime a : animeList) {
-                    if (a.getTitulo().toUpperCase().startsWith(newText.toUpperCase())) {
-                        listaFiltrados.add(a);
-                        listaEleccion = true;
-                    }
-                }
-                animeAdapter.setAnimeList(listaFiltrados);
-                animeAdapter.notifyDataSetChanged();
-
-                return false;
-            }
-
-        });
         return true;
-
     }
 
     @Override
