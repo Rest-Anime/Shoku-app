@@ -1,18 +1,15 @@
 package com.example.appAnime.activities.main;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -28,41 +25,30 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
-import com.example.appAnime.activities.detail.CreateAnimeActivity;
-import com.example.appAnime.activities.detail.DetailActivity;
 import com.example.appAnime.activities.login.LoginActivity;
-import com.example.appAnime.activities.main.ui.HomeFragment;
-import com.example.appAnime.activities.main.ui.ProfileFragment;
-import com.example.appAnime.activities.main.ui.SettingsFragment;
 import com.example.appAnime.activities.maps.MapsActivity;
 import com.example.appAnime.adapter.AnimeAdapter;
-import com.example.appAnime.adapter.EventsInterface;
+import com.example.appAnime.databinding.ActivityMainBinding;
 import com.example.appAnime.model.Anime;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import retrofit2.Retrofit;
@@ -73,10 +59,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
     NavigationView menuLateral;
 
-    BottomNavigationView bottonNavigationView;
-    HomeFragment homeFrag = new HomeFragment();
-    ProfileFragment profileFrag = new ProfileFragment();
-    SettingsFragment settingsFrag = new SettingsFragment();
+    private ActivityMainBinding binding;
 
     MenuItem searchItem;
     RecyclerView recyclerView;
@@ -85,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView menuLatImg;
     AnimeAdapter animeAdapter, animeAdapterCompact;
     View cabecera;
-    FloatingActionButton fab;
     MediaPlayer mediaPlayer;
     ToggleButton loop;
     ToggleButton playMusic;
@@ -102,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     int Code_Create_Anime = 2;
-    boolean listaEleccion, visualizarLista, userAdmin;
+    public boolean listaEleccion, visualizarLista, userAdmin;
     LinearLayout visualizationMode;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -152,35 +134,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             };
-
-    private EventsInterface function = (pos) -> {
-        if (listaEleccion == false) {
-            Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
-            launchInfo.putExtra("anime", animeList.get(pos));
-            launchInfo.putExtra("pos", pos);
-            startActivity(launchInfo);
-        } else {
-            Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
-            launchInfo.putExtra("anime", listaFiltrados.get(pos));
-            startActivity(launchInfo);
-        }
-    };
-
-    /*
-    //evento para que al clicar se cargue una web
-    private View.OnClickListener funcionWiki = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //String con la direccion web a la que acceder
-            String web = canciones.get(contador).getWeb();
-            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-            intent.putExtra(SearchManager.QUERY, web);
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            }
-        }
-    };
-    */
 
     //metodo para parar la cancion en reproduccion
     public void pararCancion() {
@@ -256,8 +209,9 @@ public class MainActivity extends AppCompatActivity {
         animeList = new ArrayList<Anime>();
         recyclerView = findViewById(R.id.rwr);
         toolbar = findViewById(R.id.toolbar2);
+
         setSupportActionBar(toolbar);
-        fab = findViewById(R.id.fabMenu);
+
         drawer = findViewById(R.id.dl);
         loop = cabecera.findViewById(R.id.playM);
         listaEleccion = false;
@@ -280,112 +234,25 @@ public class MainActivity extends AppCompatActivity {
         });
         */
 
-        bottonNavigationView = findViewById(R.id.navBot);
         //getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer, homeFrag)
-        // .commit();
-        BadgeDrawable badgeDrawable = bottonNavigationView.getOrCreateBadge(R.id.profile);
-        badgeDrawable.setNumber(3);
+        // .commit()
 
-        if (userAdmin) {
-            fab.setVisibility(View.INVISIBLE);
-        } else {
-            fab.setVisibility(View.VISIBLE);
-        }
+        //region BOTNAV
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navBot);
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupWithNavController(navigation, navController);
+        //endregion
 
-        bottonNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                //setContentView(R.layout.activity_blank);
-                switch (item.getItemId()) {
-                    case R.id.home:
-                        recyclerView.setVisibility(View.VISIBLE);
-                        fab.setVisibility(View.VISIBLE);
-                        searchItem.setVisible(true);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer
-                                , homeFrag).commit();
-                        //getSupportFragmentManager().beginTransaction().replace(R.id
-                        // .fragContainer, homeFrag).commit();
-                        return true;
-                    case R.id.profile:
-                        recyclerView.setVisibility(View.INVISIBLE);
-                        fab.setVisibility(View.INVISIBLE);
-                        searchItem.setVisible(false);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer
-                                , profileFrag).commit();
-                        return true;
-                    case R.id.settings:
-                        recyclerView.setVisibility(View.INVISIBLE);
-                        fab.setVisibility(View.INVISIBLE);
-                        searchItem.setVisible(false);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer
-                                , settingsFrag).commit();
-                        return true;
-                }
-
-                return false;
-            }
-        });
-
-        appbarconfig = new AppBarConfiguration.Builder(R.id.credits, R.id.maps
-                , R.id.logout).build();
-
-        //CREACION OBJETO RETROFIT PARA INSTANCIAR LA API
+        //region RETROFIT
         retrofit = new Retrofit.Builder().baseUrl("https://proyect-anime-5daac-default-rtdb" +
                 ".firebaseio.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        //RETROFIT CREA CLASES ASOCIADAS PARA CONECTARNOS CON LOS ENDPOINT
+        //endregion
 
+        //region MUSICA
         songName = cabecera.findViewById(R.id.songName);
         playMusic = cabecera.findViewById(R.id.playM);
         playMusic.setChecked(true);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.drawer_abrir, R.string.drawer_cerrar);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        bbdd = FirebaseDatabase.getInstance();
-        recyclerView.setAdapter(animeAdapter);
-        recyclerView.setVisibility(View.VISIBLE);
-
-        db.collection("animes").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value,
-                                @Nullable FirebaseFirestoreException error) {
-                animeList.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Anime anime = doc.toObject(Anime.class);
-                    anime.setUid(doc.getId());
-                    animeList.add(anime);
-                }
-                Log.e("a", animeList.toString());
-                animeAdapter = new AnimeAdapter(animeList, function);
-            }
-        });
-
-
-        rotopen = AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim);
-        rotclose = AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim);
-        bot = AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim);
-        tobot = AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim);
-
-        if (visualizarLista) {
-            recyclerView.setAdapter(animeAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.addItemDecoration(new DividerItemDecoration(this,
-                    DividerItemDecoration.VERTICAL));
-
-        } else {
-            recyclerView.setAdapter(animeAdapter);
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-            recyclerView.addItemDecoration(new DividerItemDecoration(this,
-                    DividerItemDecoration.VERTICAL));
-        }
-
-        /* animeAdapter = new AnimeAdapter(animeList, function);
-        recyclerView.setAdapter(animeAdapter);*/
-
-
-        //MUSICA
         songName.setText("Ghibli Soundtrack");
 
         //linea original que crea la cancion a reproducir pillada de un array con objetos cancion
@@ -396,7 +263,6 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.setVolume(3.0f, 3.0f);
         mediaPlayer.start();
         */
-
 
         String url = "https://www.youtube.com/watch?v=HnbwPbXY450&list=RDHnbwPbXY450&start_radio" +
                 "=1&ab_channel=R-Maldonado84"; // your URL here
@@ -410,10 +276,8 @@ public class MainActivity extends AppCompatActivity {
         }
         mediaPlayer.start();
 
-
         //metodo llamada a funcion loop cuando la llame un boton
         //mediaPlayer.setOnCompletionListener((MediaPlayer.OnCompletionListener) loopFunction);
-
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -432,30 +296,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //PARTE RETROFIT
+        //endregion
 
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaterialAlertDialogBuilder dialogoCrear =
-                        new MaterialAlertDialogBuilder(MainActivity.this);
-                dialogoCrear.setIcon(R.drawable.mr_cast_thumb);
-                dialogoCrear.setTitle("Operacion Crear Anime");
-                dialogoCrear.setMessage("¿Estas seguro de que quieres crear un Anime?");
-                dialogoCrear.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent launchCreate = new Intent(getApplicationContext(),
-                                CreateAnimeActivity.class);
-                        startActivityForResult(launchCreate, Code_Create_Anime);
-                    }
-                });
-                dialogoCrear.setNegativeButton("Cancelar", null);
-                dialogoCrear.show();
-            }
-        });
-
+        //region Navigator
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.drawer_abrir, R.string.drawer_cerrar);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
         menuLateral.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -481,23 +328,16 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.visualization:
                         if (visualizarLista) {
                             visualizarLista = false;
-                            recyclerView.setAdapter(animeAdapter);
                             item.setIcon(R.drawable.ic_baseline_view_module_24);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                            recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                                    DividerItemDecoration.VERTICAL));
                         } else {
                             visualizarLista = true;
-                            recyclerView.setAdapter(animeAdapter);
                             item.setIcon(R.drawable.ic_baseline_view_day_24);
-                            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
-                            recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                                    DividerItemDecoration.VERTICAL));
                         }
                         break;
                 }
                 return false;
             }
         });
+        //endregion
     }
 }
