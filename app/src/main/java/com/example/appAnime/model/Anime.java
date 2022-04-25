@@ -144,4 +144,22 @@ public class Anime implements Serializable {
         data.put("estado", this.estado);
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "Anime{" +
+                "uid='" + uid + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", wiki='" + wiki + '\'' +
+                ", episodios=" + episodios +
+                ", estudio='" + estudio + '\'' +
+                ", foto='" + foto + '\'' +
+                ", genero='" + genero + '\'' +
+                ", lanzamiento='" + lanzamiento + '\'' +
+                ", puntuacion=" + puntuacion +
+                ", temporadas=" + temporadas +
+                ", estado='" + estado + '\'' +
+                '}';
+    }
 }
