@@ -89,16 +89,16 @@ public class Review implements Serializable {
         return usuario;
     }
 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public String getAnimeID() {
         return animeID;
     }
 
     public void setAnimeID(String animeID) {
         this.animeID = animeID;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public String getUsuarioID() {
@@ -128,6 +128,7 @@ public class Review implements Serializable {
 
     /**
      * Mapeo de Objeto para insertar/actualizar BBDD.
+     *
      * @return Diccionario con los datos para crear/actualizar Entrada en Firestore.
      */
     public Map<String, Object> setFirestore() {

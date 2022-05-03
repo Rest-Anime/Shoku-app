@@ -41,13 +41,12 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     final int CODE_CREATE_ANIME = 2;
-    private FragmentHomeBinding binding;
     Context context;
     AnimeAdapter animeAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<Anime> animeList = new ArrayList<>(), listaFiltrados = new ArrayList<>();
     boolean listaEleccion, visualizarLista;
-
+    private FragmentHomeBinding binding;
     private EventsInterface function = (pos) -> {
         if (listaEleccion == false) {
             Intent launchInfo = new Intent(context, DetailActivity.class);

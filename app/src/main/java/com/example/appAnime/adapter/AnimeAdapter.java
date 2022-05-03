@@ -38,7 +38,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
     public AnimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int ViewType) {
         View item =
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.card_layout_anime_simple,
-                parent, false);
+                        parent, false);
         return new AnimeViewHolder(item);
     }
 

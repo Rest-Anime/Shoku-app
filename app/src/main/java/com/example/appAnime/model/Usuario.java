@@ -14,10 +14,6 @@ public class Usuario implements Serializable {
     private Map<String, Boolean> reviews;
     private boolean admin;
 
-    public enum Estado {
-        WATCHING, HOLD, DROPPED, TO_WATCH;
-    }
-
     public Usuario(String usuario) {
         this.nombre = null;
         this.usuario = usuario;
@@ -100,9 +96,10 @@ public class Usuario implements Serializable {
     /**
      * Añade un anime a el diccionario, junto con la puntuacion dada por el usuario y el estado
      * en el que se encuentra (WATCHING, HOLD, DROPPED, FINISHED, TO_WATCH)
+     *
      * @param animeID El documento al que hace referencia en la coleccion de animes.
-     * @param estado El estado en el que se encuentra el anime para el usuario.
-     * @param rate La puntuacion dada por el usuario.
+     * @param estado  El estado en el que se encuentra el anime para el usuario.
+     * @param rate    La puntuacion dada por el usuario.
      */
     public void addAnimeToList(String animeID, Estado estado, Integer rate) {
         Map<String, String> contenido = new HashMap<>();
@@ -113,6 +110,7 @@ public class Usuario implements Serializable {
 
     /**
      * Elimina del diccionario la entrada que sea igual a la dada por parametro.
+     *
      * @param animeID El documento al que hace referencia en la coleccion de animes.
      */
     public void removeAnimeFromList(String animeID) {
@@ -121,8 +119,9 @@ public class Usuario implements Serializable {
 
     /**
      * Añade una review a la lista y si se ha dado like o dislike(+1, -1).
+     *
      * @param reviewID El documento al que hace referencia en la coleccion de reviews.
-     * @param like un booleano que representa un like(true) o dislike(false).
+     * @param like     un booleano que representa un like(true) o dislike(false).
      */
     public void addReview(String reviewID, Boolean like) {
         this.reviews.put(reviewID, like);
@@ -130,6 +129,7 @@ public class Usuario implements Serializable {
 
     /**
      * Elimina del diccionario la entrada que sea igual a la dada por parametro.
+     *
      * @param reviewID El documento al que hace referencia en la coleccion de reviews.
      */
     public void removeReview(String reviewID) {
@@ -138,6 +138,7 @@ public class Usuario implements Serializable {
 
     /**
      * Mapeo de Objeto para insertar/actualizar BBDD.
+     *
      * @return Diccionario con los datos para crear/actualizar Entrada en Firestore.
      */
     public Map<String, Object> setFirestore() {
@@ -149,6 +150,10 @@ public class Usuario implements Serializable {
         data.put("admin", this.admin);
         data.put("foto", this.foto);
         return data;
+    }
+
+    public enum Estado {
+        WATCHING, HOLD, DROPPED, TO_WATCH;
     }
 
 

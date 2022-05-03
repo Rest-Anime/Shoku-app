@@ -51,12 +51,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    public boolean listaEleccion, visualizarLista, userAdmin;
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView menuLateral;
-
-    private ActivityMainBinding binding;
-
     MenuItem searchItem;
     RecyclerView recyclerView;
     ArrayList<Anime> listaFiltrados = new ArrayList<>();
@@ -80,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     int Code_Create_Anime = 2;
-    public boolean listaEleccion, visualizarLista, userAdmin;
     LinearLayout visualizationMode;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ActivityMainBinding binding;
 
     /*
         El evento OnPrepared se lanzaría una vez, cuando el mp se encuentra listo para
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         interesaría c
         capturar este evento.
     */
-
     private MediaPlayer.OnPreparedListener funcionPrepared = new MediaPlayer.OnPreparedListener() {
         @Override
         public void onPrepared(MediaPlayer mp) {

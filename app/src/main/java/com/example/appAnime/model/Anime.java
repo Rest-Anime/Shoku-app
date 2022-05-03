@@ -121,6 +121,11 @@ public class Anime implements Serializable {
         this.foto = foto;
     }
 
+    /**
+     * Mapeo de Objeto para insertar/actualizar BBDD.
+     *
+     * @return Diccionario con los datos para crear/actualizar Entrada en Firestore.
+     */
     public Map<String, Object> setFirestore() {
         Map<String, Object> data = new HashMap<>();
         data.put("titulo", this.titulo);
