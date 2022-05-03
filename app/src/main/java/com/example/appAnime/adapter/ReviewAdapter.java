@@ -72,11 +72,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
             this.titleText = itemView.findViewById(R.id.titleTxt);
-            this.rateText = itemView.findViewById(R.id.rating);
+            this.rateText = itemView.findViewById(R.id.followers);
             this.usernameText = itemView.findViewById(R.id.userTxt);
             this.animetitleText = itemView.findViewById(R.id.animeReview);
-            this.descText = itemView.findViewById(R.id.reviewTxt2);
-            this.coverImg = itemView.findViewById(R.id.cover1);
+            this.descText = itemView.findViewById(R.id.userDescription);
+            this.coverImg = itemView.findViewById(R.id.userPhoto);
             itemView.setOnClickListener(this);
         }
 

@@ -97,14 +97,14 @@ public class DetailActivity extends AppCompatActivity {
         layoutAdmin = findViewById(R.id.layoutAdmin);
         wikitext = findViewById(R.id.wikiTxt);
 
-        userIcon = findViewById(R.id.cover1);
+        userIcon = findViewById(R.id.userPhoto);
         report = findViewById(R.id.iconReport);
         like = findViewById(R.id.iconLike);
         dislike = findViewById(R.id.iconDislike);
         username = findViewById(R.id.userTxt);
-        rate = findViewById(R.id.rating);
+        rate = findViewById(R.id.followers);
         animeTitle = findViewById(R.id.animeReview);
-        redesc = findViewById(R.id.reviewTxt2);
+        redesc = findViewById(R.id.userDescription);
         reviewTitle = findViewById(R.id.titleTxt);
         reviewList = new ArrayList<Review>();
         addReview = findViewById(R.id.addReview);

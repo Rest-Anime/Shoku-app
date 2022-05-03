@@ -73,7 +73,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
             this.genresText = itemView.findViewById(R.id.animeReview);
             this.seasonsText = itemView.findViewById(R.id.reviewTxt);
             this.starsBar = itemView.findViewById(R.id.ratingBar);
-            this.coverImg = itemView.findViewById(R.id.cover1);
+            this.coverImg = itemView.findViewById(R.id.userPhoto);
             itemView.setOnClickListener(this);
         }
 
