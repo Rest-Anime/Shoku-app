@@ -1,9 +1,7 @@
 package com.example.appAnime.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Usuario implements Serializable {
@@ -11,30 +9,35 @@ public class Usuario implements Serializable {
     private String nombre;
     private String usuario;
     private String foto;
-    private List<Anime> animes;
-    private List<Review> reviews;
+    private Map<String, Map<String, String>> animes;
+    private Map<String, Integer> reviews;
     private boolean admin;
 
-    public Usuario() {
-    }
-
-    public Usuario(String nombre, String usuario, String foto,
-                   List<Anime> animes, List<Review> reviews, boolean admin) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.foto = foto;
-        this.animes = animes;
-        this.reviews = reviews;
-        this.admin = admin;
+    public enum Estado {
+        WATCHING, HOLD, DROPPED, TO_WATCH;
     }
 
     public Usuario(String usuario) {
         this.nombre = null;
         this.usuario = usuario;
         this.foto = null;
-        this.animes = new ArrayList<>();
-        this.reviews = new ArrayList<>();
+        this.animes = new HashMap<>();
+        this.reviews = new HashMap<>();
         this.admin = false;
+    }
+
+    public Usuario() {
+    }
+
+    public Usuario(String nombre, String usuario, String foto,
+                   Map<String, Map<String, String>> animes, Map<String, Integer> reviews,
+                   boolean admin) {
+        this.nombre = nombre;
+        this.usuario = usuario;
+        this.foto = foto;
+        this.animes = animes;
+        this.reviews = reviews;
+        this.admin = admin;
     }
 
     public String getNombre() {
@@ -61,19 +64,19 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public List<Anime> getAnimes() {
+    public Map<String, Map<String, String>> getAnimes() {
         return animes;
     }
 
-    public void setAnimes(List<Anime> animes) {
+    public void setAnimes(Map<String, Map<String, String>> animes) {
         this.animes = animes;
     }
 
-    public List<Review> getReviews() {
+    public Map<String, Integer> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
+    public void setReviews(Map<String, Integer> reviews) {
         this.reviews = reviews;
     }
 
@@ -83,6 +86,25 @@ public class Usuario implements Serializable {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public void addAnimeToList(String animeID, Estado estado, Integer rate) {
+        Map<String, String> contenido = new HashMap<>();
+        contenido.put("estado", estado.toString());
+        contenido.put("rate", rate.toString());
+        this.animes.put(animeID, contenido);
+    }
+
+    public void removeAnimeFromList(String animeID) {
+        this.animes.remove(animeID);
+    }
+
+    public void addReview(String reviewID, Integer like) {
+        this.reviews.put(reviewID, like);
+    }
+
+    public void removeReview(String reviewID) {
+        this.reviews.remove(reviewID);
     }
 
     public Map<String, Object> setFirestore() {
