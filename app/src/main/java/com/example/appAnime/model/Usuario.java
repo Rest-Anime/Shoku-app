@@ -118,7 +118,7 @@ public class Usuario implements Serializable {
     }
 
     /**
-     * Añade una review a la lista y si se ha dado like o dislike(+1, -1).
+     * Añade una review a la lista y si se ha dado like o dislike.
      *
      * @param reviewID El documento al que hace referencia en la coleccion de reviews.
      * @param like     un booleano que representa un like(true) o dislike(false).
