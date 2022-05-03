@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
                 animeList.clear();
                 for (QueryDocumentSnapshot doc : value) {
                     Anime anime = doc.toObject(Anime.class);
-                    anime.setUid(doc.getId());
+                    anime.setUID(doc.getId());
                     animeList.add(anime);
                 }
                 Log.e("Lista", animeList.toString());

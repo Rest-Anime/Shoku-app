@@ -161,7 +161,7 @@ public class ModifyAnimeActivity extends AppCompatActivity {
                 }
                 Anime animeMod = new Anime(titulo, descripcion, episodios, estudio, foto, genero,
                         sdf.format(lanzamiento), puntuacion, temporadas);
-                db.collection("animes").document(anime.getUid()).set(animeMod.setFirestore());
+                db.collection("animes").document(anime.getUID()).set(animeMod.setFirestore());
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

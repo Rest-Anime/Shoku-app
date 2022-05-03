@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Anime implements Serializable {
-    private String uid;
+    private String UID;
     private String titulo;
     private String descripcion;
     private String wiki;
@@ -16,7 +16,6 @@ public class Anime implements Serializable {
     private String lanzamiento;
     private int puntuacion;
     private int temporadas;
-    private String estado;
 
     public Anime(String titulo, String descripcion, int episodios, String estudio, String foto,
                  String genero, String format, int puntuacion, int temporadas) {
@@ -34,12 +33,12 @@ public class Anime implements Serializable {
     public Anime() {
     }
 
-    public String getUid() {
-        return uid;
+    public String getUID() {
+        return UID;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getWiki() {
@@ -114,14 +113,6 @@ public class Anime implements Serializable {
         this.temporadas = temporadas;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public String getFoto() {
         return foto;
     }
@@ -141,14 +132,13 @@ public class Anime implements Serializable {
         data.put("lanzamiento", this.lanzamiento);
         data.put("puntuacion", this.puntuacion);
         data.put("temporadas", this.temporadas);
-        data.put("estado", this.estado);
         return data;
     }
 
     @Override
     public String toString() {
         return "Anime{" +
-                "uid='" + uid + '\'' +
+                "uid='" + UID + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", wiki='" + wiki + '\'' +
@@ -159,7 +149,6 @@ public class Anime implements Serializable {
                 ", lanzamiento='" + lanzamiento + '\'' +
                 ", puntuacion=" + puntuacion +
                 ", temporadas=" + temporadas +
-                ", estado='" + estado + '\'' +
                 '}';
     }
 }

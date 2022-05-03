@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Usuario implements Serializable {
 
+    private String UID;
     private String nombre;
     private String usuario;
     private String foto;
@@ -86,6 +87,14 @@ public class Usuario implements Serializable {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public void addAnimeToList(String animeID, Estado estado, Integer rate) {

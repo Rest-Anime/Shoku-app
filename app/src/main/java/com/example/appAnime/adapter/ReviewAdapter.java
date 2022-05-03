@@ -43,15 +43,15 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review actualReview = reviewList.get(position);
-        holder.getReviewTitleText().setText(actualReview.getTitle());
+        holder.getReviewTitleText().setText(actualReview.getTitulo());
         holder.getRateText().setText("rate: " + String.valueOf(actualReview.getRating()));
-        holder.getUserText().setText(actualReview.getReview()); //hay que crear el atributo user
+        holder.getUserText().setText(actualReview.getComentario()); //hay que crear el atributo user
         // en la clase review
         holder.getAnimeText().setText(actualReview.getAnime().getTitulo());
-        holder.getReviewDescText().setText(actualReview.getReview());
+        holder.getReviewDescText().setText(actualReview.getComentario());
 
         //La url de la imagen
-        String UrlImagen = String.valueOf(actualReview.getTitle()); //aqui habria que pillar la
+        String UrlImagen = String.valueOf(actualReview.getTitulo()); //aqui habria que pillar la
         // imagen del user, aun por crear
         Picasso.get().load(UrlImagen).into(holder.getCoverImg());
     }

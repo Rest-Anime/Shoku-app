@@ -165,8 +165,8 @@ public class DetailActivity extends AppCompatActivity {
                 reviewList.clear();
                 for (DataSnapshot son : snapshot.getChildren()) {
                     Review review = son.getValue(Review.class);
-                    review.setUid(Integer.parseInt(son.getKey()));
-                    System.out.println(review.getUid());
+                    review.setUID(Integer.parseInt(son.getKey()));
+                    System.out.println(review.getUID());
                     reviewList.add(review);
                 }
                 reviewAdapter = new ReviewAdapter(reviewList, function);
@@ -238,7 +238,7 @@ public class DetailActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("animes").document(anime.getUid()).delete();
+                db.collection("animes").document(anime.getUID()).delete();
                 finish();
             }
         });
@@ -274,7 +274,7 @@ public class DetailActivity extends AppCompatActivity {
                         result.put("titulo", tituloReview);
 
 
-                        reference2.child(String.valueOf(review.getUid())).updateChildren(result);
+                        reference2.child(String.valueOf(review.getUID())).updateChildren(result);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
