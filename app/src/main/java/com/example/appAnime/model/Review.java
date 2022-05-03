@@ -125,6 +125,11 @@ public class Review implements Serializable {
         this.dislikes = dislikes;
     }
 
+
+    /**
+     * Mapeo de Objeto para insertar/actualizar BBDD.
+     * @return Diccionario con los datos para crear/actualizar Entrada en Firestore.
+     */
     public Map<String, Object> setFirestore() {
         Map<String, Object> data = new HashMap<>();
         data.put("animeID", this.anime.getUID());
