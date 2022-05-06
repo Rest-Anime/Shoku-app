@@ -20,4 +20,9 @@
         android:name="com.example.appAnime.activities.main.ui.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.example.appAnime.activities.main.ui.UsersFragment"
+        android:label="fragment_users"
+        tools:layout="@layout/fragment_users" />
 </navigation>
