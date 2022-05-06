@@ -40,9 +40,7 @@ public class CreateAnimeActivity extends AppCompatActivity {
     String estudio;
     int puntuacion;
     int img;
-    String foto = "https://t2.uc.ltmcdn" +
-            ".com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600" +
-            ".jpg";
+    String foto = getResources().getString(R.string.imagen);
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 

@@ -156,5 +156,16 @@ public class Usuario implements Serializable {
         WATCHING, HOLD, DROPPED, TO_WATCH;
     }
 
-
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "UID='" + UID + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", foto='" + foto + '\'' +
+                ", animes=" + animes +
+                ", reviews=" + reviews +
+                ", admin=" + admin +
+                '}';
+    }
 }

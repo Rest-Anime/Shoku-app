@@ -33,7 +33,7 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/userPhoto"
+                        android:id="@+id/fotoPerfil"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal|top|left|center_vertical"
@@ -48,7 +48,7 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/userTxt"
+                        android:id="@+id/usuario"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:autoSizeTextType="uniform"
@@ -59,7 +59,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/titleTxt"
+                        android:id="@+id/favoritos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autoSizeTextType="uniform"
@@ -73,46 +73,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/followers"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="3dp"
-                            android:paddingBottom="3dp"
-                            android:text="Followers:  22"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/following"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="3dp"
-                            android:paddingBottom="3dp"
-                            android:text="Following:  8"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                        android:orientation="horizontal"/>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/userDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:autoSizeTextType="uniform"
-                android:gravity="center_vertical"
-                android:paddingBottom="5dp"
-                android:text="fgdfsgfds gfsd gsdf gsdf gfsd gsfdgfgg dfg fgsd gsd fgdfs gfdg    fsdgsdf gfds gfd gsdf gsdfg fdg sdfgfsddhfghdfgh dfgg hdfg hgfdh dfh dgfh dgf h  fgdhgdfhdfghdfghdf hdgfhdfghfh ghdfdfg dhfgh dfh gd"
-                android:textSize="14sp"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
