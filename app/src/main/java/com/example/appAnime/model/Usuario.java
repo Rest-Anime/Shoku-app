@@ -12,6 +12,7 @@ public class Usuario implements Serializable {
     private String foto;
     private Map<String, Map<String, String>> animes;
     private Map<String, Boolean> reviews;
+    private String correo;
     private boolean admin;
 
     public Usuario(String usuario) {
@@ -21,6 +22,7 @@ public class Usuario implements Serializable {
         this.animes = new HashMap<>();
         this.reviews = new HashMap<>();
         this.admin = false;
+        this.correo = null;
     }
 
     public Usuario() {
@@ -35,6 +37,16 @@ public class Usuario implements Serializable {
         this.animes = animes;
         this.reviews = reviews;
         this.admin = admin;
+        this.correo = null;
+    }
+
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getNombre() {

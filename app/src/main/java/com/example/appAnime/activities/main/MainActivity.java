@@ -9,10 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +24,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,12 +33,12 @@ import com.example.appAnime.activities.maps.MapsActivity;
 import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.databinding.ActivityMainBinding;
 import com.example.appAnime.model.Anime;
+import com.example.appAnime.model.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
@@ -55,12 +52,9 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView menuLateral;
-    MenuItem searchItem;
     RecyclerView recyclerView;
-    ArrayList<Anime> listaFiltrados = new ArrayList<>();
     ArrayList<Anime> animeList;
-    ImageView menuLatImg;
-    AnimeAdapter animeAdapter, animeAdapterCompact;
+    AnimeAdapter animeAdapter;
     View cabecera;
     MediaPlayer mediaPlayer;
     ToggleButton loop;
@@ -69,18 +63,14 @@ public class MainActivity extends AppCompatActivity {
     TextView songName, userName;
     int counter = 0;
     Button play;
-    Animation rotopen;
-    Animation rotclose;
-    Animation bot;
-    Animation tobot;
-    AppBarConfiguration appbarconfig;
-    FirebaseDatabase bbdd;
     FirebaseAuth auth;
     FirebaseUser user;
     int Code_Create_Anime = 2;
     LinearLayout visualizationMode;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ActivityMainBinding binding;
+    public Usuario usuario = new Usuario();
+
 
     /*
         El evento OnPrepared se lanzaría una vez, cuando el mp se encuentra listo para
@@ -165,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        usuario = (Usuario) intent.getSerializableExtra("usuario");
         menuLateral = findViewById(R.id.navigator);
         cabecera = menuLateral.getHeaderView(0);
         userName = cabecera.findViewById(R.id.actividadLbl);
