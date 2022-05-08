@@ -17,7 +17,9 @@ import com.example.appAnime.R;
 import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.databinding.FragmentLoginBinding;
 import com.example.appAnime.model.Usuario;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -80,6 +82,29 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
+            }
+        });
+
+        binding.forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = binding.email.getText().toString().trim();
+                auth.sendPasswordResetEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(context,
+                                            "Se ha producido un error " + task.getException().getLocalizedMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+                                Toast.makeText(context,
+                                        "Se ha enviado un correo para reestablecer la " +
+                                                "contraseña",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
             }
         });
         return binding.getRoot();
