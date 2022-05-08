@@ -56,8 +56,9 @@ public class DetailActivity extends AppCompatActivity {
     ArrayList<Review> reviewList;
     Review review;
     Button edit, delete;
+    Usuario usuario = new Usuario();
     RecyclerView recycler;
-    boolean isFav, userAdmin;
+    boolean isFav;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Query reference;
     String descripcion, tituloReview;
@@ -93,7 +94,6 @@ public class DetailActivity extends AppCompatActivity {
         delete = findViewById(R.id.btnDelete);
         btnFav = findViewById(R.id.btnFav);
         recycler = findViewById(R.id.rwr);
-        userAdmin = false;
         layoutAdmin = findViewById(R.id.layoutAdmin);
         wikitext = findViewById(R.id.wikiTxt);
 
@@ -181,6 +181,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Anime anime = (Anime) intent.getSerializableExtra("anime");
+        usuario = (Usuario) intent.getSerializableExtra("usuario");
         int pos = intent.getIntExtra("pos", 0);
 
         Picasso.get().load(anime.getFoto()).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
@@ -220,12 +221,11 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        if (userAdmin) {
-            layoutAdmin.setVisibility(View.INVISIBLE);
+        if (!usuario.isAdmin()) {
+            layoutAdmin.setVisibility(View.GONE);
         } else {
             layoutAdmin.setVisibility(View.VISIBLE);
         }
-
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -28,6 +28,7 @@ import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.adapter.EventsInterface;
 import com.example.appAnime.databinding.FragmentHomeBinding;
 import com.example.appAnime.model.Anime;
+import com.example.appAnime.model.Usuario;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,6 +45,7 @@ public class HomeFragment extends Fragment {
     Context context;
     AnimeAdapter animeAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Usuario usuario = new Usuario();
     ArrayList<Anime> animeList = new ArrayList<>(), listaFiltrados = new ArrayList<>();
     boolean listaEleccion, visualizarLista;
     private FragmentHomeBinding binding;
@@ -51,11 +53,13 @@ public class HomeFragment extends Fragment {
         if (listaEleccion == false) {
             Intent launchInfo = new Intent(context, DetailActivity.class);
             launchInfo.putExtra("anime", animeList.get(pos));
+            launchInfo.putExtra("usuario", usuario);
             launchInfo.putExtra("pos", pos);
             startActivity(launchInfo);
         } else {
             Intent launchInfo = new Intent(context, DetailActivity.class);
             launchInfo.putExtra("anime", listaFiltrados.get(pos));
+            launchInfo.putExtra("usuario", usuario);
             startActivity(launchInfo);
         }
     };
@@ -65,6 +69,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
+        usuario = ((MainActivity) getActivity()).usuario;
         setHasOptionsMenu(true);
         RecyclerView recyclerView = binding.rwr;
 
@@ -104,6 +109,9 @@ public class HomeFragment extends Fragment {
         //endregion
 
         //region Floating Button
+        if (!usuario.isAdmin()) {
+            binding.fabMenu.setVisibility(View.GONE);
+        }
         binding.fabMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
