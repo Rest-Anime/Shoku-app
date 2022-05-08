@@ -38,7 +38,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
@@ -64,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     int counter = 0;
     Button play;
     FirebaseAuth auth;
-    FirebaseUser user;
     int Code_Create_Anime = 2;
     LinearLayout visualizationMode;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -171,10 +169,7 @@ public class MainActivity extends AppCompatActivity {
         listaEleccion = false;
         visualizarLista = true;
         userAdmin = false;
-
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        userName.setText(user.getEmail());
+        userName.setText(usuario.getUsuario());
 
         /*
         visualizationMode = drawer.findViewById(R.id.visualization);
