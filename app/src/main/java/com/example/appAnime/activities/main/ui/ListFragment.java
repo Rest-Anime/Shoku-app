@@ -26,7 +26,7 @@ import com.example.appAnime.activities.detail.DetailActivity;
 import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.adapter.EventsInterface;
-import com.example.appAnime.databinding.FragmentHomeBinding;
+import com.example.appAnime.databinding.FragmentListBinding;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Usuario;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -39,7 +39,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 
-public class HomeFragment extends Fragment {
+public class ListFragment extends Fragment {
 
     final int CODE_CREATE_ANIME = 2;
     Context context;
@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     Usuario usuario = new Usuario();
     ArrayList<Anime> animeList = new ArrayList<>(), listaFiltrados = new ArrayList<>();
     boolean listaEleccion, visualizarLista;
-    private FragmentHomeBinding binding;
+    private FragmentListBinding binding;
     private EventsInterface function = (pos) -> {
         if (listaEleccion == false) {
             Intent launchInfo = new Intent(context, DetailActivity.class);
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(getLayoutInflater());
+        binding = FragmentListBinding.inflate(getLayoutInflater());
         usuario = ((MainActivity) getActivity()).usuario;
         setHasOptionsMenu(true);
         RecyclerView recyclerView = binding.rwr;
