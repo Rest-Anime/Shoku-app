@@ -37,4 +37,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_maps">Map</string>
     <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="tabList">List</string>
+    <string name="tabFavorites">Favorites</string>
+    <string name="tabTop">Top</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

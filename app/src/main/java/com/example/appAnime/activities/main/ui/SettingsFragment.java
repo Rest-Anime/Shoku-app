@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.appAnime.R;
+import com.example.appAnime.activities.main.MainActivity;
 
 public class SettingsFragment extends Fragment {
     View root;

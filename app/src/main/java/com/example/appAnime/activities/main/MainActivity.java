@@ -22,13 +22,16 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.appAnime.R;
 import com.example.appAnime.activities.login.LoginActivity;
+import com.example.appAnime.activities.main.ui.HomeFragment;
 import com.example.appAnime.activities.maps.MapsActivity;
 import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.databinding.ActivityMainBinding;
@@ -37,6 +40,7 @@ import com.example.appAnime.model.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -68,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ActivityMainBinding binding;
     public Usuario usuario = new Usuario();
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
 
     /*
@@ -170,6 +176,16 @@ public class MainActivity extends AppCompatActivity {
         visualizarLista = true;
         userAdmin = false;
         userName.setText(usuario.getUsuario());
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+
+        tabLayout.setupWithViewPager(viewPager);
+
+        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        tabAdapter.addFragment(new HomeFragment(), "Home List");
+        tabAdapter.addFragment(new FavoritesFragment(), "Favorites");
+        tabAdapter.addFragment(new TopFragment(), "Top");
+        viewPager.setAdapter(tabAdapter);
 
         /*
         visualizationMode = drawer.findViewById(R.id.visualization);
