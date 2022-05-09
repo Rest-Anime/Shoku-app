@@ -1,4 +1,4 @@
-package com.example.appAnime.activities.main;
+package com.example.appAnime.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -31,7 +31,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.appAnime.R;
 import com.example.appAnime.activities.login.LoginActivity;
-import com.example.appAnime.activities.main.ui.HomeFragment;
+import com.example.appAnime.activities.main.ui.ListFragment;
 import com.example.appAnime.activities.maps.MapsActivity;
 import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.databinding.ActivityMainBinding;
@@ -176,16 +176,6 @@ public class MainActivity extends AppCompatActivity {
         visualizarLista = true;
         userAdmin = false;
         userName.setText(usuario.getUsuario());
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
-
-        tabLayout.setupWithViewPager(viewPager);
-
-        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        tabAdapter.addFragment(new HomeFragment(), "Home List");
-        tabAdapter.addFragment(new FavoritesFragment(), "Favorites");
-        tabAdapter.addFragment(new TopFragment(), "Top");
-        viewPager.setAdapter(tabAdapter);
 
         /*
         visualizationMode = drawer.findViewById(R.id.visualization);
