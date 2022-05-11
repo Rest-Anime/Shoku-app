@@ -16,16 +16,16 @@
     <string name="imagen">https://t2.uc.ltmcdn.com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600.jpg</string>
 
     <string-array name="genres">
-        <item>Accion</item>
+        <item>Action</item>
         <item>Drama</item>
-        <item>Fantasia</item>
-        <item>Ciencia Ficcion</item>
-        <item>Slice of Life</item>
-        <item>Shonen</item>
-        <item>Ecchi</item>
+        <item>Fantasy</item>
+        <item>Sci-fi</item>
+        <item>Suspense</item>
+        <item>Sports</item>
         <item>Romance</item>
+        <item>Slice of Life</item>
         <item>Comedy</item>
-        <item>Aventura</item>
+        <item>Adventure</item>
     </string-array>
 
     <string-array name="animeStatus">
