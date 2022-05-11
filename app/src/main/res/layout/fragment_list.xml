@@ -8,11 +8,11 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="396dp"
-        android:layout_height="155dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintTop_toTopOf="parent"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
@@ -20,7 +20,7 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Acción" />
+            android:text="Action" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipDrama"
@@ -34,28 +34,28 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fantasía" />
+            android:text="Fantasy" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipFicción"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ficción" />
+            android:text="Sci-fi" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipShonen"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shonen" />
+            android:text="Suspense" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipEcchi"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ecchi" />
+            android:text="Sports" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipRomance"
@@ -76,14 +76,14 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comedia" />
+            android:text="Comedy" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipAventura"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Aventura" />
+            android:text="Adventure" />
 
     </com.google.android.material.chip.ChipGroup>
 
