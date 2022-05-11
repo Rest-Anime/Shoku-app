@@ -38,6 +38,8 @@ import com.example.appAnime.databinding.ActivityMainBinding;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -72,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ActivityMainBinding binding;
     public Usuario usuario = new Usuario();
-    TabLayout tabLayout;
-    ViewPager viewPager;
 
 
     /*
@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         visualizarLista = true;
         userAdmin = false;
         userName.setText(usuario.getUsuario());
+
 
         /*
         visualizationMode = drawer.findViewById(R.id.visualization);

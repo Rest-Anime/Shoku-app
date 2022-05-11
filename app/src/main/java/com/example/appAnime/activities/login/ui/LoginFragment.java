@@ -116,4 +116,10 @@ public class LoginFragment extends Fragment {
         this.context = context;
         super.onAttach(context);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

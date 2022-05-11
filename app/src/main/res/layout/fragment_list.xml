@@ -6,6 +6,87 @@
     android:layout_height="match_parent"
     tools:context=".activities.main.ui.ListFragment">
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="396dp"
+        android:layout_height="155dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAccion"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Acción" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipDrama"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Drama" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFantasia"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fantasía" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFicción"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ficción" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipShonen"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shonen" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipEcchi"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ecchi" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipRomance"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Romance" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSlice"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Slice of Life" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipComedia"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comedia" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAventura"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aventura" />
+
+    </com.google.android.material.chip.ChipGroup>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rwr"
@@ -15,7 +96,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabMenu"
