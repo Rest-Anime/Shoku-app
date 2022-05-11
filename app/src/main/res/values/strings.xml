@@ -16,7 +16,7 @@
     <string name="imagen">https://t2.uc.ltmcdn.com/images/1/7/4/img_como_se_usan_los_signos_de_interrogacion_19471_600.jpg</string>
 
     <string-array name="genres">
-        <item>Accion/Aventura</item>
+        <item>Accion</item>
         <item>Drama</item>
         <item>Fantasia</item>
         <item>Ciencia Ficcion</item>
@@ -25,6 +25,7 @@
         <item>Ecchi</item>
         <item>Romance</item>
         <item>Comedy</item>
+        <item>Aventura</item>
     </string-array>
 
     <string-array name="animeStatus">

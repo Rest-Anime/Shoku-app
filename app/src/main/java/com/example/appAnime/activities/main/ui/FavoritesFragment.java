@@ -26,10 +26,9 @@ import com.example.appAnime.activities.detail.DetailActivity;
 import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.adapter.EventsInterface;
-import com.example.appAnime.databinding.FragmentListBinding;
+import com.example.appAnime.databinding.FragmentFavoritesBinding;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Usuario;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,17 +39,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 
-public class ListFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
     final int CODE_CREATE_ANIME = 2;
     Context context;
     AnimeAdapter animeAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Usuario usuario = new Usuario();
-
     ArrayList<Anime> animeList = new ArrayList<>(), listaFiltrados = new ArrayList<>();
     boolean listaEleccion, visualizarLista;
-    private FragmentListBinding binding;
+    private FragmentFavoritesBinding binding;
     private EventsInterface function = (pos) -> {
         if (listaEleccion == false) {
             Intent launchInfo = new Intent(context, DetailActivity.class);
@@ -70,7 +68,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentListBinding.inflate(getLayoutInflater());
+        binding = FragmentFavoritesBinding.inflate(getLayoutInflater());
         usuario = ((MainActivity) getActivity()).usuario;
         setHasOptionsMenu(true);
         RecyclerView recyclerView = binding.rwr;
@@ -85,7 +83,9 @@ public class ListFragment extends Fragment {
                 for (QueryDocumentSnapshot doc : value) {
                     Anime anime = doc.toObject(Anime.class);
                     anime.setUID(doc.getId());
-                    animeList.add(anime);
+                    if (usuario.getAnimes().containsKey(anime.getUID())) {
+                        animeList.add(anime);
+                    }
                 }
                 Log.e("Lista", animeList.toString());
                 animeAdapter = new AnimeAdapter(animeList, function);
@@ -136,31 +136,7 @@ public class ListFragment extends Fragment {
         });
         //endregion
 
-        //CHIPS
-        binding.chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            Chip chip = binding.chipGroup.findViewById(checkedId);
-            if (chip == null) {
-                animeAdapter.setAnimeList(animeList);
-                animeAdapter.notifyDataSetChanged();
-            } else {
-                filtroChips(chip.getText().toString());
-            }
-        });
-
         return binding.getRoot();
-    }
-
-    //Método para el filtrado por chips
-    private void filtroChips(String toString) {
-        listaFiltrados.clear();
-        for (Anime a : animeList) {
-            if (a.getGenero().equalsIgnoreCase(toString)) {
-                listaFiltrados.add(a);
-                listaEleccion = true;
-            }
-        }
-        animeAdapter.setAnimeList(listaFiltrados);
-        animeAdapter.notifyDataSetChanged();
     }
 
     @Override

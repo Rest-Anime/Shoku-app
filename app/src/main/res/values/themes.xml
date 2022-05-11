@@ -50,7 +50,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.AppCoffee.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.AppCoffee.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="Theme.AppCoffee.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.AppCoffee.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>

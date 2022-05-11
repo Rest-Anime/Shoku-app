@@ -106,6 +106,13 @@ public class ProfileFragment extends Fragment {
             uri = data.getData();
             imgProfile.setImageURI(uri);
         }
+
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
 }
 

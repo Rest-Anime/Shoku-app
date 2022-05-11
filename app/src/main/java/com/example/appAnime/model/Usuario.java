@@ -113,7 +113,7 @@ public class Usuario implements Serializable {
      * @param estado  El estado en el que se encuentra el anime para el usuario.
      * @param rate    La puntuacion dada por el usuario.
      */
-    public void addAnimeToList(String animeID, Estado estado, Integer rate) {
+    public void addAnimeToList(String animeID, String estado, Integer rate) {
         Map<String, String> contenido = new HashMap<>();
         contenido.put("estado", estado.toString());
         contenido.put("rate", rate.toString());
@@ -164,9 +164,6 @@ public class Usuario implements Serializable {
         return data;
     }
 
-    public enum Estado {
-        WATCHING, HOLD, DROPPED, TO_WATCH;
-    }
 
     @Override
     public String toString() {

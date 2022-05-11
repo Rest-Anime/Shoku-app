@@ -40,4 +40,9 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         return root;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }
