@@ -281,6 +281,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                         break;
+                    case R.id.faq:
+                        Intent faqIntent = new Intent(getApplicationContext(), FaqActivity.class);
+                        startActivity(faqIntent);
+                        finish();
+                        break;
                     case R.id.visualization:
                         if (visualizarLista) {
                             visualizarLista = false;

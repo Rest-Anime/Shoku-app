@@ -8,48 +8,37 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.style.TtsSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.appAnime.activities.main.MainActivity;
+import com.example.appAnime.R;
 import com.example.appAnime.databinding.FragmentProfileBinding;
-import com.example.appAnime.model.Usuario;
 
 public class ProfileFragment extends Fragment {
     private static final int IMG_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
-    FragmentProfileBinding binding;
+    View root;
     Uri uri;
     ImageView picker, imgProfile, imgChangeBtn;
     ImageButton imageButton;
-    TextView nameTxt, nickTxt, mailTxt;
+    FragmentProfileBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentProfileBinding.inflate(getLayoutInflater());
-        picker = binding.imgPickerBtn;
-        imgProfile = binding.imgProfile;
-        imgChangeBtn = binding.imgChangeBtn;
-        imageButton = binding.imageButton;
-        nameTxt = binding.nametxt;
-        mailTxt = binding.mailtxt;
-        nickTxt = binding.nicktxt;
-        Usuario usuario = ((MainActivity)getActivity()).usuario;
-        nickTxt.setText(usuario.getUsuario());
-        mailTxt.setText(usuario.getCorreo());
-        nameTxt.setText(usuario.getNombre());
-
+        root = inflater.inflate(R.layout.fragment_profile, container, false);
+        picker = (ImageView) root.findViewById(R.id.imgPickerBtn);
+        imgProfile = (ImageView) root.findViewById(R.id.imgProfile);
+        imgChangeBtn = (ImageView) root.findViewById(R.id.imgChangeBtn);
+        imageButton = (ImageButton) root.findViewById(R.id.imageButton);
 
         imgChangeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +65,7 @@ public class ProfileFragment extends Fragment {
         });
 
         // Inflate the layout for this fragment
-        return binding.getRoot();
+        return root;
     }
 
     private void pickImageFromGallery() {

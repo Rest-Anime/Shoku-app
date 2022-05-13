@@ -41,7 +41,9 @@
         <activity android:name=".activities.detail.ModifyAnimeActivity" />
         <activity android:name=".activities.detail.DetailActivity" />
         <activity android:name=".activities.main.MainActivity" />
+        <activity android:name=".activities.main.FaqActivity"/>
         <activity android:name=".activities.login.LoginActivity">
+
             <intent-filter>
 
                 <action android:name="android.intent.action.MAIN" />
