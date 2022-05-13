@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Review implements Serializable {
-    private int UID;
+    private String UID;
     private String titulo;
     private String comentario;
     private int rating;
@@ -30,7 +30,7 @@ public class Review implements Serializable {
         this.dislikes = dislikes;
     }
 
-    public Review(int UID, String titulo, String comentario, int rating, Anime anime,
+    public Review(String UID, String titulo, String comentario, int rating, Anime anime,
                   String animeID, Usuario usuario, String usuarioID, Integer likes,
                   Integer dislikes) {
         this.UID = UID;
@@ -45,11 +45,11 @@ public class Review implements Serializable {
         this.dislikes = dislikes;
     }
 
-    public int getUID() {
+    public String getUID() {
         return UID;
     }
 
-    public void setUID(int UID) {
+    public void setUID(String UID) {
         this.UID = UID;
     }
 
@@ -145,11 +145,16 @@ public class Review implements Serializable {
     @Override
     public String toString() {
         return "Review{" +
-                "reviewId=" + UID +
-                ", title='" + titulo + '\'' +
-                ", review='" + comentario + '\'' +
+                "UID='" + UID + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", comentario='" + comentario + '\'' +
                 ", rating=" + rating +
                 ", anime=" + anime +
+                ", animeID='" + animeID + '\'' +
+                ", usuario=" + usuario +
+                ", usuarioID='" + usuarioID + '\'' +
+                ", likes=" + likes +
+                ", dislikes=" + dislikes +
                 '}';
     }
 }

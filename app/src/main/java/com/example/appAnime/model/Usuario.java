@@ -10,7 +10,18 @@ public class Usuario implements Serializable {
     private String nombre;
     private String usuario;
     private String foto;
+    /**
+     * animes
+     *      ID:
+     *          estado: string;
+     *          rate: string; (Int.parse(string));
+     */
     private Map<String, Map<String, String>> animes;
+
+    /**
+     * reviews:
+     *      ID: true/false (like/dislike);
+     */
     private Map<String, Boolean> reviews;
     private String correo;
     private boolean admin;

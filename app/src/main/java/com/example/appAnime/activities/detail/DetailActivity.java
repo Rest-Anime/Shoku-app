@@ -16,13 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
 import com.example.appAnime.activities.main.MainActivity;
-import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.adapter.EventsInterface;
 import com.example.appAnime.adapter.ReviewAdapter;
 import com.example.appAnime.model.Anime;
@@ -38,11 +36,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -182,7 +177,8 @@ public class DetailActivity extends AppCompatActivity {
 
         String animeTitle = anime.getTitulo();
         DocumentReference usuarios = db.collection("usuarios").document("reviews");
-        com.google.firebase.firestore.Query reviewsAnime = db.collection("reviews").whereEqualTo("titulo", animeTitle);
+        com.google.firebase.firestore.Query reviewsAnime = db.collection("reviews").whereEqualTo(
+                "titulo", animeTitle);
 
         //db.collection("reviews").where("titulo", "==", animeTitle).get().addOnSuccessListener;
         db.collection("reviews").whereEqualTo("titulo", animeTitle).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -191,31 +187,12 @@ public class DetailActivity extends AppCompatActivity {
                 reviewList.clear();
                 for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                     Review review = doc.toObject(Review.class);
-                    review.setUID(Integer.parseInt(doc.getId()));
+                    review.setUID(doc.getId());
                     reviewList.add(review);
                 }
                 Log.e("Lista", reviewList.toString());
                 reviewAdapter = new ReviewAdapter(reviewList, function);
                 recycler.setAdapter(reviewAdapter);
-            }
-        });
-
-        reference2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                reviewList.clear();
-                for (DataSnapshot son : snapshot.getChildren()) {
-                    Review review = son.getValue(Review.class);
-                    review.setUID(Integer.parseInt(son.getKey()));
-                    System.out.println(review.getUID());
-                    reviewList.add(review);
-                }
-                reviewAdapter = new ReviewAdapter(reviewList, function);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -237,18 +214,20 @@ public class DetailActivity extends AppCompatActivity {
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (btnFav.isPressed()){
+                if (btnFav.isPressed()) {
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
 
                     db.collection("usuarios").document("animes").getId();
 
-                    Toast.makeText(getApplicationContext(), anime.getTitulo() + " eliminado de favoritos", Toast.LENGTH_SHORT).show();
-                }else{
+                    Toast.makeText(getApplicationContext(), anime.getTitulo() + " eliminado de " +
+                            "favoritos", Toast.LENGTH_SHORT).show();
+                } else {
                     animeFavs.add(anime);
                     db.collection("animes").document("");
 
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
-                    Toast.makeText(getApplicationContext(), anime.getTitulo() + " añadido a favoritos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), anime.getTitulo() + " añadido a " +
+                            "favoritos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
