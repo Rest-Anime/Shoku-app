@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
 import com.example.appAnime.model.Review;
+import com.example.appAnime.model.Usuario;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -45,11 +46,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         Review actualReview = reviewList.get(position);
         holder.getReviewTitleText().setText(actualReview.getTitulo());
         holder.getRateText().setText("rate: " + String.valueOf(actualReview.getRating()));
-        holder.getUserText().setText(actualReview.getComentario()); //hay que crear el atributo user
-        // en la clase review
+        holder.getUserText().setText(actualReview.getComentario());
         holder.getAnimeText().setText(actualReview.getAnime().getTitulo());
         holder.getReviewDescText().setText(actualReview.getComentario());
-
+        holder.getUser().setUsuario(actualReview.getUsuario().getUsuario());
         //La url de la imagen
         String UrlImagen = String.valueOf(actualReview.getTitulo()); //aqui habria que pillar la
         // imagen del user, aun por crear
@@ -68,6 +68,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         TextView animetitleText;
         TextView descText;
         ImageView coverImg;
+        Usuario usuario;
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +91,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
         public TextView getRateText() {
             return rateText;
+        }
+
+        public Usuario getUser() {
+            return usuario;
         }
 
         public TextView getUserText() {

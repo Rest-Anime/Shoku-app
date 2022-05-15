@@ -133,12 +133,13 @@ public class Review implements Serializable {
      */
     public Map<String, Object> setFirestore() {
         Map<String, Object> data = new HashMap<>();
-        data.put("animeID", this.anime.getUID());
-        data.put("usuarioID", this.usuario.getUID());
+        data.put("animeID", this.animeID);
+        data.put("usuarioID", this.usuarioID);
         data.put("likes", this.likes);
         data.put("dislikes", this.dislikes);
         data.put("comentario", this.comentario);
         data.put("titulo", this.titulo);
+        data.put("rating", this.rating);
         return data;
     }
 

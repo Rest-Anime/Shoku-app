@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,17 +17,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
 import com.example.appAnime.activities.main.MainActivity;
+import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.adapter.EventsInterface;
 import com.example.appAnime.adapter.ReviewAdapter;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Review;
 import com.example.appAnime.model.Usuario;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,7 +41,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -66,9 +73,10 @@ public class DetailActivity extends AppCompatActivity {
     boolean isFav;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Query reference;
-    String descripcion, tituloReview;
+    String comentario, tituloReview;
     View foto;
     Usuario user;
+    Anime anime = new Anime();
     int puntuacion;
     List<Integer> listaWalls;
     ArrayList<Anime> animeFavs = new ArrayList<>();
@@ -86,7 +94,6 @@ public class DetailActivity extends AppCompatActivity {
         }
         return drawables;
     }
-
 
     @SuppressLint("ResourceType")
     @Override
@@ -115,14 +122,17 @@ public class DetailActivity extends AppCompatActivity {
         reviewTitle = findViewById(R.id.titleTxt);
         reviewList = new ArrayList<Review>();
         addReview = findViewById(R.id.addReview);
-        newReviewText = findViewById(R.id.newReviewTitle);
+        newReviewText = findViewById(R.id.newReviewText);
+        newReviewTitle = findViewById(R.id.newReviewTitle);
         detailWallpaper = findViewById(R.id.imgWallpaperDetail);
         review = (Review) getIntent().getSerializableExtra("review");
         listaWalls = new ArrayList<>();
-
         String url = getURLForResource(R.drawable.naruto_minimalist_wp);
-        //System.out.println("Direccion: " + url);
 
+        Intent intent = getIntent();
+        anime = (Anime) intent.getSerializableExtra("anime");
+        usuario = (Usuario) intent.getSerializableExtra("usuario");
+        int pos = intent.getIntExtra("pos", 0);
 
         try {
             listaWalls = getDrawablesList();
@@ -143,45 +153,24 @@ public class DetailActivity extends AppCompatActivity {
         reference2 = bbdd.getReference().child("Reviews");
         recycler.setAdapter(reviewAdapter);
         recycler.setVisibility(View.VISIBLE);
-        RecyclerView recyclerView = recycler;
 
-
-        descripcion = null;
-        tituloReview = null;
+        comentario = "";
+        tituloReview = "";
         foto = findViewById(R.drawable.emptyuser);
         puntuacion = 0;
 
-        EventsInterface function = (pos) -> {
+        EventsInterface function = (x) -> {
             Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
-            launchInfo.putExtra("review", reviewList.get(pos));
-            launchInfo.putExtra("pos", pos);
+            launchInfo.putExtra("review", reviewList.get(x));
+            launchInfo.putExtra("pos", x);
             startActivity(launchInfo);
-            /*
-            if(listaEleccion == false){
-                Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
-                launchInfo.putExtra("review", reviewList.get(pos));
-                launchInfo.putExtra("pos", pos);
-                startActivity(launchInfo);
-            }else{
-                Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
-                launchInfo.putExtra("review", listaFiltrados.get(pos));
-                startActivity(launchInfo);
-            }*/
         };
 
-        Intent intent = getIntent();
-        Anime anime = (Anime) intent.getSerializableExtra("anime");
-        usuario = (Usuario) intent.getSerializableExtra("usuario");
-        int pos = intent.getIntExtra("pos", 0);
-
-
-        String animeTitle = anime.getTitulo();
-        DocumentReference usuarios = db.collection("usuarios").document("reviews");
-        com.google.firebase.firestore.Query reviewsAnime = db.collection("reviews").whereEqualTo(
-                "titulo", animeTitle);
-
-        //db.collection("reviews").where("titulo", "==", animeTitle).get().addOnSuccessListener;
-        db.collection("reviews").whereEqualTo("titulo", animeTitle).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+/*
+        //cargar recycler con todas las reviews del anime en detalle
+        DocumentReference allReviews = db.collection("reviews").document(anime.getUID());
+        db.collection("reviews").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        //db.collection("reviews").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 reviewList.clear();
@@ -190,14 +179,59 @@ public class DetailActivity extends AppCompatActivity {
                     review.setUID(doc.getId());
                     reviewList.add(review);
                 }
-                Log.e("Lista", reviewList.toString());
+                Log.e("Lista reviews", reviewList.toString());
                 reviewAdapter = new ReviewAdapter(reviewList, function);
                 recycler.setAdapter(reviewAdapter);
             }
         });
+*/
+
+
+        db.collection("reviews").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value,
+                                @Nullable FirebaseFirestoreException error) {
+                reviewList.clear();
+                for (QueryDocumentSnapshot doc : value) {
+                    Review review = doc.toObject(Review.class);
+                    review.setUID(doc.getId());
+                    reviewList.add(review);
+                }
+                Log.e("Lista reviews ", reviewList.toString());
+                reviewAdapter = new ReviewAdapter(reviewList, function);
+                recycler.setAdapter(reviewAdapter);
+
+                reviewAdapter.setReviewList(reviewList);
+                reviewAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+
+        //db.collection("usuarios").whereArrayContains("animes", Anime.class).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("usuarios").whereEqualTo("usuario", usuario.getUID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                animeFavs.clear();
+                for (QueryDocumentSnapshot doc : value) {
+                    Usuario userTemp = doc.toObject(Usuario.class);
+                    userTemp.setUID(doc.getId());
+
+                    if(userTemp.getAnimes().containsKey(usuario.getUID())){
+                        animeFavs.add(anime);
+                    }
+                    //Anime anime = doc.toObject(Anime.class);
+                    Log.e("LISTA ANIMES FAVS: ", animeFavs.toString());
+                }
+            }
+        });
+
 
         Picasso.get().load(anime.getFoto()).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
         Toast.makeText(getApplicationContext(), anime.getTitulo(), Toast.LENGTH_SHORT).show();
+
+        //CREAR REVIEW
+        //int nLikes = db.collection("usuarios").where("reviews.documentID", "==", true).get();
 
         //INFORMACION BASICA
         info.setText(anime.getTitulo() + "\n" +
@@ -214,17 +248,23 @@ public class DetailActivity extends AppCompatActivity {
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (btnFav.isPressed()) {
-                    btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                for(Anime a : animeFavs){
+                    if(a.getTitulo().equalsIgnoreCase(anime.getTitulo())){
+                        isFav = true;
+                    }else{
+                        isFav = false;
+                    }
+                }
 
-                    db.collection("usuarios").document("animes").getId();
+                if (isFav) {
+                    btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
 
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " eliminado de " +
                             "favoritos", Toast.LENGTH_SHORT).show();
                 } else {
                     animeFavs.add(anime);
-                    db.collection("animes").document("");
-
+                    //db.collection("animes").document(anime.getUID()).delete();
+                    //db.collection("usuarios").whereArrayContains("animes", Anime.class).delete()
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " añadido a " +
                             "favoritos", Toast.LENGTH_SHORT).show();
@@ -281,30 +321,25 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Snackbar.make(view, "Reseña añadida con éxito", Snackbar.LENGTH_SHORT).show();
-
-                        puntuacion = 3; //hacer que pille la puntuacion que el user le dio al
-                        // anime en el que esta
-                        tituloReview = String.valueOf(reviewList.size() + 1);
-                        if (descripcion == null) {
-                            descripcion = "No se conoce nada sobre este anime. Como con tu crush"; //hacer que le salte una alerta para que escriba la reseña
-
+                        tituloReview = newReviewTitle.getText().toString();
+                        if (comentario == null) {
+                            comentario = "No se conoce nada sobre este anime."; //hacer que le salte una alerta para que escriba la reseña
                         } else {
-                            descripcion = String.valueOf(newReviewText.getText());
+                            comentario = newReviewText.getText().toString();
                         }
 
-                        reference2 = FirebaseDatabase.getInstance().getReference().child("Reviews");
-                        HashMap result = new HashMap<>();
-                        result.put("descripcion", descripcion);
-                        result.put("foto", foto); //poner que pille la foto del usuario que crea
-                        // la reseña
-                        result.put("puntuacion", puntuacion);
-                        result.put("titulo", tituloReview);
+                        Review review = new Review();
+                        review.setTitulo(tituloReview);
+                        review.setAnimeID(anime.getUID());
+                        review.setUsuarioID(usuario.getUID());
+                        review.setComentario(comentario);
+                        review.setRating(anime.getPuntuacion());
+                        review.setLikes(0);
+                        review.setDislikes(0);
 
-
-                        reference2.child(String.valueOf(review.getUID())).updateChildren(result);
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                        db.collection("reviews").document().set(review.setFirestore());
+                        Log.e("NUEVA REVIEW CREADA: ", reviewList.toString());
+                        //Log.e("REVIEW: ", review.getComentario());
                         finish();
                     }
                 });

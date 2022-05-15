@@ -58,8 +58,7 @@ public class LoginFragment extends Fragment {
                                 Toast.LENGTH_LONG).show();
                         return;
                     }
-                    DocumentReference docRef =
-                            db.collection("usuarios").document(task.getResult().getUser().getUid());
+                    DocumentReference docRef = db.collection("usuarios").document(task.getResult().getUser().getUid());
                     docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {

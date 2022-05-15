@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     public Usuario usuario = new Usuario();
 
-
     /*
         El evento OnPrepared se lanzaría una vez, cuando el mp se encuentra listo para
         reproducir audio.

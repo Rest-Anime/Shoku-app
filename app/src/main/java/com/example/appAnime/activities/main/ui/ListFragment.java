@@ -39,7 +39,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-
 public class ListFragment extends Fragment {
 
     final int CODE_CREATE_ANIME = 2;
