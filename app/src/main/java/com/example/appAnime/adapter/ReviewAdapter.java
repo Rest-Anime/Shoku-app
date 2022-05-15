@@ -44,12 +44,16 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review actualReview = reviewList.get(position);
-        holder.getReviewTitleText().setText(actualReview.getTitulo());
-        holder.getRateText().setText("rate: " + String.valueOf(actualReview.getRating()));
-        holder.getUserText().setText(actualReview.getComentario());
-        holder.getAnimeText().setText(actualReview.getAnime().getTitulo());
+        holder.getReviewTitleText().setText("Titulo: " + actualReview.getTitulo());
+        holder.getRateText().setText("Puntuacion: " + String.valueOf(actualReview.getRating()));
+        holder.getUserText().setText("Usuario: " + actualReview.getUsuario().getNombre());
+        holder.getAnimeText().setText("Anime: " + actualReview.getAnime().getTitulo());
         holder.getReviewDescText().setText(actualReview.getComentario());
-        holder.getUser().setUsuario(actualReview.getUsuario().getUsuario());
+        //holder.getCoverImg().setImageResource(Integer.parseInt(actualReview.getUsuario().getFoto()));
+        //holder.getUser().setUsuario(actualReview.getUsuario().getUsuario());
+        //likes
+        //dislikes
+
         //La url de la imagen
         String UrlImagen = String.valueOf(actualReview.getTitulo()); //aqui habria que pillar la
         // imagen del user, aun por crear

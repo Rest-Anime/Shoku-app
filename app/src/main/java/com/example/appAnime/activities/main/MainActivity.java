@@ -283,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.faq:
                         Intent faqIntent = new Intent(getApplicationContext(), FaqActivity.class);
                         startActivity(faqIntent);
+                        item.setChecked(false);
                         finish();
                         break;
                     case R.id.visualization:
