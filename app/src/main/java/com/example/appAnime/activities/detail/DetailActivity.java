@@ -251,7 +251,6 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.get().load(anime.getFoto()).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
         Toast.makeText(getApplicationContext(), anime.getTitulo(), Toast.LENGTH_SHORT).show();
 
-        //CREAR REVIEW
         //int nLikes = db.collection("usuarios").where("reviews.documentID", "==", true).get();
 
         //INFORMACION BASICA
@@ -271,28 +270,32 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isFav) {
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    animeFavs.remove(anime);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " eliminado de " +
                             "favoritos", Toast.LENGTH_SHORT).show();
                     //eliminar de la bbdd
-                    DocumentReference docRef = db.collection("usuarios").document(usuario.getUID()).collection("animes").document(anime.getUID());
+                    DocumentReference docRef = db.collection("usuarios").document(usuario.getUID());
 
-                    Map<String,Object> updates = new HashMap<>();
-                    updates.put(anime.getUID(), FieldValue.delete());
-                    docRef.update(updates);
+                    Map<String, Map<String, String>> animeFavs = usuario.getAnimes();
+                    usuario.setFirestore();
 
                     Log.d("R",  anime.getTitulo() + " ELIMINADO DE FAVORITOS");
 
                 } else {
                     animeFavs.add(anime);
-                    //db.collection("animes").document(anime.getUID()).delete();
-                    //db.collection("usuarios").whereArrayContains("animes", Anime.class).delete()
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " añadido a " +
                             "favoritos", Toast.LENGTH_SHORT).show();
                     //añadirlo a la bbdd
-                    Usuario anim = new Usuario();
-                    //anim.setAnimes(anim.addAnimeToList(anime.getUID(), "OnHold", anime.getPuntuacion()));
-                    //db.collection("usuarios").document(usuario.getUID()).collection("animes").document().set(anim.addAnimeToList());
+                    DocumentReference docRef = db.collection("usuarios").document(usuario.getUID());
+
+                    Map<String, String> nuevoFav = new HashMap<>();
+                    nuevoFav.put("estado", "Completed");
+                    nuevoFav.put("rate", String.valueOf(anime.getPuntuacion()));
+
+                    Map<String, Map> nuevoAnime = new HashMap<>();
+                    nuevoAnime.put(anime.getUID(), nuevoFav);
+                    docRef.set(nuevoAnime);
                 }
             }
         });

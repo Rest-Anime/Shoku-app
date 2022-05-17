@@ -204,8 +204,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:clickable="true"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     app:backgroundTint="@color/AzulPrincipal"
-                    app:srcCompat="@android:drawable/ic_input_add" />
+                    app:srcCompat="@android:drawable/ic_input_add"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
             </LinearLayout>
 
