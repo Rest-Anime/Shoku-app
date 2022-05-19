@@ -4,7 +4,7 @@
     <!-- Primary application theme. -->
     <style name="Theme.Basic" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/AzulPrincipal</item>
+        <item name="colorPrimary">@color/darkBlue</item>
         <item name="colorPrimaryVariant">@color/NaranjaPrincipal</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

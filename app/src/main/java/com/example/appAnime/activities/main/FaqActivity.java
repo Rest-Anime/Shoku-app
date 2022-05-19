@@ -19,6 +19,7 @@ public class FaqActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+        super.onBackPressed();
         //Toast.makeText(getApplicationContext(),"onBackPressed",Toast.LENGTH_SHORT).show();
         //super.onBackPressed();
     }

@@ -48,7 +48,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         holder.getNameText().setText(actualAnime.getTitulo());
         holder.getSeasonsText().setText("temporadas: " + String.valueOf(actualAnime.getTemporadas()));
         holder.getGenresText().setText(actualAnime.getGenero());
-        holder.getStarsBar().setNumStars(actualAnime.getPuntuacion());
+        holder.getStarsBar().setRating(actualAnime.getPuntuacion());
 
         //La url de la imagen
         String UrlImagen = String.valueOf(actualAnime.getFoto());
@@ -66,6 +66,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         TextView seasonsText;
         RatingBar starsBar;
         ImageView coverImg;
+        ImageView fav;
 
         public AnimeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,7 +75,18 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
             this.seasonsText = itemView.findViewById(R.id.reviewTxt);
             this.starsBar = itemView.findViewById(R.id.ratingBar);
             this.coverImg = itemView.findViewById(R.id.userPhoto);
-            itemView.setOnClickListener(this);
+            this.fav = itemView.findViewById(R.id.iconLike);
+            coverImg.setOnClickListener(this);
+            starsBar.setOnClickListener(this);
+            seasonsText.setOnClickListener(this);
+            genresText.setOnClickListener(this);
+            nameText.setOnClickListener(this);
+            fav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         public TextView getNameText() {

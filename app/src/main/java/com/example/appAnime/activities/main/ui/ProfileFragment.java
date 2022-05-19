@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
     View root;
     Context context;
     Uri imageURI;
-    ImageView picker, imgProfile, imgChangeBtn;
+    ImageView picker, imgProfile;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ImageButton imageButton;
     Button modify;
@@ -98,14 +98,11 @@ public class ProfileFragment extends Fragment {
                 for (QueryDocumentSnapshot doc : value) {
                     Review review = doc.toObject(Review.class);
                     review.setUID(doc.getId());
-
-                    if (usuario.getReviews().containsKey(review.getUID())) {
-                        reviewsList.add(review);
-                    }
-                    Log.e("Lista reviews usuario: ", reviewsList.toString());
-                    reviewAdapter = new ReviewAdapter(reviewsList, function);
-                    recyclerView.setAdapter(reviewAdapter);
+                    reviewsList.add(review);
                 }
+                Log.e("Lista reviews usuario: ", reviewsList.toString());
+                reviewAdapter = new ReviewAdapter(reviewsList, function);
+                recyclerView.setAdapter(reviewAdapter);
             }
         });
         //endregion
