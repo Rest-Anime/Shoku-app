@@ -2,6 +2,7 @@ package com.example.appAnime.activities.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,7 @@ public class FaqActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
+        //Toast.makeText(getApplicationContext(),"onBackPressed",Toast.LENGTH_SHORT).show();
         //super.onBackPressed();
     }
 }

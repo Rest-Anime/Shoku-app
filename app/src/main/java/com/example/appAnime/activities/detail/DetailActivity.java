@@ -1,6 +1,7 @@
 package com.example.appAnime.activities.detail;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -133,7 +134,7 @@ public class DetailActivity extends AppCompatActivity {
         detailWallpaper = findViewById(R.id.imgWallpaperDetail);
         review = (Review) getIntent().getSerializableExtra("review");
         listaWalls = new ArrayList<>();
-        String url = getURLForResource(R.drawable.naruto_minimalist_wp);
+        //String url = getURLForResource(R.drawable.naruto_minimalist_wp);
 
         Intent intent = getIntent();
         anime = (Anime) intent.getSerializableExtra("anime");
@@ -295,7 +296,7 @@ public class DetailActivity extends AppCompatActivity {
 
                     Map<String, Map> nuevoAnime = new HashMap<>();
                     nuevoAnime.put(anime.getUID(), nuevoFav);
-                    docRef.set(nuevoAnime);
+                    //docRef.set(nuevoAnime);
                 }
             }
         });
@@ -377,16 +378,53 @@ public class DetailActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-                dialog.setNeutralButton("STAY", null);
+                //dialog.setNeutralButton("STAY", null);
                 dialog.show();
             }
         });
 
-    }
+        ArrayList<String> selectedItemList = new ArrayList<>();
+        try {
+            report.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                    String[] list = getApplicationContext().getResources().getStringArray(R.array.choices);
+                    builder.setTitle("").setMultiChoiceItems(list, null, new DialogInterface.OnMultiChoiceClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                            if (b) {
+                                selectedItemList.add(list[i]);
+                            } else {
+                                selectedItemList.remove(list[i]);
+                            }
+                        }
+                    });
+                    builder.setMessage("Are you sure that you want to insert this review?");
+                    builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    builder.show();
+                }
+            });
+        }catch (Exception e){
+            Log.d("R", "ERROR: no hay reviews", e);
+        }
+/*
+        public String getURLForResource(int resourceId) {
+            //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are
+            // not same
+            return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
+        }
 
-    public String getURLForResource(int resourceId) {
-        //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are
-        // not same
-        return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
+ */
+
     }
 }
