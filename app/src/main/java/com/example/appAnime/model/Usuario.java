@@ -12,17 +12,17 @@ public class Usuario implements Serializable {
     private String foto;
     /**
      * animes
-     *      ID:
-     *          estado: string;
-     *          rate: string; (Int.parse(string));
+     * ID:
+     * estado: string;
+     * rate: string; (Int.parse(string));
      */
     private Map<String, Map<String, String>> animes;
 
     /**
      * reviews:
-     *      ID: true/false (like/dislike);
+     * ID: true/false (like/dislike);
      */
-    private Map<String, Boolean> reviews;
+    private Map<String, String> reviews;
     private String correo;
     private boolean admin;
 
@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
     }
 
     public Usuario(String nombre, String usuario, String foto,
-                   Map<String, Map<String, String>> animes, Map<String, Boolean> reviews,
+                   Map<String, Map<String, String>> animes, Map<String, String> reviews,
                    boolean admin) {
         this.nombre = nombre;
         this.usuario = usuario;
@@ -51,13 +51,12 @@ public class Usuario implements Serializable {
         this.correo = null;
     }
 
-
-    public String getCorreo() {
-        return correo;
+    public String getUID() {
+        return UID;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getNombre() {
@@ -92,12 +91,20 @@ public class Usuario implements Serializable {
         this.animes = animes;
     }
 
-    public Map<String, Boolean> getReviews() {
+    public Map<String, String> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Map<String, Boolean> reviews) {
+    public void setReviews(Map<String, String> reviews) {
         this.reviews = reviews;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public boolean isAdmin() {
@@ -106,14 +113,6 @@ public class Usuario implements Serializable {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
-    }
-
-    public String getUID() {
-        return UID;
-    }
-
-    public void setUID(String UID) {
-        this.UID = UID;
     }
 
     /**
@@ -146,7 +145,7 @@ public class Usuario implements Serializable {
      * @param reviewID El documento al que hace referencia en la coleccion de reviews.
      * @param like     un booleano que representa un like(true) o dislike(false).
      */
-    public void addReview(String reviewID, Boolean like) {
+    public void addReview(String reviewID, String like) {
         this.reviews.put(reviewID, like);
     }
 
