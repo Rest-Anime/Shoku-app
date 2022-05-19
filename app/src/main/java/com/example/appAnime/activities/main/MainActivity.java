@@ -288,15 +288,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(faqIntent);
                         item.setChecked(false);
                         break;
-                    case R.id.visualization:
-                        if (visualizarLista) {
-                            visualizarLista = false;
-                            item.setIcon(R.drawable.ic_baseline_view_module_24);
-                        } else {
-                            visualizarLista = true;
-                            item.setIcon(R.drawable.ic_baseline_view_day_24);
-                        }
-                        break;
                 }
                 return false;
             }

@@ -82,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
     View foto;
     Usuario user;
     Anime anime = new Anime();
-    int puntuacion;
+    int puntuacion, likes, dislikes;
     List<Integer> listaWalls;
     ArrayList<Anime> animeFavs = new ArrayList<>();
 
@@ -135,6 +135,13 @@ public class DetailActivity extends AppCompatActivity {
         review = (Review) getIntent().getSerializableExtra("review");
         listaWalls = new ArrayList<>();
         //String url = getURLForResource(R.drawable.naruto_minimalist_wp);
+        /*
+        likes = 0;
+        dislikes = 0;
+        likeCount.setText(likes);
+        dislikeCount.setText(dislikes);
+
+         */
 
         Intent intent = getIntent();
         anime = (Anime) intent.getSerializableExtra("anime");
@@ -190,9 +197,12 @@ public class DetailActivity extends AppCompatActivity {
                     review.setUsuario(usuario);
                     review.setUsuarioID(usuario.getUID());
                     review.setAnimeID(anime.getUID());
-
+                    //review.setLikes(review.getLikes());
+                    //review.setDislikes(review.getDislikes());
                     reviewList.add(review);
                 }
+                //likes = review.getLikes();
+                //dislikes = review.getDislikes();
                 Log.e("Lista reviews ", reviewList.toString());
                 reviewAdapter = new ReviewAdapter(reviewList, function);
                 recycler.setAdapter(reviewAdapter);
@@ -233,7 +243,6 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 }
                 Log.e("LISTA ANIMES FAVS: ", animeFavs.toString());
-
                 for(Anime a : animeFavs){
                     Log.d("R", "BUSCANDO COINCIDENCIAS");
                     if(a.getUID().equals(anime.getUID())){
@@ -417,6 +426,23 @@ public class DetailActivity extends AppCompatActivity {
         }catch (Exception e){
             Log.d("R", "ERROR: no hay reviews", e);
         }
+        /*
+         like.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 //likes += 1;
+
+             }
+         });
+        dislike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //dislikes += 1;
+            }
+        });
+
+         */
+
 /*
         public String getURLForResource(int resourceId) {
             //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are

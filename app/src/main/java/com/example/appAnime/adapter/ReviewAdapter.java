@@ -73,6 +73,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         TextView descText;
         ImageView coverImg;
         Usuario usuario;
+        ImageView report, like, dislike;
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,7 +83,33 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             this.animetitleText = itemView.findViewById(R.id.animeReview);
             this.descText = itemView.findViewById(R.id.userDescription);
             this.coverImg = itemView.findViewById(R.id.userPhoto);
-            itemView.setOnClickListener(this);
+            this.report = itemView.findViewById(R.id.iconReport);
+            this.like = itemView.findViewById(R.id.iconLike);
+            this.dislike = itemView.findViewById(R.id.iconDislike);
+            titleText.setOnClickListener(this);
+            rateText.setOnClickListener(this);
+            usernameText.setOnClickListener(this);
+            animetitleText.setOnClickListener(this);
+            descText.setOnClickListener(this);
+            coverImg.setOnClickListener(this);
+            report.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            dislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         public TextView getReviewTitleText() {

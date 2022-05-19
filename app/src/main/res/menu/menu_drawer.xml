@@ -5,13 +5,8 @@
         <item
             android:id="@+id/maps"
             android:icon="@android:drawable/ic_dialog_map"
-            android:title="Mapa" />/>
-        <item
-            android:id="@+id/visualization"
-            android:actionLayout="@layout/spinner_drawer"
-            android:icon="@drawable/ic_baseline_view_module_24"
-            android:title="List Mode" />
-        <item
+            android:title="Mapa" /><![CDATA[/>
+        ]]><item
             android:id="@+id/credits"
             android:icon="@drawable/ic_baseline_wysiwyg_24"
             android:title="Credits" />/>
