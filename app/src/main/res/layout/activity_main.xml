@@ -16,23 +16,21 @@
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFAB5C"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/menuconfig" />
+            app:menu="@menu/menuconfig"
+            style="@style/Theme.Basic.MyBar"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navBot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/NaranjaPrincipal"
-            app:itemBackground="@color/NaranjaPrincipal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/menubottom" />
+            app:menu="@menu/menubottom"
+            style="@style/Theme.Basic.MyBar"/>
 
         <fragment
             android:id="@+id/nav_host_fragment_activity_main"
@@ -57,8 +55,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header"
-        app:itemIconTint="@color/AzulPrincipal"
-        app:itemTextColor="@color/AzulPrincipal"
         app:menu="@menu/menu_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

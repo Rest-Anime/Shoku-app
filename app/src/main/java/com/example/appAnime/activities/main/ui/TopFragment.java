@@ -1,18 +1,8 @@
 package com.example.appAnime.activities.main.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
 import com.example.appAnime.activities.detail.CreateAnimeActivity;
@@ -31,12 +28,9 @@ import com.example.appAnime.databinding.FragmentTopBinding;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Usuario;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -77,20 +71,16 @@ public class TopFragment extends Fragment {
 
         //region FIRESTORE
         this.listaEleccion = ((MainActivity) getActivity()).listaEleccion;
-        db.collection("animes").orderBy("puntuacion", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value,
-                                @Nullable FirebaseFirestoreException error) {
-                animeList.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Anime anime = doc.toObject(Anime.class);
-                    anime.setUID(doc.getId());
-                    animeList.add(anime);
-                }
-                Log.e("Lista", animeList.toString());
-                animeAdapter = new AnimeAdapter(animeList, function);
-                recyclerView.setAdapter(animeAdapter);
+        db.collection("animes").orderBy("puntuacion", Query.Direction.DESCENDING).limit(10).addSnapshotListener((value, error) -> {
+            animeList.clear();
+            for (QueryDocumentSnapshot doc : value) {
+                Anime anime = doc.toObject(Anime.class);
+                anime.setUID(doc.getId());
+                animeList.add(anime);
             }
+            Log.e("Lista", animeList.toString());
+            animeAdapter = new AnimeAdapter(animeList, function);
+            recyclerView.setAdapter(animeAdapter);
         });
         //endregion
 
@@ -122,13 +112,10 @@ public class TopFragment extends Fragment {
                 dialogoCrear.setIcon(R.drawable.mr_cast_thumb);
                 dialogoCrear.setTitle("Operacion Crear Anime");
                 dialogoCrear.setMessage("¿Estas seguro de que quieres crear un Anime?");
-                dialogoCrear.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent launchCreate = new Intent(context,
-                                CreateAnimeActivity.class);
-                        startActivityForResult(launchCreate, CODE_CREATE_ANIME);
-                    }
+                dialogoCrear.setPositiveButton("Crear", (dialog, which) -> {
+                    Intent launchCreate = new Intent(context,
+                            CreateAnimeActivity.class);
+                    startActivityForResult(launchCreate, CODE_CREATE_ANIME);
                 });
                 dialogoCrear.setNegativeButton("Cancelar", null);
                 dialogoCrear.show();

@@ -139,7 +139,12 @@ public class ListFragment extends Fragment {
         binding.chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
             Chip chip = binding.chipGroup.findViewById(checkedId);
             if (chip == null) {
-                animeAdapter.setAnimeList(animeList);
+                listaFiltrados.clear();
+                for (Anime a : animeList) {
+                    listaFiltrados.add(a);
+                    listaEleccion = true;
+                }
+                animeAdapter.setAnimeList(listaFiltrados);
                 animeAdapter.notifyDataSetChanged();
             } else {
                 filtroChips(chip.getText().toString());

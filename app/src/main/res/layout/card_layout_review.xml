@@ -8,11 +8,11 @@
     android:paddingBottom="5dp">
 
     <androidx.cardview.widget.CardView
+        style="@style/Theme.Basic.cards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        app:cardBackgroundColor="@color/NaranjaPrincipal"
         app:cardCornerRadius="20dp"
         app:cardElevation="5dp"
         app:cardMaxElevation="0dp"
@@ -166,7 +166,7 @@
 
             <Button
                 android:id="@+id/divisor"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/Theme.Basic.MyBar"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_marginTop="4dp"
@@ -174,8 +174,7 @@
                 android:backgroundTint="@color/NaranjaPrincipal"
                 android:checkable="false"
                 android:clickable="false"
-                app:backgroundTint="@null"
-                app:iconTint="@color/NaranjaPrincipal" />
+                app:backgroundTint="@null" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -6,22 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.appAnime.R;
-import com.example.appAnime.activities.main.MainActivity;
+import com.example.appAnime.databinding.FragmentSettingsBinding;
 
 public class SettingsFragment extends Fragment {
-    View root;
-    Boolean themeMain, themeDark, themeSecond;
-    Button btmo, btmb, btmw, btdo, btdb, btddg, btsm, btsg, btsdg;
-    TextView condiciones, privacidad;
-    ImageView fb, insta, twitter;
+
+    Boolean themeMain, themeSecond;
+    FragmentSettingsBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,15 +25,10 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_settings, container, false);
-        btmo = (Button) root.findViewById(R.id.btnThemeMainOrange);
-        condiciones = root.findViewById(R.id.txtCondiciones);
-        privacidad = root.findViewById(R.id.txtPrivacidad);
-        fb = root.findViewById(R.id.facebook_logo);
-        insta = root.findViewById(R.id.instagram_logo);
-        twitter = root.findViewById(R.id.twitter_logo);
+        binding = FragmentSettingsBinding.inflate(getLayoutInflater());
 
-        condiciones.setText("En el momento que usted, el usuario, nos facilita información de carácter personal a través de Animeflv.net (en adelante, el “Sitio Web”) se respeta su intimidad y los derechos que le reconoce la normativa sobre protección de datos de carácter personal. Por ello, es importante que entienda que información recabamos acerca de usted durante su visita y qué hacemos con dicha información la cual estará sujeta a la siguiente política sobre el tratamiento de datos personales.\n" +
+
+       binding.titleCondiciones.setText("En el momento que usted, el usuario, nos facilita información de carácter personal a través de Animeflv.net (en adelante, el “Sitio Web”) se respeta su intimidad y los derechos que le reconoce la normativa sobre protección de datos de carácter personal. Por ello, es importante que entienda que información recabamos acerca de usted durante su visita y qué hacemos con dicha información la cual estará sujeta a la siguiente política sobre el tratamiento de datos personales.\n" +
                 "Recomendamos leer detenidamente los siguientes puntos sobre nuestra Política de Privacidad; los que brindarán la total seguridad de que usted esta dentro de un sitio que protege su información e identidad. \n" +
         "Seguridad y protección de datos personales: La seguridad de sus datos personales es una prioridad para este sitio web el cual ofrece seguridad total. Sin embargo, no nos responsabilizamos por las actividades de hackers o terceros que realizan acciones para dañar romper la seguridad que cada sitio brinda. Teniendo en consideración las características técnicas de transmisión de información a través de Internet, ningún sistema es 100% seguro o exento de ataques.\n"+
         "Responsabilidad de opiniones: Este sitio web solo se responsabiliza de las publicaciones aquí expuestas a manera de posts, mas no de los comentarios de éstas, ya que son realizados por terceros y/o visitantes del sitio.\n" +
@@ -55,7 +44,7 @@ public class SettingsFragment extends Fragment {
                 "Actualmente estas cookies sólo retiran información estadística, en ningún caso buscan recopilar información de carácter importante.\n"
                 );
 
-        privacidad.setText("La Política de Privacidad establece los términos en que AnimeFLV usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta compañía está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.\n" +
+       binding.txtPrivacidad.setText("La Política de Privacidad establece los términos en que AnimeFLV usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta compañía está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.\n" +
                 "\n" +
                 "Información que es recogida\n"+
                 "Nuestro sitio web podrá recoger información personal por ejemplo: Nombre, información de contacto como su dirección de correo electrónica e información demográfica. Así mismo cuando sea necesario podrá ser requerida información específica para procesar algún pedido o realizar una entrega o facturación.\n" +
@@ -73,47 +62,40 @@ public class SettingsFragment extends Fragment {
                 "En cualquier momento usted puede restringir la recopilación o el uso de la información personal que es proporcionada a nuestro sitio web. Cada vez que se le solicite rellenar un formulario, como el de alta de usuario, puede marcar o desmarcar la opción de recibir información por correo electrónico. En caso de que haya marcado la opción de recibir nuestro boletín o publicidad usted puede cancelarla en cualquier momento. Esta compañía no venderá, cederá ni distribuirá la información personal que es recopilada sin su consentimiento, salvo que sea requerido por un juez con un orden judicial. AnimeFLV Se reserva el derecho de cambiar los términos de la presente Política de Privacidad en cualquier momento.\n" +
                 "\n");
 
-        fb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String web = "www.facebook.com";
-                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.putExtra(SearchManager.QUERY, web);
-                startActivity(intent);
-            }
+        binding.facebookLogo.setOnClickListener(view -> {
+            String web = "www.facebook.com";
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, web);
+            startActivity(intent);
         });
 
-        insta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String web = "www.instagram.com";
-                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.putExtra(SearchManager.QUERY, web);
-                startActivity(intent);
-            }
+        binding.instagramLogo.setOnClickListener(view -> {
+            String web = "www.instagram.com";
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, web);
+            startActivity(intent);
         });
 
-        twitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String web = "www.twitter.com";
-                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.putExtra(SearchManager.QUERY, web);
-                startActivity(intent);
-            }
+        binding.twitterLogo.setOnClickListener(view -> {
+            String web = "www.twitter.com";
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, web);
+            startActivity(intent);
         });
 
-        btmo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getContext().setTheme(R.style.SecondaryTheme_AppCoffee);
-                System.out.println("ESEEEEEEEEEEEEEEEEEEE");
-            }
-        });
+      binding.btnThemeMainOrange.setOnClickListener(view -> {
+          getContext().setTheme(R.style.Theme_Basic_NoActionBar);
+          System.out.println("Sirve el tema principal");
+      });
 
+        binding.btnThemeSecondMagenta.setOnClickListener(view -> {
+            getContext().setTheme(R.style.SecondaryTheme_Basic_NoActionBar);
+
+            System.out.println("Sirve el tema secundario");
+        });
 
         // Inflate the layout for this fragment
-        return root;
+        return binding.getRoot();
     }
 
     @Override

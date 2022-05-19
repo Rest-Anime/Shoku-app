@@ -145,40 +145,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnThemeMainDarkOrange"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/NaranjaPrincipal"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/btnThemeMainDarkBlue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/AzulPrincipal"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/btnThemeMainDarkDarkGray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/cardview_dark_background"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </LinearLayout>
-
             <TextView
                 android:id="@+id/titleVolumen"
                 android:layout_width="match_parent"

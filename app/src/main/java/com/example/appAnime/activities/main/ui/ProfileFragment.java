@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appAnime.R;
 import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.adapter.EventsInterface;
 import com.example.appAnime.adapter.ReviewAdapter;
@@ -78,8 +79,13 @@ public class ProfileFragment extends Fragment {
 
         root = binding.getRoot();
         imgProfile = binding.imgProfile;
-        String urlImagen = String.valueOf(usuario.getFoto());
-        Picasso.get().load(urlImagen).into(imgProfile);
+        if (usuario.getFoto() != null) {
+            String urlImagen = String.valueOf(usuario.getFoto());
+            Picasso.get().load(urlImagen).into(imgProfile);
+        } else {
+            Picasso.get().load(R.drawable.emptyuser).into(imgProfile);
+        }
+
         imageButton = binding.imageButton;
         modify = binding.btnEdit2;
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreditsActivity">
+    tools:context=".activities.main.CreditsActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -45,7 +45,6 @@
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
-                android:backgroundTint="@color/NaranjaPrincipal"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -78,7 +77,6 @@
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
-                android:backgroundTint="@color/NaranjaPrincipal"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -95,7 +93,6 @@
                 android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
-                android:backgroundTint="@color/NaranjaPrincipal"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />

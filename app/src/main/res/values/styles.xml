@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Basic.MyBar" parent="ThemeOverlay.MaterialComponents">
+        <item name="backgroundTint">@color/NaranjaPrincipal</item>
+        <item name="android:background">@color/NaranjaPrincipal</item>
+    </style>
+    <style name="SecondaryTheme.Basic.MyBar">
+        <item name="backgroundTint">@color/MagentaPrincipal</item>
+        <item name="android:background">@color/MagentaPrincipal</item>
+    </style>
+
+    <style name="Theme.Basic.header">
+        <item name="android:background">@color/AzulPrincipal</item>
+    </style>
+    <style name="SecondaryTheme.Basic.header">
+        <item name="android:background">@color/TurquesaPrincipal</item>
+    </style>
+
+    <style name="Theme.Basic.cards">
+        <item name="cardBackgroundColor">@color/AzulPrincipal</item>
+    </style>
+    <style name="SecondaryTheme.Basic.cards">
+        <item name="cardBackgroundColor">@color/TurquesaPrincipal</item>
+    </style>
+</resources>
