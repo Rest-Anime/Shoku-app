@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,29 +23,23 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.appAnime.R;
 import com.example.appAnime.activities.login.LoginActivity;
-import com.example.appAnime.activities.main.ui.ListFragment;
 import com.example.appAnime.activities.maps.MapsActivity;
 import com.example.appAnime.adapter.AnimeAdapter;
-import com.example.appAnime.databinding.ActivityMainBinding;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     ToggleButton loop;
     ToggleButton playMusic;
     Retrofit retrofit;
+    ImageView pfp;
     TextView songName, userName;
     int counter = 0;
     Button play;
@@ -72,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     int Code_Create_Anime = 2;
     LinearLayout visualizationMode;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ActivityMainBinding binding;
+
     public Usuario usuario = new Usuario();
 
     /*
@@ -163,11 +159,12 @@ public class MainActivity extends AppCompatActivity {
         menuLateral = findViewById(R.id.navigator);
         cabecera = menuLateral.getHeaderView(0);
         userName = cabecera.findViewById(R.id.actividadLbl);
+        pfp = cabecera.findViewById(R.id.pfp);
         animeList = new ArrayList<Anime>();
         recyclerView = findViewById(R.id.rwr);
         toolbar = findViewById(R.id.toolbar2);
 
-        setSupportActionBar(toolbar);
+
 
         drawer = findViewById(R.id.dl);
         loop = cabecera.findViewById(R.id.playM);
@@ -175,6 +172,12 @@ public class MainActivity extends AppCompatActivity {
         visualizarLista = true;
         userAdmin = false;
         userName.setText(usuario.getUsuario());
+        if (usuario.getFoto() != null) {
+            String urlImagen = String.valueOf(usuario.getFoto());
+            Picasso.get().load(urlImagen).into(pfp);
+        } else {
+            Picasso.get().load(R.drawable.emptyuser).into(pfp);
+        }
 
 
         /*

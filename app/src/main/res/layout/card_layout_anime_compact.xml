@@ -42,15 +42,11 @@
 
             <Button
                 android:id="@+id/divisor"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/Theme.Basic.MyBar"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:background="@color/NaranjaPrincipal"
-                android:backgroundTint="@color/NaranjaPrincipal"
                 android:checkable="false"
-                android:clickable="false"
-                app:backgroundTint="@null"
-                app:iconTint="@color/NaranjaPrincipal" />
+                android:clickable="false" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

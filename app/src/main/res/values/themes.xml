@@ -1,24 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AppCoffee" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
 
     <!-- Primary application theme. -->
-    <style name="PrimaryTheme.AppCoffee" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Basic" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/NaranjaPrincipal</item>
-        <item name="colorPrimaryVariant">@color/NaranjaPrincipalOscuro</item>
+        <item name="colorPrimary">@color/AzulPrincipal</item>
+        <item name="colorPrimaryVariant">@color/NaranjaPrincipal</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/AzulPrincipal</item>
@@ -30,10 +17,10 @@
     </style>
 
     <!-- Secondary application theme. -->
-    <style name="SecondaryTheme.AppCoffee" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="SecondaryTheme.Basic" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/MagentaPrincipal</item>
-        <item name="colorPrimaryVariant">@color/MagentaPrincipalOscuro</item>
+        <item name="colorPrimary">@color/TurquesaPrincipal</item>
+        <item name="colorPrimaryVariant">@color/MagentaPrincipal</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/TurquesaPrincipal</item>
@@ -45,12 +32,16 @@
     </style>
 
 
-    <style name="Theme.AppCoffee.NoActionBar">
+    <style name="Theme.Basic.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="SecondaryTheme.Basic.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.AppCoffee.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+    <style name="Theme.Basic.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+    <style name="Theme.Basic.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
-    <style name="Theme.AppCoffee.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>
