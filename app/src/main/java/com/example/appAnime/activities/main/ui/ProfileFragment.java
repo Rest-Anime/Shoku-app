@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
@@ -25,11 +27,13 @@ import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.adapter.EventsInterface;
 import com.example.appAnime.adapter.ReviewAdapter;
 import com.example.appAnime.databinding.FragmentProfileBinding;
+import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Review;
 import com.example.appAnime.model.Usuario;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -58,6 +62,8 @@ public class ProfileFragment extends Fragment {
     Usuario usuario;
     ReviewAdapter reviewAdapter;
     FragmentProfileBinding binding;
+    Anime anime;
+    Review review;
     ArrayList<Review> reviewsList = new ArrayList<>();
 
     private EventsInterface function = (pos) -> {
@@ -76,6 +82,9 @@ public class ProfileFragment extends Fragment {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         RecyclerView recyclerView = binding.reviewsRW;
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.addItemDecoration(new DividerItemDecoration(context,
+                DividerItemDecoration.VERTICAL));
 
         root = binding.getRoot();
         imgProfile = binding.imgProfile;
@@ -89,15 +98,27 @@ public class ProfileFragment extends Fragment {
         imageButton = binding.imageButton;
         modify = binding.btnEdit2;
 
+
         //region FIRESTORE
         db.collection("reviews").whereEqualTo("usuarioID", usuario.getUID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value,
+            public void onEvent(@Nullable QuerySnapshot querySnapshot,
                                 @Nullable FirebaseFirestoreException error) {
                 reviewsList.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Review review = doc.toObject(Review.class);
+                for (QueryDocumentSnapshot doc : querySnapshot) {
+                    review = doc.toObject(Review.class);
                     review.setUID(doc.getId());
+
+                    db.collection("animes").document(review.getAnimeID()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot value,
+                                            @Nullable FirebaseFirestoreException error) {
+                            anime = value.toObject(Anime.class);
+                            anime.setUID(value.getId());
+                            review.setAnime(anime);
+                        }
+                    });
+                    review.setUsuario(usuario);
                     reviewsList.add(review);
                 }
                 Log.e("Lista reviews usuario: ", reviewsList.toString());
