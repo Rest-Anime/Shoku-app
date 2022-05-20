@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
+
         usuario = (Usuario) intent.getSerializableExtra("usuario");
         menuLateral = findViewById(R.id.navigator);
         cabecera = menuLateral.getHeaderView(0);
