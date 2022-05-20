@@ -134,6 +134,7 @@ public class DetailActivity extends AppCompatActivity {
         detailWallpaper = findViewById(R.id.imgWallpaperDetail);
         review = (Review) getIntent().getSerializableExtra("review");
         listaWalls = new ArrayList<>();
+        isFav = false;
         //String url = getURLForResource(R.drawable.naruto_minimalist_wp);
         /*
         likes = 0;
@@ -210,53 +211,15 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        //comprobacion de los animes favoritos de cada usuario
-        //db.collection("usuarios").whereArrayContains("animes", Anime.class).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-        db.collection("usuarios").whereEqualTo("animes", usuario.getUID()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                animeFavs.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Usuario userTemp = doc.toObject(Usuario.class);
-                    userTemp.setUID(doc.getId());
-
-                    if(userTemp.getAnimes().containsKey(usuario.getUID())){
-                        animeFavs.add(anime);
-                    }
-                    //Anime anime = doc.toObject(Anime.class);
-                    //Log.e("LISTA ANIMES FAVS: ", animeFavs.toString());
-                }
-            }
-        });
-
-        //animes favoritos del usuario en cuestion
-        db.collection("animes").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value,
-                                @Nullable FirebaseFirestoreException error) {
-                animeFavs.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Anime anime = doc.toObject(Anime.class);
-                    anime.setUID(doc.getId());
-                    if (usuario.getAnimes().containsKey(anime.getUID())) {
-                        animeFavs.add(anime);
-                    }
-                }
-                Log.e("LISTA ANIMES FAVS: ", animeFavs.toString());
-                for(Anime a : animeFavs){
-                    Log.d("R", "BUSCANDO COINCIDENCIAS");
-                    if(a.getUID().equals(anime.getUID())){
-                        isFav = true;
-                        btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
-                        Log.d("R", "COINCIDEN");
-                    }else{
-                        isFav = false;
-                        btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-                        Log.d("R", "NO COINCIDEN");
-                    }
-                }
-            }
-        });
+        if (usuario.getAnimes().containsKey(anime.getUID())) {
+            isFav = true;
+            btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
+            Log.d("R", "COINCIDEN");
+        } else {
+            isFav = false;
+            btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+            Log.d("R", "NO COINCIDEN");
+        }
 
         Picasso.get().load(anime.getFoto()).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
         Toast.makeText(getApplicationContext(), anime.getTitulo(), Toast.LENGTH_SHORT).show();
@@ -280,33 +243,20 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isFav) {
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-                    animeFavs.remove(anime);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " eliminado de " +
                             "favoritos", Toast.LENGTH_SHORT).show();
                     //eliminar de la bbdd
-                    DocumentReference docRef = db.collection("usuarios").document(usuario.getUID());
-
-                    Map<String, Map<String, String>> animeFavs = usuario.getAnimes();
-                    usuario.setFirestore();
-
+                    usuario.removeAnimeFromList(anime.getUID());
                     Log.d("R",  anime.getTitulo() + " ELIMINADO DE FAVORITOS");
 
                 } else {
-                    animeFavs.add(anime);
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " añadido a " +
                             "favoritos", Toast.LENGTH_SHORT).show();
                     //añadirlo a la bbdd
-                    DocumentReference docRef = db.collection("usuarios").document(usuario.getUID());
-
-                    Map<String, String> nuevoFav = new HashMap<>();
-                    nuevoFav.put("estado", "Completed");
-                    nuevoFav.put("rate", String.valueOf(anime.getPuntuacion()));
-
-                    Map<String, Map> nuevoAnime = new HashMap<>();
-                    nuevoAnime.put(anime.getUID(), nuevoFav);
-                    //docRef.set(nuevoAnime);
+                    usuario.addAnimeToList(anime.getUID(), "Completed", anime.getPuntuacion());
                 }
+                db.collection("usuarios").document(usuario.getUID()).update(usuario.setFirestore());
             }
         });
 

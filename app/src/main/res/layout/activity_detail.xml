@@ -202,7 +202,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:clickable="true"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="15dp"
                     app:srcCompat="@android:drawable/ic_input_add" />
+
+                <TextView
+                    android:id="@+id/spaceTXT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
