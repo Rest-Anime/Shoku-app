@@ -30,6 +30,7 @@ import com.example.appAnime.databinding.FragmentFavoritesBinding;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Usuario;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -75,23 +76,32 @@ public class FavoritesFragment extends Fragment {
 
         //region FIRESTORE
         this.listaEleccion = ((MainActivity) getActivity()).listaEleccion;
-        db.collection("animes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("usuarios").document(usuario.getUID()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value,
+            public void onEvent(@Nullable DocumentSnapshot value,
                                 @Nullable FirebaseFirestoreException error) {
-                animeList.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Anime anime = doc.toObject(Anime.class);
-                    anime.setUID(doc.getId());
-                    if (usuario.getAnimes().containsKey(anime.getUID())) {
-                        animeList.add(anime);
+                usuario = value.toObject(Usuario.class);
+                usuario.setUID(value.getId());
+                db.collection("animes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException error) {
+                        animeList.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            Anime anime = doc.toObject(Anime.class);
+                            anime.setUID(doc.getId());
+                            if (usuario.getAnimes().containsKey(anime.getUID())) {
+                                animeList.add(anime);
+                            }
+                        }
+                        Log.e("Lista", animeList.toString());
+                        animeAdapter = new AnimeAdapter(animeList, function);
+                        recyclerView.setAdapter(animeAdapter);
                     }
-                }
-                Log.e("Lista", animeList.toString());
-                animeAdapter = new AnimeAdapter(animeList, function);
-                recyclerView.setAdapter(animeAdapter);
+                });
             }
         });
+
         //endregion
 
         //region Visualizacion Lista

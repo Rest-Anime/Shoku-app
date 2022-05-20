@@ -211,15 +211,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        if (usuario.getAnimes().containsKey(anime.getUID())) {
-            isFav = true;
-            btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
-            Log.d("R", "COINCIDEN");
-        } else {
-            isFav = false;
-            btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-            Log.d("R", "NO COINCIDEN");
-        }
+        checkFav();
 
         Picasso.get().load(anime.getFoto()).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
         Toast.makeText(getApplicationContext(), anime.getTitulo(), Toast.LENGTH_SHORT).show();
@@ -257,6 +249,7 @@ public class DetailActivity extends AppCompatActivity {
                     usuario.addAnimeToList(anime.getUID(), "Completed", anime.getPuntuacion());
                 }
                 db.collection("usuarios").document(usuario.getUID()).update(usuario.setFirestore());
+                checkFav();
             }
         });
 
@@ -343,7 +336,7 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         ArrayList<String> selectedItemList = new ArrayList<>();
-        try {
+/*        try {
             report.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -359,23 +352,7 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    builder.setMessage("Are you sure that you want to insert this review?");
-                    builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    builder.show();
-                }
-            });
-        }catch (Exception e){
-            Log.d("R", "ERROR: no hay reviews", e);
-        }
+            ¡*/
         /*
          like.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -402,5 +379,17 @@ public class DetailActivity extends AppCompatActivity {
 
  */
 
+    }
+
+    private void checkFav() {
+        if (usuario.getAnimes().containsKey(anime.getUID())) {
+            isFav = true;
+            btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
+            Log.d("R", "COINCIDEN");
+        } else {
+            isFav = false;
+            btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+            Log.d("R", "NO COINCIDEN");
+        }
     }
 }

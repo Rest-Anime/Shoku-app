@@ -16,13 +16,13 @@ public class Usuario implements Serializable {
      * estado: string;
      * rate: string; (Int.parse(string));
      */
-    private Map<String, Map<String, String>> animes;
+    private HashMap<String, HashMap<String, String>> animes;
 
     /**
      * reviews:
      * ID: true/false (like/dislike);
      */
-    private Map<String, String> reviews;
+    private HashMap<String, String> reviews;
     private String correo;
     private boolean admin;
 
@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
     }
 
     public Usuario(String nombre, String usuario, String foto,
-                   Map<String, Map<String, String>> animes, Map<String, String> reviews,
+                   HashMap<String, HashMap<String, String>> animes, HashMap<String, String> reviews,
                    boolean admin) {
         this.nombre = nombre;
         this.usuario = usuario;
@@ -83,19 +83,19 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public Map<String, Map<String, String>> getAnimes() {
+    public HashMap<String, HashMap<String, String>> getAnimes() {
         return animes;
     }
 
-    public void setAnimes(Map<String, Map<String, String>> animes) {
+    public void setAnimes(HashMap<String, HashMap<String, String>> animes) {
         this.animes = animes;
     }
 
-    public Map<String, String> getReviews() {
+    public HashMap<String, String> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Map<String, String> reviews) {
+    public void setReviews(HashMap<String, String> reviews) {
         this.reviews = reviews;
     }
 
@@ -124,8 +124,8 @@ public class Usuario implements Serializable {
      * @param rate    La puntuacion dada por el usuario.
      */
     public void addAnimeToList(String animeID, String estado, Integer rate) {
-        Map<String, String> contenido = new HashMap<>();
-        contenido.put("estado", estado.toString());
+        HashMap<String, String> contenido = new HashMap<>();
+        contenido.put("estado", estado);
         contenido.put("rate", rate.toString());
         this.animes.put(animeID, contenido);
     }
