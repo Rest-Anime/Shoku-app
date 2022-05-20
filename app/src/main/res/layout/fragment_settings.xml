@@ -68,82 +68,17 @@
                     android:src="@drawable/ic_baseline_view_module_24" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/titleTemas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Temas:"
-                android:textSize="16sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnThemeSecondMagenta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/MagentaPrincipal"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/btnThemeSecondGreen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/TurquesaPrincipal"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/btnThemeSecondDarkGray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/cardview_dark_background"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="2dp"
-                android:paddingBottom="2dp">
-
-                <Button
-                    android:id="@+id/btnThemeMainOrange"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/NaranjaPrincipal"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/btnThemeMainBlue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/AzulPrincipal"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-                <Button
-                    android:id="@+id/btnThemeMainWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/white"
-                    app:cornerRadius="@null"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </LinearLayout>
+                android:paddingBottom="2dp"/>
 
             <TextView
                 android:id="@+id/titleVolumen"
@@ -208,7 +143,6 @@
                         android:layout_weight="1"
                         android:scaleX="1"
                         android:scaleY="1"
-                        android:src="@drawable/ic_baseline_home_24"
                         app:srcCompat="@drawable/facebook_logo" />
 
                     <ImageView
@@ -218,7 +152,6 @@
                         android:layout_weight="1"
                         android:scaleX="1"
                         android:scaleY="1"
-                        android:src="@drawable/ic_baseline_home_24"
                         app:srcCompat="@drawable/twitter_logo" />
 
                     <ImageView
@@ -228,7 +161,6 @@
                         android:layout_weight="1"
                         android:scaleX="1"
                         android:scaleY="1"
-                        android:src="@drawable/ic_baseline_home_24"
                         app:srcCompat="@drawable/instagram_logo" />
 
                 </LinearLayout>
@@ -252,6 +184,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:text="Condiciones de Uso"
+                android:textAlignment="gravity"
                 android:textSize="16sp" />
 
             <TextView

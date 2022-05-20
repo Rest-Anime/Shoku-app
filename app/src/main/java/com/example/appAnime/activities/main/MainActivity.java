@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Anime> animeList;
     AnimeAdapter animeAdapter;
     View cabecera;
-    MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer = new MediaPlayer();
     ToggleButton loop;
     ToggleButton playMusic;
     Retrofit retrofit;
@@ -66,66 +66,10 @@ public class MainActivity extends AppCompatActivity {
     Button play;
     FirebaseAuth auth;
     int Code_Create_Anime = 2;
-    LinearLayout visualizationMode;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
     public Usuario usuario = new Usuario();
 
-    /*
-        El evento OnPrepared se lanzaría una vez, cuando el mp se encuentra listo para
-        reproducir audio.
-        En nuestro caso, como se obtiene el audio por medios locales, no hace falta caputar este
-        evento.
-        Si tuvieramos que obtener las canciones de la SD o por Streaming, entonces si nos
-        interesaría c
-        capturar este evento.
-    */
-    private MediaPlayer.OnPreparedListener funcionPrepared = new MediaPlayer.OnPreparedListener() {
-        @Override
-        public void onPrepared(MediaPlayer mp) {
-            Context context = getApplicationContext();
-            try {
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mediaPlayer.setDataSource(context, Uri.parse("https://www.youtube" +
-                        ".com/watch?v=HnbwPbXY450&list=RDHnbwPbXY450&start_radio=1&ab_channel=R" +
-                        "-Maldonado84"));
-                mediaPlayer.prepare();
-            } catch (Exception exception) {
-                Toast.makeText(context, exception.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
-    //METODO MUSICA BUCLE
-    private CompoundButton.OnCheckedChangeListener loopFunction =
-            new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        loop.setText("On");
-                        counter = counter;
-                        mediaPlayer.setLooping(true);
-                        Context context = getApplicationContext();
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast.makeText(context, "Bucle Activado", duration).show();
-                    } else {
-                        loop.setText("Off");
-                        mediaPlayer.setLooping(false);
-                        Context context = getApplicationContext();
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast.makeText(context, "Bucle Desactivado", duration).show();
-                    }
-                }
-            };
 
-    //metodo para parar la cancion en reproduccion
-    public void pararCancion() {
-        if (!mediaPlayer.isPlaying()) {
-            mediaPlayer.start();
-            //play es el boton que, al ser clicado, para o reanuda la cancion
-        } else {
-            mediaPlayer.pause();
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -164,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rwr);
         toolbar = findViewById(R.id.toolbar2);
 
-
-
         drawer = findViewById(R.id.dl);
         loop = cabecera.findViewById(R.id.playM);
         listaEleccion = false;
@@ -179,22 +121,6 @@ public class MainActivity extends AppCompatActivity {
             Picasso.get().load(R.drawable.emptyuser).into(pfp);
         }
 
-
-        /*
-        visualizationMode = drawer.findViewById(R.id.visualization);
-        ImageView a = visualizationMode.findViewById(R.id.imgListMode);
-        ImageView b = visualizationMode.findViewById(R.id.imgGridMode);
-        a.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        */
-
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer, homeFrag)
-        // .commit()
-
         //region BOTNAV
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navBot);
         NavController navController = Navigation.findNavController(this,
@@ -202,61 +128,35 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigation, navController);
         //endregion
 
-        //region RETROFIT
-        retrofit = new Retrofit.Builder().baseUrl("https://proyect-anime-5daac-default-rtdb" +
-                ".firebaseio.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        //endregion
-
         //region MUSICA
         songName = cabecera.findViewById(R.id.songName);
         playMusic = cabecera.findViewById(R.id.playM);
         playMusic.setChecked(true);
+        playMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mediaPlayer.isPlaying()) {
+                    mediaPlayer.start();
+                } else {
+                    mediaPlayer.pause();
+                }
+            }
+        });
         songName.setText("Ghibli Soundtrack");
-
-        //linea original que crea la cancion a reproducir pillada de un array con objetos cancion
-        //mediaPlayer = MediaPlayer.create(this, canciones.get(contador).getPista());
-
-        /*
         mediaPlayer = MediaPlayer.create(this, R.raw.ghibliost);
         mediaPlayer.setVolume(3.0f, 3.0f);
         mediaPlayer.start();
-        */
 
-        String url = "https://www.youtube.com/watch?v=HnbwPbXY450&list=RDHnbwPbXY450&start_radio" +
-                "=1&ab_channel=R-Maldonado84"; // your URL here
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepare(); // might take long! (for buffering, etc)
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mediaPlayer.start();
-
-        //metodo llamada a funcion loop cuando la llame un boton
-        //mediaPlayer.setOnCompletionListener((MediaPlayer.OnCompletionListener) loopFunction);
-
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                loop.setText("On");
-                counter = counter;
-                mediaPlayer.setLooping(true);
-                Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
-            }
+        mediaPlayer.setOnCompletionListener(mp -> {
+            loop.setText("On");
+            counter = counter;
+            mediaPlayer.setLooping(true);
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
         });
-        playMusic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pararCancion();
-            }
-        });
-
         //endregion
 
-        //region Navigator
+        //region NAVIGATOR
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.drawer_abrir, R.string.drawer_cerrar);
         drawer.addDrawerListener(toggle);
@@ -287,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent faqIntent = new Intent(getApplicationContext(), FaqActivity.class);
                         startActivity(faqIntent);
                         item.setChecked(false);
+                        finish();
                         break;
                 }
                 return false;

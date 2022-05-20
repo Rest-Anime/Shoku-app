@@ -39,7 +39,7 @@ public class CreateAnimeActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String estudio;
     int puntuacion;
-    int img;
+
     String foto = getResources().getString(R.string.imagen);
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -48,33 +48,28 @@ public class CreateAnimeActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             genero = (String) parent.getItemAtPosition(position);
-            if (genero.equals("Accion/Aventura")) {
-                Picasso.get().load(R.drawable.armoredchibi).into(imgMuestra);
-                img = R.drawable.armoredchibi;
+            if (genero.equals("Action")) {
+                Picasso.get().load(R.drawable.animegun).into(imgMuestra);
             } else if (genero.equals("Drama")) {
                 Picasso.get().load(R.drawable.sadchibi).into(imgMuestra);
-                img = R.drawable.sadchibi;
-            } else if (genero.equals("Fantasia")) {
+            } else if (genero.equals("Fantasy")) {
                 Picasso.get().load(R.drawable.neko1).into(imgMuestra);
-                img = R.drawable.neko1;
-            } else if (genero.equals("Ciencia Ficcion")) {
-                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
-                img = R.drawable.neko1;
-            } else if (genero.equals("Slice of Life")) {
-                Picasso.get().load(R.drawable.lifechibi).into(imgMuestra);
-                img = R.drawable.lifechibi;
-            } else if (genero.equals("Shonen")) {
-                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
-                img = R.drawable.neko1;
+            } else if (genero.equals("Sci-fi")) {
+                Picasso.get().load(R.drawable.armoredchibi).into(imgMuestra);
+            } else if (genero.equals("Suspense")) {
+                Picasso.get().load(R.drawable.suspense).into(imgMuestra);
+            } else if (genero.equals("Sports")) {
+                Picasso.get().load(R.drawable.sports).into(imgMuestra);
             } else if (genero.equals("Romance")) {
                 Picasso.get().load(R.drawable.lovechibi).into(imgMuestra);
-                img = R.drawable.armoredchibi;
-            } else if (genero.equals("Comedy")) {
+            } else if (genero.equals("Slice of Life")) {
+                Picasso.get().load(R.drawable.lifechibi).into(imgMuestra);
+            }  else if (genero.equals("Comedy")) {
                 Picasso.get().load(R.drawable.happychibi).into(imgMuestra);
-                img = R.drawable.happychibi;
+            } else if (genero.equals("Adventure")) {
+                Picasso.get().load(R.drawable.adventure).into(imgMuestra);
             } else {
-                Picasso.get().load(R.drawable.neko1).into(imgMuestra);
-                img = R.drawable.neko1;
+                Picasso.get().load(R.drawable.animelogo).into(imgMuestra);
             }
         }
     };
