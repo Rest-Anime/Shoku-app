@@ -187,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
                         Intent faqIntent = new Intent(getApplicationContext(), FaqActivity.class);
                         startActivity(faqIntent);
                         item.setChecked(false);
-                        finish();
                         break;
                 }
                 return false;
