@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +39,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -101,6 +107,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         usuario = (Usuario) intent.getSerializableExtra("usuario");
+        db.collection("usuarios").document(usuario.getUID()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value,
+                                @Nullable FirebaseFirestoreException error) {
+                usuario = value.toObject(Usuario.class);
+                usuario.setUID(value.getId());
+                userName.setText(usuario.getUsuario());
+                if (usuario.getFoto() != null) {
+                    String urlImagen = String.valueOf(usuario.getFoto());
+                    Picasso.get().load(urlImagen).into(pfp);
+                } else {
+                    Picasso.get().load(R.drawable.emptyuser).into(pfp);
+                }
+            }
+        });
         menuLateral = findViewById(R.id.navigator);
         cabecera = menuLateral.getHeaderView(0);
         userName = cabecera.findViewById(R.id.actividadLbl);
@@ -114,13 +135,6 @@ public class MainActivity extends AppCompatActivity {
         listaEleccion = false;
         visualizarLista = true;
         userAdmin = false;
-        userName.setText(usuario.getUsuario());
-        if (usuario.getFoto() != null) {
-            String urlImagen = String.valueOf(usuario.getFoto());
-            Picasso.get().load(urlImagen).into(pfp);
-        } else {
-            Picasso.get().load(R.drawable.emptyuser).into(pfp);
-        }
 
         //region BOTNAV
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navBot);
@@ -147,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.ghibliost);
         mediaPlayer.setVolume(3.0f, 3.0f);
         mediaPlayer.start();
-
         mediaPlayer.setOnCompletionListener(mp -> {
             loop.setText("On");
             counter = counter;

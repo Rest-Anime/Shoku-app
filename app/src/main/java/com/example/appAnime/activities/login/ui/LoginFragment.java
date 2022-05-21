@@ -39,7 +39,6 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(getLayoutInflater());
         auth = FirebaseAuth.getInstance();
-
         binding.login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +63,6 @@ public class LoginFragment extends Fragment {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             Usuario usuario = documentSnapshot.toObject(Usuario.class);
                             usuario.setUID(task.getResult().getUser().getUid());
-                            usuario.setCorreo(task.getResult().getUser().getEmail());
                             Intent intent = new Intent(context, MainActivity.class);
                             intent.putExtra("usuario", usuario);
                             Toast.makeText(context, "Se ha logeado " +

@@ -7,7 +7,6 @@ import java.util.Map;
 public class Usuario implements Serializable {
 
     private String UID;
-    private String nombre;
     private String usuario;
     private String foto;
     /**
@@ -23,17 +22,15 @@ public class Usuario implements Serializable {
      * ID: true/false (like/dislike);
      */
     private HashMap<String, String> reviews;
-    private String correo;
+
     private boolean admin;
 
     public Usuario(String usuario) {
-        this.nombre = null;
         this.usuario = usuario;
         this.foto = null;
         this.animes = new HashMap<>();
         this.reviews = new HashMap<>();
         this.admin = false;
-        this.correo = null;
     }
 
     public Usuario() {
@@ -42,13 +39,12 @@ public class Usuario implements Serializable {
     public Usuario(String nombre, String usuario, String foto,
                    HashMap<String, HashMap<String, String>> animes, HashMap<String, String> reviews,
                    boolean admin) {
-        this.nombre = nombre;
         this.usuario = usuario;
         this.foto = foto;
         this.animes = animes;
         this.reviews = reviews;
         this.admin = admin;
-        this.correo = null;
+
     }
 
     public String getUID() {
@@ -57,14 +53,6 @@ public class Usuario implements Serializable {
 
     public void setUID(String UID) {
         this.UID = UID;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getUsuario() {
@@ -97,14 +85,6 @@ public class Usuario implements Serializable {
 
     public void setReviews(HashMap<String, String> reviews) {
         this.reviews = reviews;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public boolean isAdmin() {
@@ -166,7 +146,6 @@ public class Usuario implements Serializable {
     public Map<String, Object> setFirestore() {
         Map<String, Object> data = new HashMap<>();
         data.put("usuario", this.usuario);
-        data.put("nombre", this.nombre);
         data.put("animes", this.animes);
         data.put("reviews", this.reviews);
         data.put("admin", this.admin);
@@ -179,7 +158,6 @@ public class Usuario implements Serializable {
     public String toString() {
         return "Usuario{" +
                 "UID='" + UID + '\'' +
-                ", nombre='" + nombre + '\'' +
                 ", usuario='" + usuario + '\'' +
                 ", foto='" + foto + '\'' +
                 ", animes=" + animes +
