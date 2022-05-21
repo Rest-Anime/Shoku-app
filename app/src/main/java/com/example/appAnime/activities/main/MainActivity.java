@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         animeList = new ArrayList<Anime>();
         recyclerView = findViewById(R.id.rwr);
         toolbar = findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.dl);
         loop = cabecera.findViewById(R.id.playM);

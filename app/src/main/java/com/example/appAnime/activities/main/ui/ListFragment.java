@@ -71,7 +71,6 @@ public class ListFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentListBinding.inflate(getLayoutInflater());
         usuario = ((MainActivity) getActivity()).usuario;
-        getActivity().invalidateOptionsMenu();
         setHasOptionsMenu(true);
         RecyclerView recyclerView = binding.rwr;
         recyclerView.setAdapter(animeAdapter);
