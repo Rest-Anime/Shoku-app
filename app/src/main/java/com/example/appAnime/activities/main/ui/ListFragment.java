@@ -199,7 +199,6 @@ public class ListFragment extends Fragment {
                 }
                 animeAdapter.setAnimeList(listaFiltrados);
                 animeAdapter.notifyDataSetChanged();
-
                 return false;
             }
 

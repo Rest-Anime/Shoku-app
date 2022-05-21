@@ -12,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,6 +68,8 @@ public class ProfileFragment extends Fragment {
     Anime anime;
     Review review;
     ArrayList<Review> reviewsList = new ArrayList<>();
+    String newName, newNick, newMail;
+    EditText nameTxt, nickTxt, mailTxt;
 
     private EventsInterface function = (pos) -> {
         Intent launchInfo = new Intent(context, ProfileFragment.class);
@@ -94,9 +99,21 @@ public class ProfileFragment extends Fragment {
         } else {
             Picasso.get().load(R.drawable.emptyuser).into(imgProfile);
         }
+        nameTxt = binding.nametxt;
+        nickTxt = binding.nicktxt;
+        mailTxt = binding.mailtxt;;
 
         imageButton = binding.imageButton;
         modify = binding.btnEdit2;
+
+        nameTxt.setText(String.valueOf(usuario.getUsuario()));
+        if(usuario.getNombre() != null){
+            newNick = String.valueOf(usuario.getNombre());
+        }else{
+            newNick = "Usuario no contiene este apartado";
+        }
+        nickTxt.setText(newNick);
+        mailTxt.setText(String.valueOf(usuario.getCorreo()));
 
 
         //region FIRESTORE
@@ -131,7 +148,15 @@ public class ProfileFragment extends Fragment {
         modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                newName = String.valueOf(nameTxt.getText());
+                newNick = String.valueOf(nickTxt.getText());
+                newMail = String.valueOf(mailTxt.getText());
 
+                usuario.setNombre(String.valueOf(newNick));
+                usuario.setUsuario(String.valueOf(newName));
+                usuario.setCorreo(String.valueOf(newMail));
+                db.collection("usuarios").document(usuario.getUID()).update(usuario.setFirestore());
+                Toast.makeText(getContext(),  "Usuario modificado correctamente.", Toast.LENGTH_SHORT).show();
             }
         });
 
