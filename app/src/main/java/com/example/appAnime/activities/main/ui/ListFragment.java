@@ -48,7 +48,7 @@ public class ListFragment extends Fragment {
     Usuario usuario = new Usuario();
 
     ArrayList<Anime> animeList = new ArrayList<>(), listaFiltrados = new ArrayList<>();
-    boolean listaEleccion, visualizarLista;
+    boolean listaEleccion;
     private FragmentListBinding binding;
     private EventsInterface function = (pos) -> {
         if (listaEleccion == false) {
@@ -74,6 +74,10 @@ public class ListFragment extends Fragment {
         getActivity().invalidateOptionsMenu();
         setHasOptionsMenu(true);
         RecyclerView recyclerView = binding.rwr;
+        recyclerView.setAdapter(animeAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.addItemDecoration(new DividerItemDecoration(context,
+                DividerItemDecoration.VERTICAL));
 
         //region FIRESTORE
         this.listaEleccion = ((MainActivity) getActivity()).listaEleccion;
@@ -92,22 +96,6 @@ public class ListFragment extends Fragment {
                 recyclerView.setAdapter(animeAdapter);
             }
         });
-        //endregion
-
-        //region Visualizacion Lista
-        this.visualizarLista = ((MainActivity) getActivity()).visualizarLista;
-        if (visualizarLista) {
-            recyclerView.setAdapter(animeAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.addItemDecoration(new DividerItemDecoration(context,
-                    DividerItemDecoration.VERTICAL));
-
-        } else {
-            recyclerView.setAdapter(animeAdapter);
-            recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
-            recyclerView.addItemDecoration(new DividerItemDecoration(context,
-                    DividerItemDecoration.VERTICAL));
-        }
         //endregion
 
         //region Floating Button

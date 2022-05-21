@@ -54,7 +54,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    public boolean listaEleccion, visualizarLista, userAdmin;
+    public boolean listaEleccion, userAdmin;
     Toolbar toolbar;
     DrawerLayout drawer;
     NavigationView menuLateral;
@@ -133,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
         drawer = findViewById(R.id.dl);
         loop = cabecera.findViewById(R.id.playM);
         listaEleccion = false;
-        visualizarLista = true;
         userAdmin = false;
 
         //region BOTNAV
