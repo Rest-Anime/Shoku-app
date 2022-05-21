@@ -48,7 +48,7 @@ public class FavoritesFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Usuario usuario = new Usuario();
     ArrayList<Anime> animeList = new ArrayList<>(), listaFiltrados = new ArrayList<>();
-    boolean listaEleccion, visualizarLista;
+    boolean listaEleccion;
     private FragmentFavoritesBinding binding;
     private EventsInterface function = (pos) -> {
         if (listaEleccion == false) {
@@ -65,12 +65,12 @@ public class FavoritesFragment extends Fragment {
         }
     };
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentFavoritesBinding.inflate(getLayoutInflater());
         usuario = ((MainActivity) getActivity()).usuario;
+
         setHasOptionsMenu(true);
         RecyclerView recyclerView = binding.rwr;
         recyclerView.setAdapter(animeAdapter);
@@ -96,6 +96,11 @@ public class FavoritesFragment extends Fragment {
                             anime.setUID(doc.getId());
                             if (usuario.getAnimes().containsKey(anime.getUID())) {
                                 animeList.add(anime);
+                                if (usuario.getAnimes().containsKey(anime.getUID())) {
+                                    anime.setFavorite(true);
+                                } else {
+                                    anime.setFavorite(false);
+                                }
                             }
                         }
                         Log.e("Lista", animeList.toString());

@@ -81,6 +81,11 @@ public class TopFragment extends Fragment {
                 Anime anime = doc.toObject(Anime.class);
                 anime.setUID(doc.getId());
                 animeList.add(anime);
+                if (usuario.getAnimes().containsKey(anime.getUID())) {
+                    anime.setFavorite(true);
+                } else {
+                    anime.setFavorite(false);
+                }
             }
             Log.e("Lista", animeList.toString());
             animeAdapter = new AnimeAdapter(animeList, function);

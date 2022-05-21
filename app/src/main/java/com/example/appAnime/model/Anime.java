@@ -16,9 +16,10 @@ public class Anime implements Serializable {
     private String lanzamiento;
     private int puntuacion;
     private int temporadas;
+    private boolean isFavorite;
 
     public Anime(String titulo, String descripcion, int episodios, String estudio, String foto,
-                 String genero, String format, int puntuacion, int temporadas) {
+                 String genero, String format, int puntuacion, int temporadas, boolean isFavorite) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.episodios = episodios;
@@ -28,6 +29,7 @@ public class Anime implements Serializable {
         this.lanzamiento = format;
         this.puntuacion = puntuacion;
         this.temporadas = temporadas;
+        this.isFavorite = isFavorite;
     }
 
     public Anime() {
@@ -119,6 +121,14 @@ public class Anime implements Serializable {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     /**
