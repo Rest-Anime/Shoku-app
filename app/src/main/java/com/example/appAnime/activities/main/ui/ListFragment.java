@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -89,6 +90,12 @@ public class ListFragment extends Fragment {
                     Anime anime = doc.toObject(Anime.class);
                     anime.setUID(doc.getId());
                     animeList.add(anime);
+                    if (usuario.getAnimes().containsKey(anime.getUID())) {
+                        anime.setFavorite(true);
+                    } else {
+                        anime.setFavorite(false);
+                    }
+
                 }
                 Log.e("Lista", animeList.toString());
                 animeAdapter = new AnimeAdapter(animeList, function);

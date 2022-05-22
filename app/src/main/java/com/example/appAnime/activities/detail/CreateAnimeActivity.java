@@ -136,7 +136,7 @@ public class CreateAnimeActivity extends AppCompatActivity {
                 }
 
                 Anime newAnime = new Anime(titulo, descripcion, episodios, estudio, foto,
-                        genero, sdf.format(lanzamiento), puntuacion, temporadas);
+                        genero, sdf.format(lanzamiento), puntuacion, temporadas, false);
                 Intent intent = new Intent();
                 intent.putExtra("anime", newAnime);
                 db.collection("animes").add(newAnime.setFirestore());
