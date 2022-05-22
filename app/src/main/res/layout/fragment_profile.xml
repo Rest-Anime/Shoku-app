@@ -122,7 +122,7 @@
                         android:textColor="@color/black" />
 
                     <Button
-                        android:id="@+id/btnEdit2"
+                        android:id="@+id/resetPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -135,7 +135,7 @@
                         android:textColor="@color/black" />
 
                     <Button
-                        android:id="@+id/btnEdit4"
+                        android:id="@+id/deleteAccount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

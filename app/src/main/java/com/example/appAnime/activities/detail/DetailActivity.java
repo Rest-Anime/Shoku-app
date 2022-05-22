@@ -1,15 +1,12 @@
 package com.example.appAnime.activities.detail;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -25,28 +21,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
-import com.example.appAnime.activities.main.MainActivity;
-import com.example.appAnime.adapter.AnimeAdapter;
 import com.example.appAnime.adapter.EventsInterface;
 import com.example.appAnime.adapter.ReviewAdapter;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Review;
 import com.example.appAnime.model.Usuario;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -56,19 +40,17 @@ import com.squareup.picasso.Picasso;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class DetailActivity extends AppCompatActivity {
     ImageView image, btnFav, userIcon, report, like, dislike, detailWallpaper;
-    TextView info, username, rate, animeTitle, reviewTitle, desc, redesc, wikitext, likeCount, dislikeCount;
+    TextView info, username, rate, animeTitle, reviewTitle, desc, redesc, wikitext, likeCount,
+            dislikeCount;
     EditText newReviewText, newReviewTitle;
     LinearLayout layoutAdmin;
     FloatingActionButton addReview;
     FirebaseDatabase bbdd;
-    DatabaseReference reference2;
     ReviewAdapter reviewAdapter;
     ArrayList<Review> reviewList;
     Review review;
@@ -77,14 +59,11 @@ public class DetailActivity extends AppCompatActivity {
     RecyclerView recycler;
     boolean isFav;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    Query reference;
     String comentario, tituloReview;
     View foto;
-    Usuario user;
     Anime anime = new Anime();
-    int puntuacion, likes, dislikes;
+    int puntuacion;
     List<Integer> listaWalls;
-    ArrayList<Anime> animeFavs = new ArrayList<>();
 
     public static List<Integer> getDrawablesList() throws IllegalAccessException,
             InvocationTargetException, InstantiationException {
@@ -135,14 +114,6 @@ public class DetailActivity extends AppCompatActivity {
         review = (Review) getIntent().getSerializableExtra("review");
         listaWalls = new ArrayList<>();
         isFav = false;
-        //String url = getURLForResource(R.drawable.naruto_minimalist_wp);
-        /*
-        likes = 0;
-        dislikes = 0;
-        likeCount.setText(likes);
-        dislikeCount.setText(dislikes);
-
-         */
 
         Intent intent = getIntent();
         anime = (Anime) intent.getSerializableExtra("anime");
@@ -165,9 +136,9 @@ public class DetailActivity extends AppCompatActivity {
         detailWallpaper.setImageResource(randomElement);
 
         bbdd = FirebaseDatabase.getInstance();
-        reference2 = bbdd.getReference().child("Reviews");
         recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+        recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+                DividerItemDecoration.VERTICAL));
         recycler.setVisibility(View.VISIBLE);
         //recycler.setAdapter(reviewAdapter);
         //recycler.setVisibility(View.VISIBLE);
@@ -196,8 +167,6 @@ public class DetailActivity extends AppCompatActivity {
                     review.setUID(doc.getId());
                     review.setAnime(anime);
                     review.setUsuario(usuario);
-                    review.setUsuarioID(usuario.getUID());
-                    review.setAnimeID(anime.getUID());
                     //review.setLikes(review.getLikes());
                     //review.setDislikes(review.getDislikes());
                     reviewList.add(review);
@@ -210,9 +179,7 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
-
         checkFav();
-
         Picasso.get().load(anime.getFoto()).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
         Toast.makeText(getApplicationContext(), anime.getTitulo(), Toast.LENGTH_SHORT).show();
 
@@ -239,7 +206,7 @@ public class DetailActivity extends AppCompatActivity {
                             "favoritos", Toast.LENGTH_SHORT).show();
                     //eliminar de la bbdd
                     usuario.removeAnimeFromList(anime.getUID());
-                    Log.d("R",  anime.getTitulo() + " ELIMINADO DE FAVORITOS");
+                    Log.d("R", anime.getTitulo() + " ELIMINADO DE FAVORITOS");
 
                 } else {
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
@@ -304,7 +271,8 @@ public class DetailActivity extends AppCompatActivity {
                         Snackbar.make(view, "Reseña añadida con éxito", Snackbar.LENGTH_SHORT).show();
                         tituloReview = newReviewTitle.getText().toString();
                         if (comentario == null) {
-                            comentario = "No se conoce nada sobre este anime."; //hacer que le salte una alerta para que escriba la reseña
+                            comentario = "No se conoce nada sobre este anime."; //hacer que le
+                            // salte una alerta para que escriba la reseña
                         } else {
                             comentario = newReviewText.getText().toString();
                         }
@@ -334,50 +302,6 @@ public class DetailActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-        ArrayList<String> selectedItemList = new ArrayList<>();
-/*        try {
-            report.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                    String[] list = getApplicationContext().getResources().getStringArray(R.array.choices);
-                    builder.setTitle("").setMultiChoiceItems(list, null, new DialogInterface.OnMultiChoiceClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                            if (b) {
-                                selectedItemList.add(list[i]);
-                            } else {
-                                selectedItemList.remove(list[i]);
-                            }
-                        }
-                    });
-            ¡*/
-        /*
-         like.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 //likes += 1;
-
-             }
-         });
-        dislike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //dislikes += 1;
-            }
-        });
-
-         */
-
-/*
-        public String getURLForResource(int resourceId) {
-            //use BuildConfig.APPLICATION_ID instead of R.class.getPackage().getName() if both are
-            // not same
-            return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
-        }
-
- */
 
     }
 

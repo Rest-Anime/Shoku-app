@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,14 +28,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.util.UUID;
 
 public class ProfileFragment extends Fragment {
     private static final int REQUEST_SUCCESS = 1000;
@@ -80,11 +78,30 @@ public class ProfileFragment extends Fragment {
                 if (!TextUtils.isEmpty(nickTxt.getText().toString())) {
                     usuario.setUsuario(nickTxt.getText().toString());
                     db.collection("usuarios").document(usuario.getUID()).update(usuario.setFirestore());
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(usuario.getUsuario())
+                            .build();
+                    auth.getCurrentUser().updateProfile(profileUpdates);
                     Toast.makeText(getContext(), "Usuario modificado correctamente.",
                             Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        binding.resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        binding.deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override

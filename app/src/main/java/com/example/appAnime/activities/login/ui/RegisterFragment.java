@@ -16,6 +16,7 @@ import com.example.appAnime.R;
 import com.example.appAnime.databinding.FragmentRegisterBinding;
 import com.example.appAnime.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterFragment extends Fragment {
@@ -24,6 +25,7 @@ public class RegisterFragment extends Fragment {
     FirebaseAuth auth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FragmentRegisterBinding binding;
+
 
     @Nullable
     @Override
@@ -56,8 +58,12 @@ public class RegisterFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
                     Usuario usuario = new Usuario(user);
                     db.collection("usuarios").document(task.getResult().getUser().getUid()).set(usuario.setFirestore());
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(usuario.getUsuario())
+                            .build();
+                    auth.getCurrentUser().updateProfile(profileUpdates);
+                    Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
                 });
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             }
         });
         return binding.getRoot();
