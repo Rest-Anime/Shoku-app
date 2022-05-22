@@ -134,18 +134,6 @@
                         android:textAlignment="center"
                         android:textColor="@color/black" />
 
-                    <Button
-                        android:id="@+id/deleteAccount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/AzulPrincipal"
-                        android:gravity="center"
-                        android:paddingTop="15dp"
-                        android:text="Eliminar Perfil"
-                        android:textAlignment="center"
-                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout

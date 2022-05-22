@@ -122,42 +122,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        binding.deleteAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MaterialAlertDialogBuilder dialog =
-                        new MaterialAlertDialogBuilder(context);
-                dialog.setTitle("Are you sure?");
-                dialog.setMessage("Are you sure that you want to delete your account? (This will " +
-                        "also delete all reviews you have done)");
-                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    db.collection("usuarios").document(usuario.getUID()).delete();
-                                    for (QueryDocumentSnapshot queryDocumentSnapshot :
-                                            db.collection("reviews").whereEqualTo("usuarioID",
-                                                    usuario.getUID()).get().getResult()) {
-                                        queryDocumentSnapshot.getReference().delete();
-                                    }
-                                    Toast.makeText(getContext(), "Se ha borrado su cuenta",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(context, LoginActivity.class);
-                                    startActivity(intent);
-                                    getActivity().finish();
-                                }
-                            }
-                        });
-                    }
-                });
-                dialog.setNegativeButton("Cancel", null);
-            }
-        });
-
-
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
