@@ -4,10 +4,12 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +23,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.appAnime.R;
+import com.example.appAnime.activities.login.LoginActivity;
 import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.databinding.FragmentProfileBinding;
 import com.example.appAnime.model.Usuario;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -81,8 +88,18 @@ public class ProfileFragment extends Fragment {
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(usuario.getUsuario())
                             .build();
-                    auth.getCurrentUser().updateProfile(profileUpdates);
+                    auth.getCurrentUser().updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("TAG", "User display name updated.");
+                            }
+                        }
+                    });;
                     Toast.makeText(getContext(), "Usuario modificado correctamente.",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(), "El campo no puede estar vacio",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -91,14 +108,52 @@ public class ProfileFragment extends Fragment {
         binding.resetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                auth.sendPasswordResetEmail(auth.getCurrentUser().getEmail())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "Correo para reestablecer " +
+                                                    "contraseña enviado.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
 
         binding.deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                MaterialAlertDialogBuilder dialog =
+                        new MaterialAlertDialogBuilder(context);
+                dialog.setTitle("Are you sure?");
+                dialog.setMessage("Are you sure that you want to delete your account? (This will " +
+                        "also delete all reviews you have done)");
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    db.collection("usuarios").document(usuario.getUID()).delete();
+                                    for (QueryDocumentSnapshot queryDocumentSnapshot :
+                                            db.collection("reviews").whereEqualTo("usuarioID",
+                                                    usuario.getUID()).get().getResult()) {
+                                        queryDocumentSnapshot.getReference().delete();
+                                    }
+                                    Toast.makeText(getContext(), "Se ha borrado su cuenta",
+                                            Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(context, LoginActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+                            }
+                        });
+                    }
+                });
+                dialog.setNegativeButton("Cancel", null);
             }
         });
 
@@ -135,6 +190,7 @@ public class ProfileFragment extends Fragment {
         pd.setTitle("Uploading image...");
         pd.show();
         StorageReference picture = storageReference.child("images/" + usuario.getUID());
+        System.out.println(picture.toString());
         picture.putFile(imageURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -164,7 +220,6 @@ public class ProfileFragment extends Fragment {
                 pd.setMessage("Progress: " + (int) progressPercent + "%");
             }
         });
-
     }
 
     @Override

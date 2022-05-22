@@ -15,7 +15,7 @@ public class Usuario implements Serializable {
      * estado: string;
      * rate: string; (Int.parse(string));
      */
-    private HashMap<String, HashMap<String, String>> animes;
+    private HashMap<String, String> animes;
 
     /**
      * reviews:
@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
     }
 
     public Usuario(String nombre, String usuario, String foto,
-                   HashMap<String, HashMap<String, String>> animes, HashMap<String, String> reviews,
+                   HashMap<String, String> animes, HashMap<String, String> reviews,
                    boolean admin) {
         this.usuario = usuario;
         this.foto = foto;
@@ -71,11 +71,12 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public HashMap<String, HashMap<String, String>> getAnimes() {
+
+    public HashMap<String, String> getAnimes() {
         return animes;
     }
 
-    public void setAnimes(HashMap<String, HashMap<String, String>> animes) {
+    public void setAnimes(HashMap<String, String> animes) {
         this.animes = animes;
     }
 
@@ -93,30 +94,6 @@ public class Usuario implements Serializable {
 
     public void setAdmin(boolean admin) {
         this.admin = admin;
-    }
-
-    /**
-     * Añade un anime a el diccionario, junto con la puntuacion dada por el usuario y el estado
-     * en el que se encuentra (WATCHING, HOLD, DROPPED, FINISHED, TO_WATCH)
-     *
-     * @param animeID El documento al que hace referencia en la coleccion de animes.
-     * @param estado  El estado en el que se encuentra el anime para el usuario.
-     * @param rate    La puntuacion dada por el usuario.
-     */
-    public void addAnimeToList(String animeID, String estado, Integer rate) {
-        HashMap<String, String> contenido = new HashMap<>();
-        contenido.put("estado", estado);
-        contenido.put("rate", rate.toString());
-        this.animes.put(animeID, contenido);
-    }
-
-    /**
-     * Elimina del diccionario la entrada que sea igual a la dada por parametro.
-     *
-     * @param animeID El documento al que hace referencia en la coleccion de animes.
-     */
-    public void removeAnimeFromList(String animeID) {
-        this.animes.remove(animeID);
     }
 
     /**

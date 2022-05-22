@@ -40,6 +40,7 @@ import com.squareup.picasso.Picasso;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -149,11 +150,7 @@ public class DetailActivity extends AppCompatActivity {
         puntuacion = 0;
 
         EventsInterface function = (x) -> {
-            Intent launchInfo = new Intent(getApplicationContext(), DetailActivity.class);
-            launchInfo.putExtra("review", reviewList.get(x));
-            launchInfo.putExtra("usuario", usuario);
-            launchInfo.putExtra("pos", x);
-            startActivity(launchInfo);
+            System.out.println("presionado");
         };
 
         //todas las reviews referentes al anime en cuestion
@@ -179,7 +176,7 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
-        checkFav();
+
         Picasso.get().load(anime.getFoto()).resize((int) (260 * 2.5), (int) (370 * 2.5)).into(image);
         Toast.makeText(getApplicationContext(), anime.getTitulo(), Toast.LENGTH_SHORT).show();
 
@@ -197,24 +194,25 @@ public class DetailActivity extends AppCompatActivity {
         //SINOPSIS
         desc.setText(anime.getDescripcion());
         wikitext.setText("Enlace para más información");
+        checkFav();
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                HashMap<String, String> something = usuario.getAnimes();
                 if (isFav) {
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " eliminado de " +
                             "favoritos", Toast.LENGTH_SHORT).show();
-                    //eliminar de la bbdd
-                    usuario.removeAnimeFromList(anime.getUID());
                     Log.d("R", anime.getTitulo() + " ELIMINADO DE FAVORITOS");
-
+                    something.remove(anime.getUID());
                 } else {
                     btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " añadido a " +
                             "favoritos", Toast.LENGTH_SHORT).show();
-                    //añadirlo a la bbdd
-                    usuario.addAnimeToList(anime.getUID(), "Completed", anime.getPuntuacion());
+                    Log.d("R", anime.getTitulo() + " AÑADIDO A FAVORITOS");
+                    something.put(anime.getUID(), String.valueOf(anime.getPuntuacion()));
                 }
+                usuario.setAnimes(something);
                 db.collection("usuarios").document(usuario.getUID()).update(usuario.setFirestore());
                 checkFav();
             }
@@ -309,11 +307,9 @@ public class DetailActivity extends AppCompatActivity {
         if (usuario.getAnimes().containsKey(anime.getUID())) {
             isFav = true;
             btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
-            Log.d("R", "COINCIDEN");
         } else {
             isFav = false;
             btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-            Log.d("R", "NO COINCIDEN");
         }
     }
 }
