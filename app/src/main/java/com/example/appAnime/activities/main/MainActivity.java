@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 userName.setText(usuario.getUsuario());
                 if (usuario.getFoto() != null) {
                     String urlImagen = String.valueOf(usuario.getFoto());
-                    Picasso.get().load(urlImagen).into(pfp);
+                    Picasso.get().load(urlImagen).fit().centerCrop().into(pfp);
                 } else {
                     Picasso.get().load(R.drawable.emptyuser).into(pfp);
                 }

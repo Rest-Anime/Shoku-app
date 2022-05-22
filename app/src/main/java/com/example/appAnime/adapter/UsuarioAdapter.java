@@ -48,9 +48,11 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         holder.getFavoritos().setText("Favoritos: " + String.valueOf(usuario.getAnimes().size()));
         String urlImagen = usuario.getFoto();
         if (urlImagen != null) {
-            Picasso.get().load(urlImagen).into(holder.getFotoPerfil());
+            Picasso.get().load(urlImagen).fit()
+                    .centerCrop().into(holder.getFotoPerfil());
         } else {
-            Picasso.get().load(R.drawable.emptyuser).into(holder.getFotoPerfil());
+            Picasso.get().load(R.drawable.emptyuser).fit()
+                    .centerCrop().into(holder.getFotoPerfil());
         }
 
     }

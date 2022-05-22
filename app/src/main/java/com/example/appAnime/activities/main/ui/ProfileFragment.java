@@ -4,7 +4,6 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.appAnime.R;
-import com.example.appAnime.activities.login.LoginActivity;
 import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.databinding.FragmentProfileBinding;
 import com.example.appAnime.model.Usuario;
@@ -31,12 +29,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -70,9 +66,9 @@ public class ProfileFragment extends Fragment {
         imgProfile = binding.imgProfile;
         if (usuario.getFoto() != null) {
             String urlImagen = String.valueOf(usuario.getFoto());
-            Picasso.get().load(urlImagen).into(imgProfile);
+            Picasso.get().load(urlImagen).fit().centerCrop().into(imgProfile);
         } else {
-            Picasso.get().load(R.drawable.emptyuser).into(imgProfile);
+            Picasso.get().load(R.drawable.emptyuser).fit().centerCrop().into(imgProfile);
         }
         nickTxt = binding.nickTxt;
         emailTxt = binding.emailTxt;
@@ -95,10 +91,11 @@ public class ProfileFragment extends Fragment {
                                 Log.d("TAG", "User display name updated.");
                             }
                         }
-                    });;
+                    });
+                    ;
                     Toast.makeText(getContext(), "Usuario modificado correctamente.",
                             Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(getContext(), "El campo no puede estar vacio",
                             Toast.LENGTH_SHORT).show();
                 }

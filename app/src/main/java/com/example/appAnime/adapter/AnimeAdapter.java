@@ -66,8 +66,9 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.AnimeViewHol
         holder.setFavIcon(actualAnime);
 
         //La url de la imagen
-        String UrlImagen = String.valueOf(actualAnime.getFoto());
-        Picasso.get().load(UrlImagen).into(holder.getCoverImg());
+        String urlImagen = String.valueOf(actualAnime.getFoto());
+        Picasso.get().load(urlImagen).fit()
+                .centerCrop().into(holder.getCoverImg());
     }
 
     @Override
