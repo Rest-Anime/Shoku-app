@@ -10,14 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +30,7 @@ import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Usuario;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -55,13 +54,11 @@ public class ListFragment extends Fragment {
         if (listaEleccion == false) {
             Intent launchInfo = new Intent(context, DetailActivity.class);
             launchInfo.putExtra("anime", animeList.get(pos));
-            launchInfo.putExtra("usuario", usuario);
             launchInfo.putExtra("pos", pos);
             startActivity(launchInfo);
         } else {
             Intent launchInfo = new Intent(context, DetailActivity.class);
             launchInfo.putExtra("anime", listaFiltrados.get(pos));
-            launchInfo.putExtra("usuario", usuario);
             startActivity(launchInfo);
         }
     };
@@ -81,25 +78,33 @@ public class ListFragment extends Fragment {
 
         //region FIRESTORE
         this.listaEleccion = ((MainActivity) getActivity()).listaEleccion;
-        db.collection("animes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("usuarios").document(usuario.getUID()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value,
+            public void onEvent(@Nullable DocumentSnapshot value,
                                 @Nullable FirebaseFirestoreException error) {
-                animeList.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Anime anime = doc.toObject(Anime.class);
-                    anime.setUID(doc.getId());
-                    animeList.add(anime);
-                    if (usuario.getAnimes().containsKey(anime.getUID())) {
-                        anime.setFavorite(true);
-                    } else {
-                        anime.setFavorite(false);
-                    }
+                usuario = value.toObject(Usuario.class);
+                usuario.setUID(value.getId());
+                db.collection("animes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException error) {
+                        animeList.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            Anime anime = doc.toObject(Anime.class);
+                            anime.setUID(doc.getId());
+                            animeList.add(anime);
+                            if (usuario.getAnimes().containsKey(anime.getUID())) {
+                                anime.setFavorite(true);
+                            } else {
+                                anime.setFavorite(false);
+                            }
+                        }
 
-                }
-                Log.e("Lista", animeList.toString());
-                animeAdapter = new AnimeAdapter(animeList, function);
-                recyclerView.setAdapter(animeAdapter);
+                        Log.e("Lista", animeList.toString());
+                        animeAdapter = new AnimeAdapter(animeList, function);
+                        recyclerView.setAdapter(animeAdapter);
+                    }
+                });
             }
         });
         //endregion

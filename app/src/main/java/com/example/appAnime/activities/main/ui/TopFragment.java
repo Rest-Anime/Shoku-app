@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -28,9 +29,13 @@ import com.example.appAnime.databinding.FragmentTopBinding;
 import com.example.appAnime.model.Anime;
 import com.example.appAnime.model.Usuario;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -49,13 +54,13 @@ public class TopFragment extends Fragment {
         if (listaEleccion == false) {
             Intent launchInfo = new Intent(context, DetailActivity.class);
             launchInfo.putExtra("anime", animeList.get(pos));
-            launchInfo.putExtra("usuario", usuario);
+
             launchInfo.putExtra("pos", pos);
             startActivity(launchInfo);
         } else {
             Intent launchInfo = new Intent(context, DetailActivity.class);
             launchInfo.putExtra("anime", listaFiltrados.get(pos));
-            launchInfo.putExtra("usuario", usuario);
+
             startActivity(launchInfo);
         }
     };
@@ -75,21 +80,29 @@ public class TopFragment extends Fragment {
 
         //region FIRESTORE
         this.listaEleccion = ((MainActivity) getActivity()).listaEleccion;
-        db.collection("animes").orderBy("puntuacion", Query.Direction.DESCENDING).limit(10).addSnapshotListener((value, error) -> {
-            animeList.clear();
-            for (QueryDocumentSnapshot doc : value) {
-                Anime anime = doc.toObject(Anime.class);
-                anime.setUID(doc.getId());
-                animeList.add(anime);
-                if (usuario.getAnimes().containsKey(anime.getUID())) {
-                    anime.setFavorite(true);
-                } else {
-                    anime.setFavorite(false);
-                }
+        db.collection("usuarios").document(usuario.getUID()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot,
+                                @Nullable FirebaseFirestoreException error) {
+                usuario = documentSnapshot.toObject(Usuario.class);
+                usuario.setUID(documentSnapshot.getId());
+                db.collection("animes").orderBy("puntuacion", Query.Direction.DESCENDING).limit(10).addSnapshotListener((value, e) -> {
+                    animeList.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        Anime anime = doc.toObject(Anime.class);
+                        anime.setUID(doc.getId());
+                        animeList.add(anime);
+                        if (usuario.getAnimes().containsKey(anime.getUID())) {
+                            anime.setFavorite(true);
+                        } else {
+                            anime.setFavorite(false);
+                        }
+                    }
+                    Log.e("Lista", animeList.toString());
+                    animeAdapter = new AnimeAdapter(animeList, function);
+                    recyclerView.setAdapter(animeAdapter);
+                });
             }
-            Log.e("Lista", animeList.toString());
-            animeAdapter = new AnimeAdapter(animeList, function);
-            recyclerView.setAdapter(animeAdapter);
         });
         //endregion
 
@@ -150,7 +163,6 @@ public class TopFragment extends Fragment {
                 }
                 animeAdapter.setAnimeList(listaFiltrados);
                 animeAdapter.notifyDataSetChanged();
-
                 return false;
             }
 

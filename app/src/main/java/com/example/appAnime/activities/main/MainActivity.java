@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     int Code_Create_Anime = 2;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public Usuario usuario = new Usuario();
+    public static Usuario usuario = new Usuario();
 
 
 

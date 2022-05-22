@@ -54,13 +54,13 @@ public class FavoritesFragment extends Fragment {
         if (listaEleccion == false) {
             Intent launchInfo = new Intent(context, DetailActivity.class);
             launchInfo.putExtra("anime", animeList.get(pos));
-            launchInfo.putExtra("usuario", usuario);
+
             launchInfo.putExtra("pos", pos);
             startActivity(launchInfo);
         } else {
             Intent launchInfo = new Intent(context, DetailActivity.class);
             launchInfo.putExtra("anime", listaFiltrados.get(pos));
-            launchInfo.putExtra("usuario", usuario);
+
             startActivity(launchInfo);
         }
     };

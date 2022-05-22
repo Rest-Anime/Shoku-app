@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appAnime.R;
+import com.example.appAnime.activities.main.MainActivity;
 import com.example.appAnime.adapter.EventsInterface;
 import com.example.appAnime.adapter.ReviewAdapter;
 import com.example.appAnime.model.Anime;
@@ -118,7 +119,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         anime = (Anime) intent.getSerializableExtra("anime");
-        usuario = (Usuario) intent.getSerializableExtra("usuario");
+        usuario = MainActivity.usuario;
         int pos = intent.getIntExtra("pos", 0);
 
         try {
@@ -200,13 +201,11 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 HashMap<String, String> something = usuario.getAnimes();
                 if (isFav) {
-                    btnFav.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " eliminado de " +
                             "favoritos", Toast.LENGTH_SHORT).show();
                     Log.d("R", anime.getTitulo() + " ELIMINADO DE FAVORITOS");
                     something.remove(anime.getUID());
                 } else {
-                    btnFav.setImageResource(R.drawable.ic_baseline_favorite_24);
                     Toast.makeText(getApplicationContext(), anime.getTitulo() + " añadido a " +
                             "favoritos", Toast.LENGTH_SHORT).show();
                     Log.d("R", anime.getTitulo() + " AÑADIDO A FAVORITOS");
