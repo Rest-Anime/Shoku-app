@@ -133,7 +133,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         Random rand = new Random();
-        int randomElement = listaWalls.get(rand.nextInt(listaWalls.size()));
+        int randomElement = listaWalls.get(Math.abs(rand.nextInt(listaWalls.size())));
         detailWallpaper.setImageResource(randomElement);
 
         bbdd = FirebaseDatabase.getInstance();
@@ -141,9 +141,6 @@ public class DetailActivity extends AppCompatActivity {
         recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
                 DividerItemDecoration.VERTICAL));
         recycler.setVisibility(View.VISIBLE);
-        //recycler.setAdapter(reviewAdapter);
-        //recycler.setVisibility(View.VISIBLE);
-
         comentario = "";
         tituloReview = "";
         foto = findViewById(R.drawable.emptyuser);
