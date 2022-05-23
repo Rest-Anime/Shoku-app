@@ -100,11 +100,10 @@ public class DetailActivity extends AppCompatActivity {
         userIcon = findViewById(R.id.userPhoto);
         report = findViewById(R.id.iconReport);
         like = findViewById(R.id.iconLike);
-        dislike = findViewById(R.id.iconDislike);
+
         username = findViewById(R.id.userTxt);
         rate = findViewById(R.id.followers);
-        likeCount = findViewById(R.id.likeCount);
-        dislikeCount = findViewById(R.id.dislikeCount);
+
         animeTitle = findViewById(R.id.animeReview);
         redesc = findViewById(R.id.userDescription);
         reviewTitle = findViewById(R.id.titleTxt);
