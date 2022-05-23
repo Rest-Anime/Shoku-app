@@ -50,7 +50,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.getAnimeText().setText("Anime: " + actualReview.getAnime().getTitulo());
         holder.getReviewDescText().setText(actualReview.getComentario());
         String urlImagen = String.valueOf(actualReview.getAnime().getFoto());
-        Picasso.get().load(urlImagen).fit().centerCrop().into(holder.getCoverImg());
+        Picasso.get().load(R.drawable.emptyuser).fit()
+                .centerCrop().into(holder.coverImg);
     }
 
     @Override
