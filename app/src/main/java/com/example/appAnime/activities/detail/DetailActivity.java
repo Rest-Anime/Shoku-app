@@ -164,12 +164,8 @@ public class DetailActivity extends AppCompatActivity {
                     review.setUID(doc.getId());
                     review.setAnime(anime);
                     review.setUsuario(usuario);
-                    //review.setLikes(review.getLikes());
-                    //review.setDislikes(review.getDislikes());
                     reviewList.add(review);
                 }
-                //likes = review.getLikes();
-                //dislikes = review.getDislikes();
                 Log.e("Lista reviews ", reviewList.toString());
                 reviewAdapter = new ReviewAdapter(reviewList, function);
                 recycler.setAdapter(reviewAdapter);
@@ -236,6 +232,7 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             layoutAdmin.setVisibility(View.VISIBLE);
         }
+
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -252,7 +249,6 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         addReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

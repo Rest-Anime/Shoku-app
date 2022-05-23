@@ -46,11 +46,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         Review actualReview = reviewList.get(position);
         holder.getReviewTitleText().setText("Titulo: " + actualReview.getTitulo());
         holder.getRateText().setText("Puntuacion: " + String.valueOf(actualReview.getRating()));
-        holder.getUserText().setText("Usuario: " + actualReview.getUsuario().getUsuario());
+        holder.getUserText().setText("Usuario: " + "Anonimo");
         holder.getAnimeText().setText("Anime: " + actualReview.getAnime().getTitulo());
         holder.getReviewDescText().setText(actualReview.getComentario());
-        String urlImagen = String.valueOf(actualReview.getUsuario().getFoto());
-        Picasso.get().load(urlImagen).into(holder.getCoverImg());
+        String urlImagen = String.valueOf(actualReview.getAnime().getFoto());
+        Picasso.get().load(urlImagen).fit().centerCrop().into(holder.getCoverImg());
     }
 
     @Override
