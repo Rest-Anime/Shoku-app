@@ -77,8 +77,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             this.descText = itemView.findViewById(R.id.userDescription);
             this.coverImg = itemView.findViewById(R.id.userPhoto);
             this.report = itemView.findViewById(R.id.iconReport);
-            this.like = itemView.findViewById(R.id.iconLike);
-            this.dislike = itemView.findViewById(R.id.iconDislike);
             titleText.setOnClickListener(this);
             rateText.setOnClickListener(this);
             usernameText.setOnClickListener(this);

@@ -138,8 +138,8 @@ public class ListFragment extends Fragment {
         //CHIPS
         binding.chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
             Chip chip = binding.chipGroup.findViewById(checkedId);
+            listaFiltrados.clear();
             if (chip == null) {
-                listaFiltrados.clear();
                 for (Anime a : animeList) {
                     listaFiltrados.add(a);
                     listaEleccion = true;
@@ -147,25 +147,20 @@ public class ListFragment extends Fragment {
                 animeAdapter.setAnimeList(listaFiltrados);
                 animeAdapter.notifyDataSetChanged();
             } else {
-                filtroChips(chip.getText().toString());
+                for (Anime a : animeList) {
+                    if (a.getGenero().equalsIgnoreCase(chip.getText().toString())) {
+                        listaFiltrados.add(a);
+                        listaEleccion = true;
+                    }
+                }
+                animeAdapter.setAnimeList(listaFiltrados);
+                animeAdapter.notifyDataSetChanged();
             }
         });
 
         return binding.getRoot();
     }
 
-    //Método para el filtrado por chips
-    private void filtroChips(String toString) {
-        listaFiltrados.clear();
-        for (Anime a : animeList) {
-            if (a.getGenero().equalsIgnoreCase(toString)) {
-                listaFiltrados.add(a);
-                listaEleccion = true;
-            }
-        }
-        animeAdapter.setAnimeList(listaFiltrados);
-        animeAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -189,15 +184,27 @@ public class ListFragment extends Fragment {
             // Este método se llama cada vez que el texto de la barra de búsqueda cambia
             @Override
             public boolean onQueryTextChange(String newText) {
+                Chip chip = binding.chipGroup.findViewById(binding.chipGroup.getCheckedChipId());
                 listaFiltrados.clear();
-                for (Anime a : animeList) {
-                    if (a.getTitulo().toUpperCase().startsWith(newText.toUpperCase())) {
-                        listaFiltrados.add(a);
-                        listaEleccion = true;
+                if (chip == null) {
+                    for (Anime a : animeList) {
+                        if (a.getTitulo().toUpperCase().startsWith(newText.toUpperCase())) {
+                            listaFiltrados.add(a);
+                            listaEleccion = true;
+                        }
                     }
+                    animeAdapter.setAnimeList(listaFiltrados);
+                    animeAdapter.notifyDataSetChanged();
+                } else {
+                    for (Anime a : animeList) {
+                        if (a.getGenero().equalsIgnoreCase(chip.getText().toString()) && a.getTitulo().toUpperCase().startsWith(newText.toUpperCase())) {
+                            listaFiltrados.add(a);
+                            listaEleccion = true;
+                        }
+                    }
+                    animeAdapter.setAnimeList(listaFiltrados);
+                    animeAdapter.notifyDataSetChanged();
                 }
-                animeAdapter.setAnimeList(listaFiltrados);
-                animeAdapter.notifyDataSetChanged();
                 return false;
             }
 
