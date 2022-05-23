@@ -29,45 +29,6 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/titleDisposicion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:text="Disposicion:"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp">
-
-                <ImageView
-                    android:id="@+id/imgListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:scaleX="3"
-                    android:scaleY="3"
-                    android:src="@drawable/ic_baseline_view_day_24" />
-
-                <ImageView
-                    android:id="@+id/imgGridView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:scaleX="3"
-                    android:scaleY="3"
-                    android:src="@drawable/ic_baseline_view_module_24" />
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

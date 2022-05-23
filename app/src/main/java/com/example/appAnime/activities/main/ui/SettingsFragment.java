@@ -1,11 +1,14 @@
 package com.example.appAnime.activities.main.ui;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import androidx.fragment.app.Fragment;
 
@@ -14,10 +17,12 @@ import com.example.appAnime.databinding.FragmentSettingsBinding;
 public class SettingsFragment extends Fragment {
 
     FragmentSettingsBinding binding;
+    AudioManager audioManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -25,6 +30,30 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentSettingsBinding.inflate(getLayoutInflater());
 
+        //VOLUME CONTROL
+        audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int curVol = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        binding.seekBar.setMax(maxVol);
+        binding.seekBar.setProgress(curVol);
+        binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,i,0);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        //VOLUME CONTROL END
 
         binding.txtCondiciones.setText("En el momento que usted, el usuario, nos facilita información de carácter personal a través de Animeflv.net (en adelante, el “Sitio Web”) se respeta su intimidad y los derechos que le reconoce la normativa sobre protección de datos de carácter personal. Por ello, es importante que entienda que información recabamos acerca de usted durante su visita y qué hacemos con dicha información la cual estará sujeta a la siguiente política sobre el tratamiento de datos personales.\n" +
                 "Recomendamos leer detenidamente los siguientes puntos sobre nuestra Política de Privacidad; los que brindarán la total seguridad de que usted esta dentro de un sitio que protege su información e identidad. \n" +
@@ -60,6 +89,7 @@ public class SettingsFragment extends Fragment {
                 "En cualquier momento usted puede restringir la recopilación o el uso de la información personal que es proporcionada a nuestro sitio web. Cada vez que se le solicite rellenar un formulario, como el de alta de usuario, puede marcar o desmarcar la opción de recibir información por correo electrónico. En caso de que haya marcado la opción de recibir nuestro boletín o publicidad usted puede cancelarla en cualquier momento. Esta compañía no venderá, cederá ni distribuirá la información personal que es recopilada sin su consentimiento, salvo que sea requerido por un juez con un orden judicial. AnimeFLV Se reserva el derecho de cambiar los términos de la presente Política de Privacidad en cualquier momento.\n" +
                 "\n");
 
+        //NUESTRO CONTACTO
         binding.facebookLogo.setOnClickListener(view -> {
             String web = "www.facebook.com";
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
@@ -80,6 +110,7 @@ public class SettingsFragment extends Fragment {
             intent.putExtra(SearchManager.QUERY, web);
             startActivity(intent);
         });
+        //NUESTRO CONTACTO FIN
 
         // Inflate the layout for this fragment
         return binding.getRoot();

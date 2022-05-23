@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text='En efecto Akira Cómics es una librería especializada en cómics fundada en 1993 y que desde entonces siempre ha estado en el Barrio del Pilar de madrid, uno de sus distritos más grandes y conocidos, ya que aquí tenemos el centro comercial "La Vaguada", el primer y más famoso centro comercial del país. Puedes consultar nuestro horario y dirección en esta mi8sma página un poco más arriba. ' />
+                android:text='No. Somos un equipo de desarrolladores sin espacio comercial. Para más información de como contactarnos, en la ventana de configuración están nuestras redes sociales.' />
 
             <Button
                 android:id="@+id/divider4"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="¿Por qué no estáis en el centro de Madrid como la mayoría de las tiendas especializadas como vosotros? "
+                android:text="¿Por qué no tienen una tienda física? "
                 android:textStyle="bold" />
 
             <TextView
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="Nuestro barrio ha sido siempre el Barrio del Pilar, y allí quisimos poner la librería. Además, era una zona sin tiendas especializadas y por contra nunca nos ha gustado, comercialmente hablando, ponernos junto a alguien que ya estuviera como pasa en el distrito centro de Madrid. Recuerda que al no ser parte de MADRID CENTRAL, no tenemos problemas para llegar en transporte privado y además el centro comercial de La Vaguada (muy próximo a nosotros) provee de dos horas de parking gratuito." />
+                android:text="Al ser una aplicación que gestiona animes y toda su información, no necesitamos de tienda física para llevar a cabo nuestro objetivo. No tenemos mercancía a la venta y si en un futuro llegáramos a tenerla, podríamos pensar en abrir alguna tienda o simplemente hacerlo todo mediante la aplicación misma." />
 
             <Button
                 android:id="@+id/divider6"
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text='Somos probablemente la primera librería especializada española en entrar en internet y vender online, ya que en 1995 pusimos la primera versión de esta web que ahora consultas, y al año siguiente ya estabamos vendiendo online a toda España. Gracias a ese adelanto tecnológico, ahora mismo tenemos un "big data" muy grande a nuestra disposición e incluso en 2015 presentamos la primera App del país donde comprar nuestros productos online.' />
+                android:text='Somos un equipo de desarrollo nuevo y nuestra aplicación lleva apenas un par de meses en línea, aún así quédense con nosotros y ayúdennos a mejorar poco a poco.' />
 
             <Button
                 android:id="@+id/divider7"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="Somos una librería independiente y familiar fundada en 1993. No tenemos franquicias y creemos en el trabajo constante y bien hecho a lo largo de los años que llevamos. Somos muy serios tanto con el trato a proveedores como a clientes, y esa forma de trabajar fue uno de los puntos que nos valió el MAYOR PREMIO INTERNACIONAL que existe, el premio Eisner que ganamos en 2012. Por todo ello afirmamos que SI, somos de fiar." />
+                android:text="Toda la información que obtenemos y publicamos es de sitios de confianza, igual antes de publicarla hacemos una investigación para validar si es verídica o falsa." />
 
             <Button
                 android:id="@+id/divider8"
@@ -151,98 +151,6 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/developers16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="¿Qué forma de pago aceptáis?"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/developers17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="Aceptamos dos tipos de pagos a través de la web:  Tarjeta de Crédito (Visa, Master Card, Amex) mediante Pasarela de Pago del banco “Banco de Sabadell”, entidad que garantiza la seguridad y rapidez en el pago del pedido. Paypal: Crearse una cuenta de Paypal para hacer pagos es gratis y no se tarda tiempo apenas, y es Paypal quien garantiza la seguridad y rapidez en el pago del pedido." />
-
-            <Button
-                android:id="@+id/divider9"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/developers18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="¿Qué forma de pago aceptáis?"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/developers19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="Aceptamos dos tipos de pagos a través de la web:  Tarjeta de Crédito (Visa, Master Card, Amex) mediante Pasarela de Pago del banco “Banco de Sabadell”, entidad que garantiza la seguridad y rapidez en el pago del pedido. Paypal: Crearse una cuenta de Paypal para hacer pagos es gratis y no se tarda tiempo apenas, y es Paypal quien garantiza la seguridad y rapidez en el pago del pedido." />
-
-            <Button
-                android:id="@+id/divider10"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/developers20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="Voy a pagar con tarjeta de Crédito / Paypal y tengo problemas con la web. ¿No funciona bien?"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/developers21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="Debido a los diferentes navegadores, puedes experimentar problemas al usar tanto Paypal como la Pasarela de Pago con tarjeta de Crédito. Precisamente usamos ambos sistemas para que, si uno falla, se pueda usar el otro. No obstante recomendamos probar con los diferentes navegadores de la red ya que hay configuraciones de los Sistemas Operativos que podrían favorecer un navegador sobre otro a la hora de pagar online." />
-
-            <Button
-                android:id="@+id/divider11"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-            <TextView
-                android:id="@+id/developers22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="¿Puedo cancelar un pedido una vez tramitado?"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/developers23"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:text="Una vez tramitado un pedido, para cancelarlo debe hacerse contactando por teléfono con nosotros dentro del mismo día (laborable) en el que se ha realizado el pedido, y siempre ANTES DE las 12 del mediodía (hora Española). Para una cancelación posterior será imposible ya que el paquete estará en tránsito a la agencia transportista. En caso de cancelar un pedido ya tramitado, los gastos bancarios correspondientes a la gestión del reintegro del importe del mismo correrán de parte del cliente." />
 
             <ImageView
                 android:id="@+id/imgLove"

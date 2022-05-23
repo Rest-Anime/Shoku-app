@@ -87,22 +87,27 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String email = binding.email.getText().toString().trim();
-                auth.sendPasswordResetEmail(email)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (!task.isSuccessful()) {
+                if (email.isEmpty()) {
+                    System.out.println("entra");
+                    Toast.makeText(context, "Introduce tu correo", Toast.LENGTH_LONG).show();
+                } else {
+                    auth.sendPasswordResetEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(context,
+                                                "Se ha producido un error " + task.getException().getLocalizedMessage(),
+                                                Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
                                     Toast.makeText(context,
-                                            "Se ha producido un error " + task.getException().getLocalizedMessage(),
+                                            "Se ha enviado un correo para reestablecer la " +
+                                                    "contraseña",
                                             Toast.LENGTH_LONG).show();
-                                    return;
                                 }
-                                Toast.makeText(context,
-                                        "Se ha enviado un correo para reestablecer la " +
-                                                "contraseña",
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        });
+                            });
+                }
             }
         });
         return binding.getRoot();
