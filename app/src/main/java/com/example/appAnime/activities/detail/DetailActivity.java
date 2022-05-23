@@ -133,7 +133,8 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         Random rand = new Random();
-        int randomElement = listaWalls.get(Math.abs(rand.nextInt(listaWalls.size())));
+        int random = Math.abs(rand.nextInt(listaWalls.size() - 1));
+        int randomElement = listaWalls.get(random);
         detailWallpaper.setImageResource(randomElement);
 
         bbdd = FirebaseDatabase.getInstance();
